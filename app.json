@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "frontend",
-    "slug": "frontend",
+    "name": "realm_rn",
+    "slug": "realm_rn",
+    "sdkVersion": "47.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
@@ -18,17 +18,6 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "favicon": "./assets/images/favicon.png"
-    }
+    "platforms": ["ios"]
   }
 }

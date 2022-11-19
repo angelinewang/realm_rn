@@ -1,16 +1,40 @@
 {
-  "name": "frontend",
+  "name": "realm_rn",
   "version": "1.0.0",
+  "sdkVersion": "47.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "tslint": "tslint --project .",
+    "tsc-test": "tsc --project . --noEmit",
+    "jest": "jest",
+    "web": "expo start --web"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js",
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testMatch": [
+      "**/__tests__/**/*.ts?(x)",
+      "**/?(*.)+(spec|test).ts?(x)"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "tsx"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfig": {
+          "jsx": "react"
+        }
+      }
+    }
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
@@ -22,7 +46,7 @@
     "expo-constants": "~14.0.2",
     "expo-font": "~11.0.1",
     "expo-linking": "~3.2.3",
-    "expo-splash-screen": "~0.17.4",
+    "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
     "expo-system-ui": "~2.0.1",
     "expo-web-browser": "~12.0.0",
@@ -35,12 +59,18 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@types/expo": "^33.0.1",
+    "@types/jest": "^29.2.3",
+    "@types/mocha": "^10.0.0",
     "@types/react": "~18.0.24",
     "@types/react-native": "~0.70.6",
+    "@types/react-test-renderer": "^18.0.0",
     "jest": "^26.6.3",
     "jest-expo": "~47.0.1",
-    "react-test-renderer": "18.1.0",
-    "typescript": "^4.6.3"
+    "react-test-renderer": "^18.1.0",
+    "ts-jest": "^29.0.3",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^4.9.3"
   },
   "private": true
 }
