@@ -15,6 +15,22 @@ export type PartiesStackNavigatorParamList = {
   Confirmed: undefined;
 };
 
+export type IntroStackNavigatorParamList = {
+  // Route name without any parameters being passed: Specified with undefined
+  Login: undefined;
+  SignUp: undefined;
+};
+
+export type LoginScreenNavigationProp = NativeStackNavigationProp<
+  IntroStackNavigatorParamList,
+  "SignUp"
+>;
+
+export type SignUpScreenNavigationProp = NativeStackNavigationProp<
+  IntroStackNavigatorParamList,
+  "Login"
+>;
+
 // Navigation within "Guests" Tab
 export type BrowseScreenNavigationProp = NativeStackNavigationProp<
   GuestsStackNavigatorParamList,
@@ -42,4 +58,17 @@ export type BottomTabNavigatorParamList = {
   Guests: GuestsStackNavigatorParamList;
   Parties: PartiesStackNavigatorParamList;
   Profile: undefined;
+};
+
+export type AuthContextData = {
+  authData?: AuthContextData;
+  loading: boolean;
+  signIn(): Promise<void>;
+  signOut(): void;
+};
+
+export type AuthData = {
+  token: string;
+  email: string;
+  name: string;
 };

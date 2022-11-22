@@ -1,6 +1,6 @@
 import { View, Text, TextInput } from "react-native";
 import React from "react";
-import { InputProps } from "../../auth-app";
+import { InputProps } from "../../../auth-app";
 const CustomTextInput: React.FC<InputProps> = ({label,onChangeText,icon,IsSecureText,keyboardType,placeholder,}) => {
     return (
         <View className="flex justify-start w-full mb-4">

@@ -1,18 +1,49 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import Login from '../screens/Login';
+import LoginScreen from '../screens/LoginScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import BrowseScreen from '../screens/Guests/BrowseScreen';
+import Loading from '../components/Loading';
+
+import { useAuth } from '../contexts/Auth';
 
 import BottomTabs from './Tabs';
 
-const RootNavigator = () => {
+// 2 Different Options for Render: 1. Unauthenticated 2. Authenticated 
+
+
+// Unauthenticated Flow 
+const Stack = createNativeStackNavigator();
+
+const AuthStack = () => {
   return (
-    <>
-    <Login />
-    <NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen name="Login" component={LoginScreen}/>
+    </Stack.Navigator>
+  )
+}
+
+// Authenticated Flow 
+const AppStack = () => {
+  return (
+    <Stack.Navigator>
+        <Stack.Screen name="Browse" component={BrowseScreen}/>
         <BottomTabs />
-    </NavigationContainer>
-    </>
+    </Stack.Navigator>
   );
 };
 
-export default RootNavigator;
+export const RootNavigator = () => {
+  
+  const {authData, loading} = useAuth();
+
+  if(loading) {
+    return <Loading />;
+  }
+
+  return (
+    <NavigationContainer>
+      {authData?.token ? <AppStack /> : <AuthStack />}
+    </NavigationContainer>
+  );
+};

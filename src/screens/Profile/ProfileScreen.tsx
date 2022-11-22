@@ -1,4 +1,7 @@
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
+import React from 'react';
+
+import { useAuth } from '../../contexts/Auth';
 
 const DATA = 
   {
@@ -10,14 +13,14 @@ const DATA =
   };
 
 const ProfileScreen = () => {
-
+const auth = useAuth();
   return (
     <View style={{ flex: 1, paddingTop: 12, paddingHorizontal: 10 }}>
     
     <Text>{DATA.name}</Text>
     <Text>{DATA.birthdate}</Text>
     <Text>{DATA.department}</Text>
-    
+    <Button title="Log Out" onPress={auth.signOut}/>
     </View>
   );
 };

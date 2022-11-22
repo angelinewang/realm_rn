@@ -4,10 +4,20 @@ import MainContainer from "../components/MainContainer";
 import KeyboardAvoidWrapper from "../components/KeyboardAvoidWrapper";
 import CustomTextInput from "../components/InputText/CustomTextInput";
 
+import { useNavigation } from '@react-navigation/native';
+
+import { LoginScreenNavigationProp } from '../navigation/types';
+
 import { AtSymbolIcon, LockClosedIcon } from "react-native-heroicons/solid";
 import CustomButton from "../components/Buttons/CustomButton";
 
-const Login = () => {
+import { useAuth } from "../contexts/Auth";
+
+const LoginScreen = () => {
+    const auth = useAuth();
+
+    const navigation = useNavigation<LoginScreenNavigationProp>();
+
     const [email, setEmail] = React.useState<String | null>(null);
     const [password, setPassword] = React.useState<String | null>(null);
 
@@ -49,12 +59,14 @@ const Login = () => {
                         buttonText="Login"
                         buttonClassNames="w-full rounded-md p-3 bg-[#EFE3C8] flex justify-center items-center mt-5"
                         textClassNames="text-[#4A2B29] text-[18px] font-semibold"
-                        onPress={() => console.log(password)}
+                        onPress={auth.signIn}
                     />
                     <View className="flex w-full justify-end items-end pt-4">
-                        <Pressable onPress={() => {}}>
+                        <Pressable onPress={() =>
+          navigation.navigate('SignUp')
+        }>
                             <Text className="text-center text-gray-500 text-sm">
-                                Forgot your password? 
+                                Don't have an account yet?
                             </Text>
                         </Pressable>
                     </View>
@@ -64,4 +76,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default LoginScreen;

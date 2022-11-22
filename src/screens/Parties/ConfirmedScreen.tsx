@@ -34,7 +34,7 @@ const DATA = [
 const ConfirmedScreen = () => {
   const navigation = useNavigation<ConfirmedScreenNavigationProp>();
 
-  const renderListItems = ({ item }) => {
+  const renderListItems = ({ item }: {item: any}) => {
     return (
       <>
         <Text

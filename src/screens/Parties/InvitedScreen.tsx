@@ -34,7 +34,7 @@ const DATA = [
 const InvitedScreen = () => {
   const navigation = useNavigation<InvitedScreenNavigationProp>();
 
-  const renderListItems = ({ item }) => {
+  const renderListItems = ({ item }: {item: any}) => {
     return (
       <>
         <Text

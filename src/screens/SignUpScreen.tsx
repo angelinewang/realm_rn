@@ -7,7 +7,14 @@ import CustomTextInput from "../components/InputText/CustomTextInput";
 import { AtSymbolIcon, LockClosedIcon } from "react-native-heroicons/solid";
 import CustomButton from "../components/Buttons/CustomButton";
 
-const Register = () => {
+import { useNavigation } from '@react-navigation/native';
+
+import { SignUpScreenNavigationProp } from '../navigation/types';
+import { useAuth } from "../contexts/Auth";
+
+const SignUpScreen = () => {
+      const navigation = useNavigation<SignUpScreenNavigationProp>();
+    const auth = useAuth();
     const [email, setEmail] = React.useState<String | null>(null);
     const [password, setPassword] = React.useState<String | null>(null);
 
@@ -73,14 +80,16 @@ const Register = () => {
                 />
 
                     <CustomButton 
-                        buttonText="Register"
+                        buttonText="SignUp"
                         buttonClassNames="w-full rounded-md p-3 bg-[#EFE3C8] flex justify-center items-center mt-5"
                         textClassNames="text-[#4A2B29] text-[18px] font-semibold"
-                        onPress={() => console.log(password)}
+                        onPress={auth.signIn}
                     />
 
                     <View className="flex w-full justify-end items-end pt-4">
-                        <Pressable onPress={() => {}}>
+                        <Pressable onPress={() =>
+          navigation.navigate('Login')
+        }>
                             <Text className="text-center text-gray-500 text-sm">
                                 Already have an account? 
                             </Text>
@@ -92,4 +101,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default SignUpScreen;

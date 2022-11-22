@@ -1,10 +1,7 @@
 // import App from './src/--App';
 
 // export default App;
-
-import { StatusBar } from 'expo-status-bar';
-
-import RootNavigator from './src/navigation';
+import { AuthProvider } from './src/contexts/Auth';
 
 import { TailwindProvider } from 'tailwindcss-react-native/dist/provider';
 
@@ -12,8 +9,8 @@ export default function App() {
   return (
     <>
       <TailwindProvider>
-      <RootNavigator />
-      <StatusBar style="auto" />
+        <AuthProvider />
+        {/* Children of AuthProvider at specified in the Auth.tsx context file */}
       </TailwindProvider>
     </>
   );
