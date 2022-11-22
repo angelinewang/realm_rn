@@ -1,0 +1,45 @@
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+// import type { RouteProp } from "@react-navigation/native";
+// Above import is for any screens receiving route params
+
+// Tab 2
+export type GuestsStackNavigatorParamList = {
+  // Route name without any parameters being passed: Specified with undefined
+  Browse: undefined;
+  Guestlist: undefined;
+};
+
+// Tab 1
+export type PartiesStackNavigatorParamList = {
+  Invited: undefined;
+  Confirmed: undefined;
+};
+
+// Navigation within "Guests" Tab
+export type BrowseScreenNavigationProp = NativeStackNavigationProp<
+  GuestsStackNavigatorParamList,
+  "Guestlist"
+>;
+
+export type GuestlistScreenNavigationProp = NativeStackNavigationProp<
+  GuestsStackNavigatorParamList,
+  "Browse"
+>;
+
+// Navigation within "Parties" Tab
+export type InvitedScreenNavigationProp = NativeStackNavigationProp<
+  PartiesStackNavigatorParamList,
+  "Confirmed"
+>;
+
+export type ConfirmedScreenNavigationProp = NativeStackNavigationProp<
+  PartiesStackNavigatorParamList,
+  "Invited"
+>;
+
+// Tab 3
+export type BottomTabNavigatorParamList = {
+  Guests: GuestsStackNavigatorParamList;
+  Parties: PartiesStackNavigatorParamList;
+  Profile: undefined;
+};

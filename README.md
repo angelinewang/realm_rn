@@ -11,3 +11,5 @@ Tutorials Consulted:
 (Learn TypeScript – The Ultimate Beginners Guide)[https://www.freecodecamp.org/news/learn-typescript-beginners-guide/]
 (React Typescript Tutorial – Ben Awad)[https://www.https://www.youtube.com/watch?v=Z5iWr6Srsj8]
 (Creating a Minimal Expo React Native Project with TypeScript and Jest)[https://levelup.gitconnected.com/creating-a-minimal-expo-react-native-project-with-typescript-and-jest-5979ab8d7c15]
+(Getting Started with React Navigation v6 and TypeScript in React Native By Aman Mittal)[https://blog.jscrambler.com/getting-started-with-react-navigation-v6-and-typescript-in-react-native]
+--> Creating initial pages, navigation, and bottom nav bar
