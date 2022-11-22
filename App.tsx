@@ -5,6 +5,8 @@ import { AuthProvider } from './src/contexts/Auth';
 
 import { TailwindProvider } from 'tailwindcss-react-native/dist/provider';
 
+import { AppRegistry } from 'react-native';
+
 export default function App() {
   return (
     <>
@@ -15,3 +17,5 @@ export default function App() {
     </>
   );
 }
+
+AppRegistry.registerComponent('realm_rn', () => App);
