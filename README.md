@@ -13,3 +13,5 @@ Tutorials Consulted:
 (Creating a Minimal Expo React Native Project with TypeScript and Jest)[https://levelup.gitconnected.com/creating-a-minimal-expo-react-native-project-with-typescript-and-jest-5979ab8d7c15]
 (Getting Started with React Navigation v6 and TypeScript in React Native By Aman Mittal)[https://blog.jscrambler.com/getting-started-with-react-navigation-v6-and-typescript-in-react-native]
 --> Creating initial pages, navigation, and bottom nav bar
+()[http://www.developerslearnit.com/2022/08/react-native-typescript-building-react.html]
+--> Basic Login and Signup Screens with TailwindCSS
