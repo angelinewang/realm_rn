@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, Pressable, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
 import { ConfirmedScreenNavigationProp } from '../../navigation/types';
+import TopNav from '../../components/TopNav';
 
 const DATA = [
   {
@@ -54,23 +54,9 @@ const ConfirmedScreen = () => {
 
   return (
     <View style={{ flex: 1, paddingTop: 10 }}>
-              <Pressable
-          onPress={() =>
-            navigation.navigate('Invited')
-          }
-              style={{
-        padding: 8,
-        borderWidth: 1,
-        borderRadius: 4,
-        borderColor: 'red',
-        margin: 12,
-        alignItems: 'center',
-      }}
-          >
-            <Text>Invited</Text>
-          
-        </Pressable>
-
+      <TopNav leftButtonText='Invited' rightButtonText='Confirmed' isActive='Confirmed' />
+       <Text>Confirmed Screen</Text>
+    
       <FlatList data={DATA} renderItem={renderListItems} />
     </View>
   );

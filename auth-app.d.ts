@@ -11,9 +11,16 @@ export interface InputProps {
   placeholder?: string | undefined;
 }
 
+export interface TopNavProps {
+  leftButtonText: string;
+  rightButtonText: string;
+  isActive: string;
+}
+
 export interface CustomButtonProps {
   onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
   buttonClassNames?: string;
+  ();
   textClassNames?: string;
   buttonText: string;
 }

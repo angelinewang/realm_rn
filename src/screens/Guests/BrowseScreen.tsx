@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text, Pressable, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { BrowseScreenNavigationProp } from '../../navigation/types';
+import TopNav from '../../components/TopNav';
 
 const DATA = [
   {
@@ -31,8 +32,6 @@ const DATA = [
 ];
 
 const BrowseScreen = () => {
-  const navigation = useNavigation<BrowseScreenNavigationProp>();
-
   const renderListItems = ({ item }) => {
     return (
       <>
@@ -53,24 +52,10 @@ const BrowseScreen = () => {
 
   return (
     <View style={{ flex: 1, paddingTop: 10 }}>
-      <Pressable
-        onPress={() =>
-          navigation.navigate('Guestlist')
-        }
-            style={{
-        padding: 8,
-        borderWidth: 1,
-        borderRadius: 4,
-        borderColor: 'red',
-        margin: 12,
-        alignItems: 'center',
-      }}
-      >
+      <TopNav leftButtonText='Browse' rightButtonText='Guestlist' isActive='Browse'/>
         <Text>
-          Guestlist
+          Browse Screen
         </Text>
-        
-      </Pressable>
       <FlatList data={DATA} renderItem={renderListItems} />
     </View>
   );

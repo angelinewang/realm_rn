@@ -10,8 +10,9 @@ const PartiesStackNavigator = () => {
   return (
     <PartiesStack.Navigator>
       {/* Permissible "name"s are checked through ./types */}
-      <PartiesStack.Screen name="Invited" component={InvitedScreen} />
-      <PartiesStack.Screen name="Confirmed" component={ConfirmedScreen} />
+      {/* Amend to dynamically add user accommodation name */}
+      <PartiesStack.Screen name="Invited" component={InvitedScreen} options={{title: '*Accommodation*'}}/>
+      <PartiesStack.Screen name="Confirmed" component={ConfirmedScreen} options={{title:'*Accommodation*'}}/>
     </PartiesStack.Navigator>
   );
 };

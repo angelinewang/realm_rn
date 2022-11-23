@@ -1,10 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { AuthData, authService } from '../services/authService';
-import { StatusBar } from 'expo-status-bar';
-
-import { RootNavigator } from '../navigation/index';
 
 type AuthContextData = {
   authData?: AuthData;
@@ -17,7 +14,11 @@ type AuthContextData = {
 //and a empty object
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-const AuthProvider: React.FC = () => {
+const AuthProvider = ({
+  children,
+}: {
+  children: React.ReactNode | React.ReactNode[];
+}) => {
   const [authData, setAuthData] = useState<AuthData>();
 
   //the AuthContext start with loading equals true
@@ -77,8 +78,7 @@ const AuthProvider: React.FC = () => {
     //This component will be used to encapsulate the whole App,
     //so all components will have access to the Context
     <AuthContext.Provider value={{authData, loading, signIn, signOut}}>
-          <RootNavigator />
-          <StatusBar style="auto" />
+          {children}
     </AuthContext.Provider>
   );
 };

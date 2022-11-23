@@ -15,6 +15,11 @@ export type PartiesStackNavigatorParamList = {
   Confirmed: undefined;
 };
 
+export type ProfileStackNavigatorParamList = {
+  // Route name without any parameters being passed: Specified with undefined
+  Profile: undefined;
+};
+
 export type IntroStackNavigatorParamList = {
   // Route name without any parameters being passed: Specified with undefined
   Login: undefined;
@@ -57,7 +62,7 @@ export type ConfirmedScreenNavigationProp = NativeStackNavigationProp<
 export type BottomTabNavigatorParamList = {
   Guests: GuestsStackNavigatorParamList;
   Parties: PartiesStackNavigatorParamList;
-  Profile: undefined;
+  ProfileScreen: undefined;
 };
 
 export type AuthContextData = {
