@@ -54,7 +54,7 @@ const ConfirmedScreen = () => {
 
   return (
     <View style={{ flex: 1, paddingTop: 10 }}>
-      <TopNav leftButtonText='Invited' rightButtonText='Confirmed' isActive='Confirmed' />
+
        <Text>Confirmed Screen</Text>
     
       <FlatList data={DATA} renderItem={renderListItems} />

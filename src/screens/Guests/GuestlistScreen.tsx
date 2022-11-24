@@ -54,7 +54,6 @@ const GuestlistScreen = () => {
 
   return (
     <View style={{ flex: 1, paddingTop: 10 }}>
-      <TopNav leftButtonText='Browse' rightButtonText='Guestlist' isActive='Guestlist'/>
           <Text>
             Guestlist Screen
           </Text>

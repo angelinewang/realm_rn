@@ -5,39 +5,26 @@ import { styled } from "tailwindcss-react-native";
 import { useNavigation } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { GuestlistScreenNavigationProp, BrowseScreenNavigationProp, InvitedScreenNavigationProp, ConfirmedScreenNavigationProp } from '../../navigation/types';
+import InvitedScreen from "./Parties/InvitedScreen";
+import ConfirmedScreen from "./Parties/ConfirmedScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
-const TopNav: React.FC<TopNavProps> = ({
-    // leftButtonText,
-    // rightButtonText,
-    // isActive,
-    // navigation,
-    // navigateTo, 
-    // leftActive,
-    // rightActive
-    leftScreen,
-    leftComponent,
-    rightScreen,
-    rightComponent
-}
-) => { 
+const PartiesScreen: React.FC = () => { 
            return (
+            <View style={styles.ViewContainer}>
+            <View style={styles.View}>
             <Tab.Navigator>
-                <View style={styles.ViewContainer}>
-                <View style={styles.View}>
+                <Tab.Screen name="Invited" component={InvitedScreen}/>
 
-                <Tab.Screen name={leftScreen} component={leftComponent}/>
-
-                <Tab.Screen name={rightScreen} component={rightComponent}/>
-   
-                </View>
-                </View>
+                <Tab.Screen name="Confirmed" component={ConfirmedScreen}/>
             </Tab.Navigator>
+            </View>
+            </View>
         )
 }
 
-export default TopNav;
+export default PartiesScreen;
 
 // 1. Create Top Nav Component - DONE 
 // 2. Add Accom to Header of each Page - DONE 

@@ -12,11 +12,10 @@ const DATA =
     profile_picture: '../../assets/profile_pictures/test1.jpg'
   };
 
-const ProfileScreen = () => {
+const ViewScreen = () => {
 const auth = useAuth();
   return (
     <View style={{ flex: 1, paddingTop: 12, paddingHorizontal: 10 }}>
-    
     <Text>{DATA.name}</Text>
     <Text>{DATA.birthdate}</Text>
     <Text>{DATA.department}</Text>
@@ -25,4 +24,4 @@ const auth = useAuth();
   );
 };
 
-export default ProfileScreen;
+export default ViewScreen;

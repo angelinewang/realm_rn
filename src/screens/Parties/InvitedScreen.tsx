@@ -52,7 +52,6 @@ const InvitedScreen = () => {
 
   return (
     <View style={{ flex: 1, paddingTop: 10 }}>
-      <TopNav leftButtonText='Invited' rightButtonText='Confirmed' isActive='Invited' />
         <Text>Invited</Text>
       <FlatList data={DATA} renderItem={renderListItems} />
     </View>

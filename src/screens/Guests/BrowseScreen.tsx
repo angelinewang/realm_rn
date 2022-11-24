@@ -52,7 +52,6 @@ const BrowseScreen = () => {
 
   return (
     <View style={{ flex: 1, paddingTop: 10 }}>
-      <TopNav leftButtonText='Browse' rightButtonText='Guestlist' isActive='Browse'/>
         <Text>
           Browse Screen
         </Text>

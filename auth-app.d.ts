@@ -12,9 +12,17 @@ export interface InputProps {
 }
 
 export interface TopNavProps {
-  leftButtonText: string;
-  rightButtonText: string;
-  isActive: string;
+  // leftButtonText: string;
+  // rightButtonText: string;
+  // isActive: string;
+  // navigation: any;
+  // navigateTo: string;
+  // leftActive: boolean;
+  // rightActive: boolean;
+  leftScreen: string;
+  leftComponent: any;
+  rightScreen: string;
+  rightComponent: any;
 }
 
 export interface CustomButtonProps {
