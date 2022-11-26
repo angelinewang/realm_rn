@@ -1,10 +1,10 @@
 import * as React from 'react';
-import LoginScreen from '../screens/LoginScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Loading from '../components/Loading';
 
 import { useAuth } from '../contexts/Auth';
 import MainScreen from '../screens/MainScreen';
+import AuthScreen from '../screens/AuthScreen';
 
 // 2 Different Options for Render: 1. Unauthenticated 2. Authenticated 
 
@@ -13,8 +13,8 @@ const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Login" component={LoginScreen}/>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Auth" component={AuthScreen}/>
     </Stack.Navigator>
   )
 }
@@ -38,7 +38,8 @@ export const RootNavigator = () => {
 
   return (
     <>
-      {authData?.token ? <AppStack /> : <AuthStack />}
+      {/* {authData?.token ? <AppStack /> : <AuthStack />} */}
+      <AppStack/>
     </>
   );
 };

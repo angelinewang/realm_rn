@@ -20,3 +20,6 @@ Tutorials Consulted:
 --> Basic Login and Signup Screens with TailwindCSS
 (React Native Authentication Flow, the Simplest and Most Efficient Way By Lucas Garcez - Medium)[https://levelup.gitconnected.com/react-native-authentication-flow-the-simplest-and-most-efficient-way-3aa13e80af61]
 --> Complete Authentication Flow: Separated responsibilities, persistence and API connection 
+
+Development:
+Used Ngrok to create https// addresses for API

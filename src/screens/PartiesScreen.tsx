@@ -1,10 +1,6 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import React, {useEffect, useState} from 'react';
-import { TopNavProps } from "../../auth-app";
-import { styled } from "tailwindcss-react-native";
-import { useNavigation } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { GuestlistScreenNavigationProp, BrowseScreenNavigationProp, InvitedScreenNavigationProp, ConfirmedScreenNavigationProp } from '../../navigation/types';
 import InvitedScreen from "./Parties/InvitedScreen";
 import ConfirmedScreen from "./Parties/ConfirmedScreen";
 
@@ -52,6 +48,6 @@ const styles = StyleSheet.create({
     ViewContainer: {
         position: 'absolute',
         width: '100%',
-        height: '10%',
+        height: '100%',
     }
 })

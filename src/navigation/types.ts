@@ -77,3 +77,8 @@ export type AuthData = {
   email: string;
   name: string;
 };
+
+export type AuthContextType = {
+  state: any;
+  signup: any;
+};

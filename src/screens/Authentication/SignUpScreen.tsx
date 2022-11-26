@@ -1,19 +1,20 @@
 import { View, Text, ScrollView, Pressable } from "react-native";
 import React from "react";
-import MainContainer from "../components/MainContainer";
-import KeyboardAvoidWrapper from "../components/KeyboardAvoidWrapper";
-import CustomTextInput from "../components/InputText/CustomTextInput";
+import MainContainer from "../../components/MainContainer";
+import KeyboardAvoidWrapper from "../../components/KeyboardAvoidWrapper";
+import CustomTextInput from "../../components/InputText/CustomTextInput";
+import ImagePicker from 'react-native-image-picker';
 
 import { AtSymbolIcon, LockClosedIcon } from "react-native-heroicons/solid";
-import CustomButton from "../components/Buttons/CustomButton";
+import CustomButton from "../../components/Buttons/CustomButton";
 
 import { useNavigation } from '@react-navigation/native';
 
-import { SignUpScreenNavigationProp } from '../navigation/types';
-import { useAuth } from "../contexts/Auth";
+import { SignUpScreenNavigationProp } from '../../navigation/types';
+import { useAuth } from "../../contexts/Auth";
 
 const SignUpScreen = () => {
-      const navigation = useNavigation<SignUpScreenNavigationProp>();
+    const navigation = useNavigation<SignUpScreenNavigationProp>();
     const auth = useAuth();
     const [email, setEmail] = React.useState<String | null>(null);
     const [password, setPassword] = React.useState<String | null>(null);

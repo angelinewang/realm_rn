@@ -47,13 +47,10 @@ const AuthProvider = ({
     }
   }
 
-  const signIn = async () => {
+  const signIn = async (email: string, _password: string) => {
     //call the service passing credential (email and password).
     //In a real App this data will be provided by the user from some InputText components.
-    const _authData = await authService.signIn(
-      'admin@kcl.ac.uk',
-      'admin',
-    );
+    const _authData = await authService.signIn(email, _password);
 
     //Set the data in the context, so the App can be notified
     //and send the user to the AuthStack

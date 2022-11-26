@@ -17,6 +17,13 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "platforms": ["ios"]
+    "platforms": ["ios"],
+    "ios": {
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowArbitraryLoads": true
+        }
+      }
+    }
   }
 }

@@ -1,10 +1,6 @@
-import { View, Text, Pressable, StyleSheet } from "react-native";
-import React, {useEffect, useState} from 'react';
-import { TopNavProps } from "../../auth-app";
-import { styled } from "tailwindcss-react-native";
-import { useNavigation } from "@react-navigation/native";
+import { View, StyleSheet } from "react-native";
+import React from 'react';
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { GuestlistScreenNavigationProp, BrowseScreenNavigationProp, InvitedScreenNavigationProp, ConfirmedScreenNavigationProp } from '../../navigation/types';
 import BrowseScreen from "./Guests/BrowseScreen";
 import GuestlistScreen from "./Guests/GuestlistScreen";
 
@@ -16,7 +12,6 @@ const GuestsScreen: React.FC = () => {
             <View style={styles.View}>
             <Tab.Navigator>
                 <Tab.Screen name="Browse" component={BrowseScreen}/>
-
                 <Tab.Screen name="Guestlist" component={GuestlistScreen}/>
             </Tab.Navigator>
             </View>
@@ -52,6 +47,6 @@ const styles = StyleSheet.create({
     ViewContainer: {
         position: 'absolute',
         width: '100%',
-        height: '10%',
+        height: '100%',
     }
 })

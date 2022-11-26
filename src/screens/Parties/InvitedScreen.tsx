@@ -1,60 +1,40 @@
-import { StyleSheet, View, Text, Pressable, FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { InvitedScreenNavigationProp } from '../../navigation/types';
-import TopNav from '../../components/TopNav';
+import { SafeAreaView, StyleSheet, View, Text, Pressable, FlatList } from 'react-native';
 
-const DATA = [
-  {
-    id: 1,
-    name: 'Luke Skywalker',
-    birth_year: '19BBY',
-  },
-  {
-    id: 2,
-    name: 'C-3PO',
-    birth_year: '112BBY',
-  },
-  {
-    id: 3,
-    name: 'R2-D2',
-    birth_year: '33BBY',
-  },
-  {
-    id: 4,
-    name: 'Darth Vader',
-    birth_year: '41.9BBY',
-  },
-  {
-    id: 5,
-    name: 'Leia Organa',
-    birth_year: '19BBY',
-  },
-];
+import React from 'react';
+import InvitePartyCard from '../../components/Card/InvitePartyCard';
 
-const InvitedScreen = () => {
-  const renderListItems = ({ item }: {item: any}) => {
-    return (
-      <>
-        <Text
-          style={{ fontSize: 18, paddingHorizontal: 12, paddingVertical: 12 }}
-        >
-          {item.name}
-        </Text>
-        <View
-          style={{
-            borderWidth: StyleSheet.hairlineWidth,
-            borderColor: '#ccc',
-          }}
-        />
-      </>
-    );
-  };
+const InvitedScreen = () => {  
+  const [parties, setParties] = React.useState()
+
+  React.useEffect(
+  () => {
+    getParties()
+  }, []
+)
+
+const getParties = async () => {
+  try {
+  let response = await fetch("https://335b-82-0-186-223.eu.ngrok.io/api/invite/v1/parties/invited");
+  let json = await response.json();
+
+  setParties(json)
+  console.log(json)
+  }
+  catch (error) {
+    console.error(error);
+  }
+}
+
+const partyCard = ({item}) => {
+  return (
+    <InvitePartyCard item={item}/>
+  )
+};
 
   return (
-    <View style={{ flex: 1, paddingTop: 10 }}>
-        <Text>Invited</Text>
-      <FlatList data={DATA} renderItem={renderListItems} />
-    </View>
+    <SafeAreaView style={{ flex: 1, flexDirection: 'column', }}>
+      <FlatList data={parties} renderItem={partyCard} keyExtractor={item => item.id}/>
+    </SafeAreaView>
   );
 };
 
