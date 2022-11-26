@@ -2,6 +2,7 @@ import { SafeAreaView, StyleSheet, View, Text, Pressable, FlatList } from 'react
 
 import React from 'react';
 import ConfirmPartyCard from '../../components/Card/ConfirmPartyCard';
+
 const ConfirmedScreen = () => {  
   const [parties, setParties] = React.useState()
 
@@ -13,9 +14,9 @@ const ConfirmedScreen = () => {
 
 const getParties = async () => {
   try {
-
   let response = await fetch("https://335b-82-0-186-223.eu.ngrok.io/api/invite/v1/parties/confirmed");
   let json = await response.json();
+
   setParties(json)
   console.log(json)
   }
@@ -24,16 +25,15 @@ const getParties = async () => {
   }
 }
 
-
-// const partyCard = ({item}) => {
-//   return (
-//       <PartyCard item={React.Children.toArray(item)}/>
-//   )
-// };
+const partyCard = ({item}) => {
+  return (
+    <ConfirmPartyCard item={item}/>
+  )
+};
 
   return (
     <SafeAreaView style={{ flex: 1, flexDirection: 'column', }}>
-      {/* <FlatList data={React.Children.toArray(parties)} renderItem={partyCard} keyExtractor={item => item.id}/> */}
+      <FlatList data={parties} renderItem={partyCard} keyExtractor={item => item.id}/>
     </SafeAreaView>
   );
 };

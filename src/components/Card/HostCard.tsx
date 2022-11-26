@@ -1,12 +1,7 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-// Card used to display each individual Guest Profile on the Browse and Guestlist Screens
-
-const HostCard = ({item}) => {
-
-    // const item = React.Children.toArray(children)
-  
+const HostCard = ({item}) => {  
   const [host, setHost] = React.useState({})
 
   React.useEffect(
