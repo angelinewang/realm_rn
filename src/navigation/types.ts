@@ -7,6 +7,9 @@ export type GuestsStackNavigatorParamList = {
   // Route name without any parameters being passed: Specified with undefined
   Browse: undefined;
   Guestlist: undefined;
+  isModalVisible: any;
+  setIsModalVisible: any;
+  handleModal: any;
 };
 
 // Tab 1

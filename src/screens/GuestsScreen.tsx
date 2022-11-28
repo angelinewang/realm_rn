@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text, Button } from "react-native";
 import React from 'react';
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import BrowseScreen from "./Guests/BrowseScreen";
@@ -6,17 +6,22 @@ import GuestlistScreen from "./Guests/GuestlistScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
-const GuestsScreen: React.FC = () => { 
-           return (
+const GuestsScreen: React.FC = ({isModalVisible, setIsModalVisible, handleModal}) => { 
+
+    React.useEffect(() => {
+
+    }, [isModalVisible, setIsModalVisible, handleModal])
+    
+    return (
             <View style={styles.ViewContainer}>
             <View style={styles.View}>
             <Tab.Navigator>
-                <Tab.Screen name="Browse" component={BrowseScreen}/>
+                <Tab.Screen name="Browse" component={BrowseScreen} initialParams={{ isModalVisible: {{isModalVisible}}, setIsModalVisible: {{setIsModalVisible}, handleModal: {handleModal}}}/>
                 <Tab.Screen name="Guestlist" component={GuestlistScreen}/>
             </Tab.Navigator>
             </View>
             </View>
-        )
+    )
 }
 
 export default GuestsScreen;

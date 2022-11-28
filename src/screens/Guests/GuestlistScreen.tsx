@@ -1,40 +1,60 @@
 import { SafeAreaView, StyleSheet, View, Text, Pressable, FlatList } from 'react-native';
 
 import React from 'react';
-import GuestCard from '../../components/Card/GuestCard';
+import GuestlistInvite from '../../components/Guestlist/GuestlistInvite';
 
 const GuestlistScreen = () => {
-  const [guests, setGuests] = React.useState()
+  // Set the hostId to the Authenticated User ID 
+  const [hostId, setHostId] = React.useState(1)
 
+  const [invites, setInvites] = React.useState([])
   React.useEffect(
   () => {
-    getGuests()
-  }, []
+    getPartyAndInvites()
+  }, [hostId]
 )
 
-const getGuests = async () => {
+// Get party by host_id
+
+// This page is working
+
+// Get party and invites at same time and only find the party with the host and then find the invites with that party id
+
+const getPartyAndInvites = async () => {
   try {
-  // Change this URL to guests/guestlist/
-  let response = await fetch("https://335b-82-0-186-223.eu.ngrok.io/api/user/v1/guests/");
+  // Get Party using User_id
+  let response = await fetch(`https://4ee1-193-61-207-166.eu.ngrok.io/api/invite/v1/guestlist/${hostId}/`);
   let json = await response.json();
-  setGuests(json)
-  console.log(json)
+  setInvites(json)
   }
   catch (error) {
     console.error(error);
   }
 }
 
+// const getInvites = async () => {
+//      try {
+//     // Get the invites according to the Party_ID
+//     // setParty(item)
+//     let response = await fetch(`https://4ee1-193-61-207-166.eu.ngrok.io/api/invite/v1/guestlist/${party.id}/`);
+//     let json = await response.json();
+//     setInvites(json)
+//     console.log(json)
+//     }
+//     catch (error) {
+//       console.error(error);
+//     }
+// }
 
-const guestCard = ({item}) => {
-  return (
-    <GuestCard item={item}/>
-  )
-};
+  const inviteCard = ({item}) => {
+    return (
+      <GuestlistInvite item={item}/>
+    )
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, flexDirection: 'column', }}>
-      <FlatList data={guests} renderItem={guestCard} keyExtractor={item => item.id}/>
+      <FlatList data={invites} renderItem={inviteCard} keyExtractor={item => item.id}/>
     </SafeAreaView>
   );
 };

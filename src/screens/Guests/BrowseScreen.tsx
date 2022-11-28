@@ -1,20 +1,20 @@
-import { SafeAreaView, Image, ImageBackground, StyleSheet, View, Text, FlatList, Dimensions } from 'react-native';
-
+import { Button, SafeAreaView, Image, ImageBackground, StyleSheet, View, Text, FlatList, Dimensions } from 'react-native';
+import Modal from 'react-native-modal';
 import React from 'react';
-import GuestCard from '../../components/Card/GuestCard';
+import BrowseCard from '../../components/Card/BrowseCard';
 
-const BrowseScreen = () => {
+const BrowseScreen = ({isModalVisible, setIsModalVisible, handleModal}) => {
   const [guests, setGuests] = React.useState()
 
   React.useEffect(
   () => {
     getGuests()
-  }, []
+  }, [isModalVisible, setIsModalVisible, handleModal]
 )
 
 const getGuests = async () => {
   try {
-  let response = await fetch("https://335b-82-0-186-223.eu.ngrok.io/api/user/v1/guests/");
+  let response = await fetch("https://4ee1-193-61-207-166.eu.ngrok.io/api/user/v1/guests/browse");
   let json = await response.json();
   setGuests(json)
   console.log(json)
@@ -27,13 +27,20 @@ const getGuests = async () => {
 
 const guestCard = ({item}) => {
   return (
-    <GuestCard item={item}/>
+    <BrowseCard item={item}/>
   )
 };
 
   return (
     <SafeAreaView style={{ flex: 1, flexDirection: 'column', }}>
+      <Modal isVisible={isModalVisible}>
+      <View style={{flex: 1}}>
+          <Text>Hello!</Text>
+          <Button title="Close Modal" onPress={handleModal}/>
+      </View>
+      </Modal>
       <FlatList data={guests} renderItem={guestCard} keyExtractor={item => item.id}/>
+
     </SafeAreaView>
   );
 };
