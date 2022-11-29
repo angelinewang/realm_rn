@@ -3,13 +3,13 @@ import Modal from 'react-native-modal';
 import React from 'react';
 import BrowseCard from '../../components/Card/BrowseCard';
 
-const BrowseScreen = ({isModalVisible, setIsModalVisible, handleModal}) => {
+const BrowseScreen = ({}) => {
   const [guests, setGuests] = React.useState()
 
   React.useEffect(
   () => {
     getGuests()
-  }, [isModalVisible, setIsModalVisible, handleModal]
+  }, []
 )
 
 const getGuests = async () => {
@@ -33,12 +33,7 @@ const guestCard = ({item}) => {
 
   return (
     <SafeAreaView style={{ flex: 1, flexDirection: 'column', }}>
-      <Modal isVisible={isModalVisible}>
-      <View style={{flex: 1}}>
-          <Text>Hello!</Text>
-          <Button title="Close Modal" onPress={handleModal}/>
-      </View>
-      </Modal>
+    
       <FlatList data={guests} renderItem={guestCard} keyExtractor={item => item.id}/>
 
     </SafeAreaView>

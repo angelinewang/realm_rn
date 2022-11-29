@@ -3,22 +3,40 @@ import React from 'react';
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import BrowseScreen from "./Guests/BrowseScreen";
 import GuestlistScreen from "./Guests/GuestlistScreen";
+import Modal from 'react-native-modal'
 
 const Tab = createMaterialTopTabNavigator();
+// isModalVisible, setIsModalVisible, handleModal
 
-const GuestsScreen: React.FC = ({isModalVisible, setIsModalVisible, handleModal}) => { 
+const GuestsScreen: React.FC = ({navigation}) => { 
+
+      const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const handleModal = () => 
+  
+  setIsModalVisible(() => 
+  !isModalVisible);
 
     React.useEffect(() => {
-
-    }, [isModalVisible, setIsModalVisible, handleModal])
+        navigation.setOptions({
+            headerRight: () => (
+                <Button onPress={handleModal} title="Add Party"/>
+            )
+        })
+    }, [navigation])
     
     return (
             <View style={styles.ViewContainer}>
             <View style={styles.View}>
             <Tab.Navigator>
-                <Tab.Screen name="Browse" component={BrowseScreen} initialParams={{ isModalVisible: {{isModalVisible}}, setIsModalVisible: {{setIsModalVisible}, handleModal: {handleModal}}}/>
+                <Tab.Screen name="Browse" component={BrowseScreen} />
                 <Tab.Screen name="Guestlist" component={GuestlistScreen}/>
             </Tab.Navigator>
+            <Modal isVisible={isModalVisible}>
+                <View style={{flex: 1}}>
+                    <Text>Hello!</Text>
+                    <Button title="Close Modal" onPress={handleModal}/>
+                </View>
+            </Modal>
             </View>
             </View>
     )

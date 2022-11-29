@@ -20,11 +20,7 @@ const MainScreen = () => {
 
   React.useEffect(() => {}, [])
   
-  const [isModalVisible, setIsModalVisible] = React.useState(false);
-  const handleModal = () => 
-  
-  setIsModalVisible(() => 
-  !isModalVisible);
+
 
   return (
     <Tab.Navigator initialRouteName="Guests" >
@@ -37,14 +33,13 @@ const MainScreen = () => {
       <Tab.Screen
         name="Guests"
         component={GuestsScreen}
-        initialParams={{ isModalVisible: {{isModalVisible}}, setIsModalVisible: {{setIsModalVisible}}, handleModal: {{handleModal}}}}
-        options={{headerTitle: 'Guests', headerRight: () => (
+        options={({navigation, route}) => ({  headerTitle: 'Guests', headerRight: () => (
           <Button 
-            onPress={handleModal}
+            // onPress={handleModal}
             title="Add Party"
             color="#4abbff"
           />
-        )}}
+        )})}
       />
       {/* Profile Tab is name ProfileScreen, while actual Profile screen is named Profile inside ProfileStack*/}
       <Tab.Screen name="ProfileScreen" component={ProfileScreen} options={{title: "Profile"}}/>
