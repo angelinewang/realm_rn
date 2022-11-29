@@ -20,6 +20,9 @@ Tutorials Consulted:
 --> Basic Login and Signup Screens with TailwindCSS
 (React Native Authentication Flow, the Simplest and Most Efficient Way By Lucas Garcez - Medium)[https://levelup.gitconnected.com/react-native-authentication-flow-the-simplest-and-most-efficient-way-3aa13e80af61]
 --> Complete Authentication Flow: Separated responsibilities, persistence and API connection 
+(Header buttons: React Navigation)[https://reactnavigation.org/docs/header-buttons/]
+--> Button added to header of Guests Screen which leads to Modal through Browse or Guestlist Page
 
 Development:
 Used Ngrok to create https// addresses for API
+Formik used for form validation and submission 
