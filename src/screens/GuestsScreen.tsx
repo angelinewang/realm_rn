@@ -1,6 +1,5 @@
 import { Pressable, View, StyleSheet, Text, Button, TextInput } from "react-native";
-import React from 'react';
-import DatePicker from 'react-native-date-picker';
+import {useState, useEffect} from 'react';
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import BrowseScreen from "./Guests/BrowseScreen";
 import GuestlistScreen from "./Guests/GuestlistScreen";
@@ -26,23 +25,23 @@ const GuestsScreen: React.FC = ({navigation}) => {
             console.log(JSON.stringify(values, null, 2));
         }
     })
-    const [isModalVisible, setIsModalVisible] = React.useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const handleModal = () => setIsModalVisible(() => !isModalVisible);
 
-    const [flat, setFlat] = React.useState(" ")
-    const [dateTime, setDateTime] = React.useState(new Date())
+    const [flat, setFlat] = useState(" ")
+    const [dateTime, setDateTime] = useState(new Date())
 
     const vibeOptions = [{id: '1', label: 'Chill', value: 'Chill'}, {id: '2', label: 'Party', value: 'Chill'}, {id: '3', label: 'Rager', value: 'Rager'}]
 
-    const [vibe, setVibe] = React.useState('Chill')
+    const [vibe, setVibe] = useState('Chill')
 
     const setValue = (value: any) => {
         let newArray = value.filter((item: any) => item.selected===true);
         setVibe(newArray[0].value);
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
                 <Button onPress={handleModal} title="Add Party"/>

@@ -1,5 +1,4 @@
 import { View, Text, Button, DatePickerIOSBase } from "react-native";
-import React from "react";
 import MainContainer from "../../components/MainContainer";
 import KeyboardAvoidWrapper from "../../components/KeyboardAvoidWrapper";
 import CustomTextInput from "../../components/InputText/CustomTextInput";
@@ -11,13 +10,25 @@ import { LoginScreenNavigationProp } from '../../navigation/types';
 import { AtSymbolIcon, LockClosedIcon, WindowIcon } from "react-native-heroicons/solid";
 import CustomButton from "../../components/Buttons/CustomButton";
 
-import { useAuth } from "../../contexts/Auth";
+import { createContext, useState, useContext, useEffect } from 'react';
 
-import axios from "axios";
+import { useAuth, signIn } from "../../contexts/Auth";
 
-const LoginScreen = () => {
+// All data passed through context
 
-    const auth = useAuth();
+
+//Create the Auth Context with the data type specified
+//and a empty object
+
+const LoginScreen: React.FC = () => {
+// const AuthContext = createContext<AuthContextData>({authData, loading} as AuthContextData);
+const signInFunction = () => {
+    // const auth = useAuth();
+    console.log("Reached signinfunction call")
+    signIn(_email, _password)
+}
+// const auth = useAuth()
+
 
     // function getCookie(name: string) {
     // var cookieValue = null;
@@ -32,21 +43,31 @@ const LoginScreen = () => {
     //     }
     // }
     // return cookieValue;
+    const [_email, setEmail] = useState<String | null>(null);
+    const [_password, setPassword] = useState<String | null>(null);
+
+    useEffect(() => {
+
+    }, [_email, _password])
 
 
 // var csrftoken = getCookie('csrftoken');
 
     const navigation = useNavigation<LoginScreenNavigationProp>();
-  
-    const [email, setEmail] = React.useState<String | null>(null);
-    const [password, setPassword] = React.useState<String | null>(null);
 
-    const onEmailChange = (email: String) => {
-        setEmail(email);
+
+    const onEmailChange = (newEmail: string) => {
+        setEmail(newEmail);
     };
-    const onPasswordChange = (password: String) => {
-        setPassword(password);
+    const onPasswordChange = (newPassword: String) => {
+        setPassword(newPassword);
     };
+
+
+  //This loads whether or not the current user is authenticated
+  useEffect(() => {
+
+  }, []);
 
 // #1 Make login Function work
 
@@ -82,7 +103,7 @@ const LoginScreen = () => {
                         buttonText="Login"
                         buttonClassNames="w-full rounded-md p-3 bg-[#EFE3C8] flex justify-center items-center mt-5"
                         textClassNames="text-[#4A2B29] text-[18px] font-semibold"
-                        onPress={auth.signIn}
+                        onPress={signInFunction}
                     />
                     <View className="flex w-full justify-end items-end pt-4">
                         <Button onPress={() => navigation.navigate('SignUp')} title="Don't have an account yet?"/>
@@ -93,4 +114,4 @@ const LoginScreen = () => {
     );
 }
 
-export default LoginScreen;
+export { LoginScreen };

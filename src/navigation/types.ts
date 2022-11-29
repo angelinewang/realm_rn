@@ -74,8 +74,6 @@ export type AuthContextData = {
 
 export type AuthData = {
   token: string;
-  email: string;
-  name: string;
 };
 
 export type AuthContextType = {

@@ -23,7 +23,7 @@ const GuestlistScreen = () => {
 const getPartyAndInvites = async () => {
   try {
   // Get Party using User_id
-  let response = await fetch(`https://4ee1-193-61-207-166.eu.ngrok.io/api/invite/v1/guestlist/${hostId}/`);
+  let response = await fetch(`https://334d-193-61-207-166.eu.ngrok.io/api/invite/v1/guestlist/${hostId}/`);
   let json = await response.json();
   setInvites(json)
   }

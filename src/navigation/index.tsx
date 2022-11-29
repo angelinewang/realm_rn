@@ -1,11 +1,11 @@
-import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Loading from '../components/Loading';
+// import Loading from '../components/Loading';
 
-import { useAuth } from '../contexts/Auth';
+// import { useAuth } from '../contexts/Auth';
+// import {useAuth} from '../screens/Authentication/LoginScreen'
 import MainScreen from '../screens/MainScreen';
 import AuthScreen from '../screens/AuthScreen';
-
+import { useAuth } from '../contexts/Auth';
 // 2 Different Options for Render: 1. Unauthenticated 2. Authenticated 
 
 // Unauthenticated Flow 
@@ -28,18 +28,52 @@ const AppStack = () => {
   );
 };
 
+
+  
+
+    // This will passback JWToken
+
+    //Set the data in the context, so the App can be notified
+    //and send the user to the AuthStack
+    // setAuthData(_authData);
+
+    //Persist the data in the Async Storage
+    //to be recovered in the next user session.
+    //Only passes the token to AsyncStorage and stores it under @AuthData:token
+
+  
+
+
+
 export const RootNavigator = () => {
   
-  const {authData, loading} = useAuth();
+  const {authData} = useAuth();
 
-  if(loading) {
-    return <Loading />;
-  }
+  // if(loading) {
+  //   return <Loading />;
+  // }
+// const [loading, setLoading] = React.useState(true);
+
+  // const [authData, setAuthData] = React.useState()
+  // const getAuthData = async () => {
+  //   const _authData = await AsyncStorage.getItem('@AuthData')
+  //   setAuthData(_authData)
+  // } 
+
+
+
+
+  // React.useEffect(() => {
+  //   getAuthData()
+  //   console.log(authData)
+  // }, [authData])
 
   return (
-    <>
-      {/* {authData?.token ? <AppStack /> : <AuthStack />} */}
-      <AppStack/>
-    </>
+    // <AuthProvider children={children}>
+    <>{authData? <AppStack /> : <AuthStack />}</>
+      
+    // </AuthProvider>
+ 
   );
 };
+

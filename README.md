@@ -18,7 +18,9 @@ Tutorials Consulted:
 --> Creating initial pages, navigation, and bottom nav bar
 ()[http://www.developerslearnit.com/2022/08/react-native-typescript-building-react.html]
 --> Basic Login and Signup Screens with TailwindCSS
+--> FRONTEND ONLY
 (React Native Authentication Flow, the Simplest and Most Efficient Way By Lucas Garcez - Medium)[https://levelup.gitconnected.com/react-native-authentication-flow-the-simplest-and-most-efficient-way-3aa13e80af61]
+--> WITH BACKEND
 --> Complete Authentication Flow: Separated responsibilities, persistence and API connection 
 (Header buttons: React Navigation)[https://reactnavigation.org/docs/header-buttons/]
 --> Button added to header of Guests Screen which leads to Modal through Browse or Guestlist Page
