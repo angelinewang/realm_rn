@@ -1,13 +1,14 @@
 import { SafeAreaView, Image, ImageBackground, StyleSheet, View, Text, FlatList, Dimensions } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 
 import React from 'react';
 import BrowseCard from '../../components/Card/BrowseCard';
 import { useAuth } from '../../contexts/Auth';
 import Loading from '../../components/Loading';
-import { useIsFocused } from '@react-navigation/native';
 import jwt_decode from 'jwt-decode';
 
 const BrowseScreen = ({}) => {
+  
   const [guests, setGuests] = React.useState()
 
   const {authData, signOut} = useAuth()
@@ -37,21 +38,22 @@ const BrowseScreen = ({}) => {
       const token = authData?.token
       console.log(token)
 
-      if (!token) {
-        logOut()
-      }
+      // if (!token) {
+      //   logOut()
+      // }
 
-      // const decoded = jwt_decode(token)
+      const decoded = jwt_decode(token)
 
-      // console.log(decoded)
-      // setUserId(decoded.sub)
+      console.log(decoded)
+      setUserId(decoded.sub)
 
-      // console.log(userId)
+      console.log(userId)
       // Extract the UserId from the sub property of the decoded object
 
       // Get user profile information from API by passing in the UserId found through decoded token 
 
       getUserRole(userId)
+      // console.log(userRole)
 
       if (userRole == 0) {
         getGuestsGuestMode(userId)
@@ -59,7 +61,7 @@ const BrowseScreen = ({}) => {
         getGuestsHostMode(userId)
       }
 
-  }, [loading, userId])
+  }, [loading, userId, userRole, isFocused])
 
   const getUserRole = async (userId) => {
       try {
@@ -68,9 +70,9 @@ const BrowseScreen = ({}) => {
         setUserRole(json.role)
         console.log(userRole)
       
-        if (userRole) {
-        setLoading(false)
-        }
+        // if (userRole) {
+        // setLoading(false)
+        // }
         } catch (error) {
           console.error(error);
         }
@@ -85,7 +87,7 @@ const getGuestsGuestMode = async (userId) => {
   console.log(json)
   if (guests) {
         setLoading(false)
-        }
+  }
   }
   catch (error) {
     console.error(error);
@@ -97,10 +99,13 @@ const getGuestsHostMode = async (userId) => {
   let response = await fetch(`https://3341-193-61-207-166.eu.ngrok.io/api/user/v1/guests/browse/${userId}/hostmode/`);
   let json = await response.json();
   setGuests(json)
-  console.log(json)
+
+
+  console.log(`${guests[0]} is the first guest ${guests}`)
+  console.log(guests[0])
   if (guests) {
         setLoading(false)
-        }
+  }
   }
   catch (error) {
     console.error(error);

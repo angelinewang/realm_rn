@@ -3,9 +3,6 @@ import React, {useEffect, useState} from 'react';
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import InvitedScreen from "./Parties/InvitedScreen";
 import ConfirmedScreen from "./Parties/ConfirmedScreen";
-import { useNavigation } from '@react-navigation/native';
-import { PartiesStackNavigatorParamList } from '../navigation/types';
-
 
 const Tab = createMaterialTopTabNavigator();
 

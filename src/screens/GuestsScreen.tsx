@@ -60,8 +60,8 @@ const GuestsScreen: React.FC = ({navigation}) => {
             <View style={styles.viewContainer}>
             <View style={styles.view}>
             <Tab.Navigator>
-                <Tab.Screen name="Browse" component={BrowseScreen} />
-                <Tab.Screen name="Guestlist" component={GuestlistScreen}/>
+                <Tab.Screen name="Browse" children={() => <BrowseScreen/>} />
+                <Tab.Screen name="Guestlist" children={() => <GuestlistScreen/>}/>
             </Tab.Navigator>
             <Modal isVisible={isModalVisible} >
                 <Formik initialValues={{flat: '', dateTime: "", vibe: ''}} onSubmit={handleSubmit}>

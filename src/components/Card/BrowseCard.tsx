@@ -1,29 +1,33 @@
 import { View, Text } from "react-native";
 import React from "react";
-
+import Loading from "../Loading";
 // Card used to display each individual Guest Profile on the Browse and Guestlist Screens
 
 const BrowseCard = ({item}) => {
+// Called on User
 
-// item = guest_id 
-// used to find the guest profile
+const [guest, setGuest] = React.useState()
 
-const [invite, setInvite] = React.useState(item)
-const [guest, setGuest] = React.useState({})
-
+const [loading, setLoading] = React.useState(true)
   React.useEffect(
   () => {
-    getGuest(invite)
-  }, [item]
+    console.log(`Item is ${item}`)
+    console.log(item)
+    getGuest(item)
+  }, [item, loading]
 )
 
-const getGuest = async () => {
+const getGuest = async (item) => {
   try {
   // setInvite(item)
-  let response = await fetch(`https://3341-193-61-207-166.eu.ngrok.io/api/user/v1/profile/${invite.guest_id}/`);
+  // What's being based through as "item" is already the user, so just call id on "item"
+  let response = await fetch(`https://3341-193-61-207-166.eu.ngrok.io/api/user/v1/profile/${item.id}/`);
   let json = await response.json();
   setGuest(json)
   console.log(json)
+  if (guest) {
+    setLoading(false)
+  }
   }
   catch (error) {
     console.error(error);
@@ -31,6 +35,8 @@ const getGuest = async () => {
 }
 
     return (
+guest ? (
+      
       <View style={{ flex: 1, flexDirection: 'column', backgroundColor: "#4abbff", marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
         <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
         <Text style={{ fontSize: 28, color: 'white', fontWeight: 'bold'}}>
@@ -42,8 +48,8 @@ const getGuest = async () => {
           { guest.department ? guest.department : "no department"}
          </Text>
          </View>
-      </View>
+      </View>  ) : <Loading />
     );
-};
+};  
 
 export default BrowseCard;
