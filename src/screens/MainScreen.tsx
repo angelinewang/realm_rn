@@ -28,6 +28,7 @@ const MainScreen = () => {
       <Tab.Screen
       name="Parties"
       component={PartiesScreen}
+      options={({navigation})}
       />
     
       <Tab.Screen

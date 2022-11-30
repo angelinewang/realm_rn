@@ -1,12 +1,13 @@
 import { SafeAreaView, StyleSheet, View, Text, Pressable, FlatList } from 'react-native';
 import jwt_decode from 'jwt-decode';
 
+import { useIsFocused } from '@react-navigation/native';
 import React from 'react';
 import InvitePartyCard from '../../components/Card/InvitePartyCard';
 import Loading from '../../components/Loading';
 import { useAuth } from '../../contexts/Auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const InvitedScreen = () => {  
+const InvitedScreen = ({navigation}) => {  
   const [parties, setParties] = React.useState()
   const {authData} = useAuth()
   const [userId, setUserId] = React.useState()
@@ -57,7 +58,7 @@ const getParties = async (userId) => {
 const partyCard = ({item}) => {
 
   return (
-    <InvitePartyCard item={item}/>
+    <InvitePartyCard navigation={navigation} item={item}/>
   )
 };
 

@@ -6,14 +6,14 @@ import ConfirmedScreen from "./Parties/ConfirmedScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
-const PartiesScreen: React.FC = () => { 
+const PartiesScreen: React.FC = ({navigation}) => { 
            return (
             <View style={styles.ViewContainer}>
             <View style={styles.View}>
             <Tab.Navigator>
-                <Tab.Screen name="Invited" component={InvitedScreen}/>
+                <Tab.Screen name="Invited" options={({navigation})} component={InvitedScreen}/>
 
-                <Tab.Screen name="Confirmed" component={ConfirmedScreen}/>
+                <Tab.Screen name="Confirmed" options={({navigation})} component={ConfirmedScreen}/>
             </Tab.Navigator>
             </View>
             </View>
