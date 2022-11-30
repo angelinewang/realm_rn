@@ -13,6 +13,8 @@ const ProfileCard = ({user}) => {
   )
 
   return (
+
+    user ? (
     <View style={{ flex: 1, flexDirection: 'column', backgroundColor: "#4abbff", marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
       <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
       <Text style={{ fontSize: 28, color: 'white', fontWeight: 'bold'}}>
@@ -25,6 +27,8 @@ const ProfileCard = ({user}) => {
         </Text>
         </View>
     </View>
+    ) : null
+
   );
 };
 

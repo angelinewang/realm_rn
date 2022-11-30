@@ -30,7 +30,15 @@ import { authService } from '../services/authService';
         if (authDataSerialized) {
             //If there are data, it's converted to an Object and the state is updated.
             const _authData = JSON.parse(authDataSerialized);
+
+            if (_authData.token) {
             setAuthData(_authData);
+            }
+
+            else {
+                setAuthData(undefined)
+            }
+
             console.log("reached loadstoragedata function!")
         }
         } catch (error) {

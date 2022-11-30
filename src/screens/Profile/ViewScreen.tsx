@@ -3,7 +3,7 @@ import React from 'react';
 
 // import { useAuth } from '../../contexts/Auth';
 import ProfileCard from '../../components/Card/ProfileCard';
-
+import Loading from '../../components/Loading';
 import  AsyncStorage from '@react-native-async-storage/async-storage';
 
 import jwt_decode from 'jwt-decode';
@@ -66,7 +66,7 @@ const ViewScreen = () => {
     <ProfileCard user={user}/>
     <Button title="Log Out" onPress={logOut}/>
     </View>)
-     : null
+     : <Loading/>
   );
 };
 
