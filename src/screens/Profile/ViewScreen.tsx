@@ -35,7 +35,7 @@ const ViewScreen = () => {
 
   // Get user profile information from API by passing in the UserId found through decoded token 
   getUser(userId)
-  }, [loading, userId])
+  }, [loading, userId, isFocused])
   
 
 // const signOut = async () => {

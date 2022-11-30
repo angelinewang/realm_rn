@@ -61,6 +61,7 @@ const BrowseScreen = ({}) => {
         getGuestsHostMode(userId)
       }
 
+      // Adding "guests" to the below parameters caused infinite rerender and infinite server calls
   }, [loading, userId, userRole, isFocused])
 
   const getUserRole = async (userId) => {

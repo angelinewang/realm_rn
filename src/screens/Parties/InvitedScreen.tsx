@@ -35,7 +35,7 @@ const InvitedScreen = () => {
       
       getParties(userId)
 
-  }, [loading, userId])
+  }, [loading, userId, isFocused])
 
 const getParties = async (userId) => {
 
