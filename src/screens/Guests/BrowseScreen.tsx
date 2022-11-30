@@ -14,7 +14,7 @@ const BrowseScreen = ({}) => {
 
 const getGuests = async () => {
   try {
-  let response = await fetch("https://334d-193-61-207-166.eu.ngrok.io/api/user/v1/guests/browse");
+  let response = await fetch("https://3341-193-61-207-166.eu.ngrok.io/api/user/v1/guests/browse");
   let json = await response.json();
   setGuests(json)
   console.log(json)

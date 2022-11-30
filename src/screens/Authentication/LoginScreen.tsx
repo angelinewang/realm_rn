@@ -12,7 +12,8 @@ import CustomButton from "../../components/Buttons/CustomButton";
 
 import { createContext, useState, useContext, useEffect } from 'react';
 
-import { useAuth, signIn } from "../../contexts/Auth";
+import { useAuth } from "../../contexts/Auth";
+import { authService } from "../../services/authService";
 
 // All data passed through context
 
@@ -22,13 +23,18 @@ import { useAuth, signIn } from "../../contexts/Auth";
 
 const LoginScreen: React.FC = () => {
 // const AuthContext = createContext<AuthContextData>({authData, loading} as AuthContextData);
-const signInFunction = () => {
-    // const auth = useAuth();
-    console.log("Reached signinfunction call")
-    signIn(_email, _password)
-}
+// const signInFunction = () => {
+//     // const auth = useAuth();
+//     console.log("Reached signinfunction call")
+//     const {signIn} = useAuth()
+//     signIn(_email, _password)
+// }
 // const auth = useAuth()
+    const {signIn} = useAuth()
 
+    const logIn = async () => {
+        await signIn(_email, _password)
+    }
 
     // function getCookie(name: string) {
     // var cookieValue = null;
@@ -103,7 +109,7 @@ const signInFunction = () => {
                         buttonText="Login"
                         buttonClassNames="w-full rounded-md p-3 bg-[#EFE3C8] flex justify-center items-center mt-5"
                         textClassNames="text-[#4A2B29] text-[18px] font-semibold"
-                        onPress={signInFunction}
+                        onPress={logIn}
                     />
                     <View className="flex w-full justify-end items-end pt-4">
                         <Button onPress={() => navigation.navigate('SignUp')} title="Don't have an account yet?"/>

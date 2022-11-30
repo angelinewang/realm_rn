@@ -28,3 +28,9 @@ Tutorials Consulted:
 Development:
 Used Ngrok to create https// addresses for API
 Formik used for form validation and submission 
+
+Lessons:
+1. Start with one file and then separate
+2. Make all in one file and work and then separate them into modules 
+3. javascript debugger keyword YouTube Video
+4. Format the code better and do indentations in order to make the code clearer and easier to debug

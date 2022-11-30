@@ -15,7 +15,7 @@ const InvitePartyCard = ({item}) => {
 
 const getParty = async () => {
   try {
-  let response = await fetch(`https://334d-193-61-207-166.eu.ngrok.io/api/invite/v1/parties/party/${invite.party_id}/`);
+  let response = await fetch(`https://3341-193-61-207-166.eu.ngrok.io/api/invite/v1/parties/party/${invite.party_id}/`);
   let json = await response.json();
   setParty(json)
   console.log(json)

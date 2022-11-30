@@ -20,7 +20,7 @@ const [guest, setGuest] = React.useState({})
 const getGuest = async () => {
   try {
   // setInvite(item)
-  let response = await fetch(`https://334d-193-61-207-166.eu.ngrok.io/api/invite/v1/guestlist/guest/${invite.guest_id}/`);
+  let response = await fetch(`https://3341-193-61-207-166.eu.ngrok.io/api/invite/v1/guestlist/guest/${invite.guest_id}/`);
   let json = await response.json();
   setGuest(json)
   console.log(json)

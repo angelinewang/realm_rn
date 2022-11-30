@@ -1,14 +1,15 @@
 import {useEffect, createContext, useState, useContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { RootNavigator } from '../navigation';
+import { AppStack, AuthStack } from '../navigation/index';
+import { authService } from '../services/authService';
 
     type AuthContextData = {
-    authData?: AuthData;
-    // AuthData will only have the token 
-    // authData.token = User JWT Token
-    //   loading: boolean;
-      signIn(): Promise<string>;
-      signOut(): void;
+        authData?: AuthData;
+        // AuthData will only have the token 
+        // authData.token = User JWT Token
+        // loading: boolean;
+        signIn(): Promise<void>;
+        signOut(): void;
     };
 
     type AuthData = {
@@ -18,8 +19,8 @@ import { RootNavigator } from '../navigation';
     const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
     const AuthProvider: React.FC = () => {
-    const [authData, setAuthData] = useState({token: ""})
-
+ 
+    const [authData, setAuthData] = useState({})
     //The loading part will be explained in the persist step session
     //   const [loading, setLoading] = useState(true);
     async function loadStorageData(): Promise<void> {
@@ -30,8 +31,10 @@ import { RootNavigator } from '../navigation';
             //If there are data, it's converted to an Object and the state is updated.
             const _authData = JSON.parse(authDataSerialized);
             setAuthData(_authData);
+            console.log("reached loadstoragedata function!")
         }
         } catch (error) {
+            console.error(error)
         }
     }
 
@@ -41,8 +44,21 @@ import { RootNavigator } from '../navigation';
     loadStorageData();
     }, []);
 
+    const signIn = async (_email: string, _password: string): Promise<void> => { 
+    try {
 
-
+    const _authData = await authService.signIn(_email, _password);
+    console.log(_authData)
+    // const _authData = response.json()
+    // console.log(_authData)
+    setAuthData(_authData);
+    console.log("Reached Auth Context before AsyncStorage")
+    await AsyncStorage.setItem('@AuthData', JSON.stringify(_authData))
+        
+    } catch (error) {
+        console.error(error);
+    } 
+    }
   const signOut = async () => {
     //Remove data from context, so the App can be notified
     //and send the user to the AuthStack
@@ -53,47 +69,23 @@ import { RootNavigator } from '../navigation';
     //This component will be used to encapsulate the whole App,
     //so all components will have access to the Context
     <AuthContext.Provider value={{authData, signIn, signOut}}>
-      <RootNavigator/>
+        <>{authData ? <AppStack /> : <AuthStack />}</>
     </AuthContext.Provider>
   );
   
 };
 
- 
-    function useAuth(): AuthContextData {
+function useAuth(): AuthContextData {
 
-    const context = useContext(AuthContext);
+const context = useContext(AuthContext);
 
-    if (!context) {
-        throw new Error('useAuth must be used within an AuthProvider');
-    }
+if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+}
 
-    return context;
-    }
+return context;
+}
 
-        const signIn = async (_email: string, _password: string) => {
-    //call the service passing credential (email and password).
-    //In a real App this data will be provided by the user from some InputText components.  
-    try {
-        console.log("Reach authService!");
-        let response = await fetch(
-            "https://334d-193-61-207-166.eu.ngrok.io/api/user/v1/login/",
-            {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-            },
-            body: JSON.stringify({ 
-                "email": _email, "password": _password }),
-            }
-        );
-        let _authData = response.json();
-        // setAuthData(_authData._z)
-        //Grabs the correct information of the user
-        
-        await AsyncStorage.setItem('@AuthData', JSON.stringify(_authData._z));
-        } catch (error) {
-            console.error(error);
-        } }
-export{ AuthProvider, useAuth, signIn }
+    
+
+export { AuthProvider, useAuth }
