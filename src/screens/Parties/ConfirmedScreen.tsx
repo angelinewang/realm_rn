@@ -2,6 +2,7 @@ import { SafeAreaView, StyleSheet, View, Text, Pressable, FlatList } from 'react
 import Loading from '../../components/Loading';
 import { useAuth } from '../../contexts/Auth';
 import jwt_decode from 'jwt-decode';
+import { useIsFocused } from '@react-navigation/native';
 
 import React from 'react';
 import ConfirmPartyCard from '../../components/Card/ConfirmPartyCard';
@@ -12,30 +13,36 @@ const ConfirmedScreen = () => {
   const [userId, setUserId] = React.useState()
   const [decoded, setDecoded] = React.useState()
 
+  const isFocused = useIsFocused()
   const [loading, setLoading] = React.useState(Boolean)
 
   React.useEffect(() => {
-  console.log(authData)
-  // Grab token value from authData
-  const token = authData?.token
-  console.log(token)
 
-  const decoded = jwt_decode(token)
+      console.log(authData)
+      // Grab token value from authData
+      const token = authData?.token
+      console.log(token)
 
-  console.log(decoded)
-  setUserId(decoded.sub)
+      const decoded = jwt_decode(token)
 
-  console.log(userId)
-  // Extract the UserId from the sub property of the decoded object
+      console.log(decoded)
+      setUserId(decoded.sub)
 
-  // Get user profile information from API by passing in the UserId found through decoded token 
-  getParties(userId)
+      console.log(userId)
+      // Extract the UserId from the sub property of the decoded object
+
+      // Get user profile information from API by passing in the UserId found through decoded token 
+      
+      getParties(userId)
+
   }, [loading, userId])
 
 const getParties = async (userId) => {
 
+
 // If the userId has been set, then get parties
-  try {
+
+  try { 
   let response = await fetch(`https://3341-193-61-207-166.eu.ngrok.io/api/invite/v1/parties/confirmed/${userId}`);
   let json = await response.json();
   // Current expected response:
@@ -58,12 +65,17 @@ const partyCard = ({item}) => {
 };
 
   return (
-
-    parties ? (
+<> 
+{
+   isFocused ? (parties ? (
     <SafeAreaView style={{ flex: 1, flexDirection: 'column', }}>
       <FlatList data={parties} renderItem={partyCard} keyExtractor={item => item.id}/>
     </SafeAreaView>
-    ) : <Loading/>
+    ) : <Loading/>) : null
+}
+ 
+</>
+    
 
   );
 };

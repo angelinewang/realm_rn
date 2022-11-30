@@ -2,10 +2,11 @@ import { View, Text } from "react-native";
 import React from "react";
 import HostCard from "./HostCard";
 //HostCard remains same for both Invite and Confirm Party Cards
+import Loading from "../Loading";
 
 const ConfirmPartyCard = ({item}) => {
 
-  const [party, setParty] = React.useState({})
+  const [party, setParty] = React.useState()
   const [invite, setInvite] = React.useState(item)
 
   React.useEffect(
@@ -28,6 +29,8 @@ const getParty = async () => {
 
 return (
 
+  party ? (
+
 <View style={{ flex: 1, flexDirection: 'column', backgroundColor: "#4abbff", marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
   {/* Host Information */}
   <HostCard item={party.host_id}/>
@@ -44,6 +47,8 @@ return (
     </Text>
   </View>
 </View> 
+  ) : <Loading />
+
 )
     
 };

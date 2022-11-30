@@ -1,8 +1,9 @@
 import { View, Text } from "react-native";
 import React from "react";
+import Loading from "../Loading";
 
 const HostCard = ({item}) => {  
-  const [host, setHost] = React.useState({})
+  const [host, setHost] = React.useState()
 
   React.useEffect(
   () => {
@@ -23,6 +24,7 @@ const getHost = async () => {
 }
 
 return (
+  host ? (
   <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-start"}}>
     <Text style={{ fontSize: 28, color: 'white', fontWeight: 'bold'}}>
       {host.name ? host.name : "no name"}
@@ -33,6 +35,8 @@ return (
       {host.department ? host.department: "no department"}
       </Text>
   </View>
+  ) : <Loading/>
+
 )
     
 };
