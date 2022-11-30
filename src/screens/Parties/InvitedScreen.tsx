@@ -7,30 +7,34 @@ import InvitePartyCard from '../../components/Card/InvitePartyCard';
 import Loading from '../../components/Loading';
 import { useAuth } from '../../contexts/Auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const InvitedScreen = ({navigation}) => {  
+const InvitedScreen = () => {  
   const [parties, setParties] = React.useState()
   const {authData} = useAuth()
   const [userId, setUserId] = React.useState()
   const [decoded, setDecoded] = React.useState()
 
+  const isFocused = useIsFocused()
   const [loading, setLoading] = React.useState(Boolean)
 
   React.useEffect(() => {
-  console.log(authData)
-  // Grab token value from authData
-  const token = authData?.token
-  console.log(token)
 
-  const decoded = jwt_decode(token)
+      console.log(authData)
+      // Grab token value from authData
+      const token = authData?.token
+      console.log(token)
 
-  console.log(decoded)
-  setUserId(decoded.sub)
+      const decoded = jwt_decode(token)
 
-  console.log(userId)
-  // Extract the UserId from the sub property of the decoded object
+      console.log(decoded)
+      setUserId(decoded.sub)
 
-  // Get user profile information from API by passing in the UserId found through decoded token 
-  getParties(userId)
+      console.log(userId)
+      // Extract the UserId from the sub property of the decoded object
+
+      // Get user profile information from API by passing in the UserId found through decoded token 
+      
+      getParties(userId)
+
   }, [loading, userId])
 
 const getParties = async (userId) => {
@@ -58,17 +62,22 @@ const getParties = async (userId) => {
 const partyCard = ({item}) => {
 
   return (
-    <InvitePartyCard navigation={navigation} item={item}/>
+    <InvitePartyCard item={item}/>
   )
 };
 
   return (
-
-    parties ? (
+<> 
+{
+   isFocused ? (parties ? (
     <SafeAreaView style={{ flex: 1, flexDirection: 'column', }}>
       <FlatList data={parties} renderItem={partyCard} keyExtractor={item => item.id}/>
     </SafeAreaView>
-    ) : <Loading/>
+    ) : <Loading/>) : null
+}
+ 
+</>
+    
 
   );
 };

@@ -8,7 +8,6 @@ import { BottomTabNavigatorParamList } from '../navigation/types';
 import GuestsStackNavigator from '../navigation/GuestsStack';
 import PartiesStackNavigator from '../navigation/PartiesStack';
 import ProfileStackNavigator from '../navigation/ProfileStack';
-
 import GuestsScreen from './GuestsScreen';
 import PartiesScreen from './PartiesScreen';
 import ProfileScreen from './ProfileScreen';
@@ -20,15 +19,12 @@ const MainScreen = () => {
 
   React.useEffect(() => {}, [])
   
-
-
   return (
     <Tab.Navigator initialRouteName="Guests" >
 
       <Tab.Screen
       name="Parties"
       component={PartiesScreen}
-      options={({navigation})}
       />
     
       <Tab.Screen

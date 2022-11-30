@@ -34,3 +34,35 @@ Lessons:
 2. Make all in one file and work and then separate them into modules 
 3. javascript debugger keyword YouTube Video
 4. Format the code better and do indentations in order to make the code clearer and easier to debug
+
+Re-render on Screen Change: Expert from ()[https://reactnavigation.org/docs/function-after-focusing-screen/]
+---
+Triggering an action with a 'focus' event listener​
+We can also listen to the 'focus' event with an event listener. After setting up an event listener, we must also stop listening to the event when the screen is unmounted.
+
+With this approach, we will only be able to call an action when the screen focuses. This is useful for performing an action such as logging the screen view for analytics.
+
+Example:
+
+```
+import * as React from 'react';
+import { View } from 'react-native';
+
+function ProfileScreen({ navigation }) {
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      // The screen is focused
+      // Call any action
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
+
+  return <View />;
+}
+```
+See the navigation events guide for more details on the event listener API.
+
+In most cases, it's recommended to use the useFocusEffect hook instead of adding the listener manually. See below for details.
+---

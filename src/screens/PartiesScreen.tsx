@@ -3,17 +3,20 @@ import React, {useEffect, useState} from 'react';
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import InvitedScreen from "./Parties/InvitedScreen";
 import ConfirmedScreen from "./Parties/ConfirmedScreen";
+import { useNavigation } from '@react-navigation/native';
+import { PartiesStackNavigatorParamList } from '../navigation/types';
+
 
 const Tab = createMaterialTopTabNavigator();
 
-const PartiesScreen: React.FC = ({navigation}) => { 
+const PartiesScreen: React.FC = () => { 
            return (
             <View style={styles.ViewContainer}>
             <View style={styles.View}>
             <Tab.Navigator>
-                <Tab.Screen name="Invited" options={({navigation})} component={InvitedScreen}/>
+                <Tab.Screen name="Invited" children={() => <InvitedScreen/>}/>
 
-                <Tab.Screen name="Confirmed" options={({navigation})} component={ConfirmedScreen}/>
+                <Tab.Screen name="Confirmed" children={() => <ConfirmedScreen/>}/>
             </Tab.Navigator>
             </View>
             </View>

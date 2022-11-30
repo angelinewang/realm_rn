@@ -2,21 +2,16 @@ import { View, Text } from "react-native";
 import React from "react";
 import HostCard from "./HostCard";
 
-const InvitePartyCard = ({navigation, item}) => {
+const InvitePartyCard = ({item}) => {
 
   const [party, setParty] = React.useState({})
   const [invite, setInvite] = React.useState(item)
 
-  navigation = 
-  React.useEffect(
-  () => {
-   
-    const listener = navigation.addListener('focus', () => {
+  React.useEffect( () =>
+{
        getParty()
-    })
 
-    return listener;
-  }, [item, navigation]
+  }, [item]
 )
 
 const getParty = async () => {
