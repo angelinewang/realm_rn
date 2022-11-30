@@ -35,19 +35,29 @@ const BrowseScreen = ({}) => {
   React.useEffect(() => {
       console.log(authData)
       // Grab token value from authData
-      const token = authData?.token
-      console.log(token)
 
+      // if (authData.token !== false) {
+      
+      // }
+      try {
+          setToken(authData.token)
+            console.log(token)
+            setDecoded(jwt_decode(token))
+
+            console.log(decoded)
+            setUserId(decoded.sub)
+
+            console.log(userId)
+          // valid token format
+        } catch(error) {
+                console.error(error)
+          logOut()
+        }
       // if (!token) {
       //   logOut()
       // }
 
-      const decoded = jwt_decode(token)
 
-      console.log(decoded)
-      setUserId(decoded.sub)
-
-      console.log(userId)
       // Extract the UserId from the sub property of the decoded object
 
       // Get user profile information from API by passing in the UserId found through decoded token 

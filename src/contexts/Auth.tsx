@@ -2,8 +2,9 @@ import {useEffect, createContext, useState, useContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppStack, AuthStack } from '../navigation/index';
 import { authService } from '../services/authService';
+import { useIsFocused } from '@react-navigation/native';
 
-    type AuthContextData = {
+type AuthContextData = {
         authData?: AuthData;
         // AuthData will only have the token 
         // authData.token = User JWT Token
@@ -21,9 +22,12 @@ import { authService } from '../services/authService';
     const AuthProvider: React.FC = () => {
  
     const [loading, setLoading] = useState(true)
-    const [authData, setAuthData] = useState({})
+    const [authData, setAuthData] = useState()
     //The loading part will be explained in the persist step session
     //   const [loading, setLoading] = useState(true);
+    
+
+  const isFocused = useIsFocused()
     async function loadStorageData(): Promise<void> {
         try {
         //Try get the data from Async Storage
@@ -38,8 +42,8 @@ import { authService } from '../services/authService';
             }
 
             else {
-                setAuthData(undefined)
-                setLoading(false)
+            setAuthData(undefined)
+            setLoading(false)
             }
 
             console.log("reached loadstoragedata function!")
@@ -57,15 +61,13 @@ import { authService } from '../services/authService';
 
     const signIn = async (_email: string, _password: string): Promise<void> => { 
     try {
-
-    const _authData = await authService.signIn(_email, _password);
-    console.log(_authData)
-    // const _authData = response.json()
-    // console.log(_authData)
-    setAuthData(_authData);
-    console.log("Reached Auth Context before AsyncStorage")
-    await AsyncStorage.setItem('@AuthData', JSON.stringify(_authData))
-        
+        const _authData = await authService.signIn(_email, _password);
+        console.log(_authData)
+        // const _authData = response.json()
+        // console.log(_authData)
+        setAuthData(_authData);
+        console.log("Reached Auth Context before AsyncStorage")
+        await AsyncStorage.setItem('@AuthData', JSON.stringify(_authData))
     } catch (error) {
         console.error(error);
     } 
@@ -80,10 +82,20 @@ import { authService } from '../services/authService';
   return (
     //This component will be used to encapsulate the whole App,
     //so all components will have access to the Context
+    
+        <> 
+{
+   isFocused ? (
     <AuthContext.Provider value={{authData, signIn, signOut}}>
+        
         <>{authData ? <AppStack /> : <AuthStack />}</>
+    
     </AuthContext.Provider>
-  );
+   ) : null
+}
+ 
+</>
+  )
   
 };
 

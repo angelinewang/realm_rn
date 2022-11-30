@@ -9,9 +9,13 @@ import { useAuth } from '../../contexts/Auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const InvitedScreen = () => {  
   const [parties, setParties] = React.useState()
-  const {authData} = useAuth()
+  const {authData, signOut} = useAuth()
   const [userId, setUserId] = React.useState()
   const [decoded, setDecoded] = React.useState()
+  const logOut = async () => {
+      await signOut()
+  }
+  const [token, setToken] = React.useState("")
 
   const isFocused = useIsFocused()
   const [loading, setLoading] = React.useState(Boolean)
@@ -20,15 +24,21 @@ const InvitedScreen = () => {
 
       console.log(authData)
       // Grab token value from authData
-      const token = authData?.token
-      console.log(token)
+     try {
+          setToken(authData.token)
+            console.log(token)
+            setDecoded(jwt_decode(token))
 
-      const decoded = jwt_decode(token)
+            console.log(decoded)
+            setUserId(decoded.sub)
 
-      console.log(decoded)
-      setUserId(decoded.sub)
+            console.log(userId)
+          // valid token format
+        } catch(error) {
+                console.error(error)
+          logOut()
+        }
 
-      console.log(userId)
       // Extract the UserId from the sub property of the decoded object
 
       // Get user profile information from API by passing in the UserId found through decoded token 
@@ -76,8 +86,6 @@ const partyCard = ({item}) => {
     ) : <Loading/>) : null
 }
 </>
-    
-
   );
 };
 
