@@ -11,11 +11,11 @@ const ConfirmPartyCard = ({item}) => {
 
   React.useEffect(
   () => {
-    getParty()
+    getParty(invite)
   }, [item]
 )
 
-const getParty = async () => {
+const getParty = async (invite) => {
   try {
   let response = await fetch(`https://3341-193-61-207-166.eu.ngrok.io/api/invite/v1/parties/party/${invite.party_id}/`);
   let json = await response.json();

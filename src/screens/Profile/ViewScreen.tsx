@@ -9,8 +9,12 @@ import  AsyncStorage from '@react-native-async-storage/async-storage';
 import jwt_decode from 'jwt-decode';
 
 import {useAuth} from '../../contexts/Auth'
+ import { useIsFocused } from '@react-navigation/native';
 
 const ViewScreen = () => {
+    const [loading, setLoading] = React.useState(Boolean)
+
+  const isFocused = useIsFocused()
 
   const {authData} = useAuth()
   const [userId, setUserId] = React.useState()
@@ -30,8 +34,9 @@ const ViewScreen = () => {
   console.log(userId)
 
   // Get user profile information from API by passing in the UserId found through decoded token 
-  getUser()
-  }, [])
+  getUser(userId)
+  }, [loading, userId])
+  
 
 // const signOut = async () => {
 //     //Remove data from context, so the App can be notified
@@ -48,12 +53,16 @@ const ViewScreen = () => {
         await signOut()
     }
 
-  const getUser = async () => {
+    // Must pass UserId/Arguments into async
+  const getUser = async (userId) => {
       try {
         let response = await fetch(`https://3341-193-61-207-166.eu.ngrok.io/api/user/v1/profile/${userId}`);
         let json = await response.json();
         setUser(json)
         console.log(json)
+          if (user) {
+    setLoading(false)
+  }
       }
       catch (error) {
           console.error(error);
@@ -61,13 +70,19 @@ const ViewScreen = () => {
   }
 
   return (
-    user ? (
+      <> 
+{
+   isFocused ? (user ? (
     <View style={{ flex: 1, paddingTop: 12, paddingHorizontal: 10 }}>
     <ProfileCard user={user}/>
     <Button title="Log Out" onPress={logOut}/>
     </View>)
-     : <Loading/>
+     : <Loading/>) : null
+}
+ 
+</>
   );
+
 };
 
 export default ViewScreen;

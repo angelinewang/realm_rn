@@ -13,7 +13,7 @@ const [guest, setGuest] = React.useState({})
 
   React.useEffect(
   () => {
-    getGuest()
+    getGuest(invite)
   }, [item]
 )
 

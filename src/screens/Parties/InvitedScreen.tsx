@@ -75,7 +75,6 @@ const partyCard = ({item}) => {
     </SafeAreaView>
     ) : <Loading/>) : null
 }
- 
 </>
     
 

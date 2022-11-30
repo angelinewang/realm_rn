@@ -7,11 +7,11 @@ const HostCard = ({item}) => {
 
   React.useEffect(
   () => {
-    getHost()
+    getHost(item)
   }, [item]
 )
 
-const getHost = async () => {
+const getHost = async (item) => {
   try {
   let response = await fetch(`https://3341-193-61-207-166.eu.ngrok.io/api/invite/v1/parties/host/${item}/`);
   let json = await response.json();

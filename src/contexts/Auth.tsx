@@ -20,6 +20,7 @@ import { authService } from '../services/authService';
 
     const AuthProvider: React.FC = () => {
  
+    const [loading, setLoading] = useState(true)
     const [authData, setAuthData] = useState({})
     //The loading part will be explained in the persist step session
     //   const [loading, setLoading] = useState(true);
@@ -32,11 +33,13 @@ import { authService } from '../services/authService';
             const _authData = JSON.parse(authDataSerialized);
 
             if (_authData.token) {
-            setAuthData(_authData);
+            setAuthData(_authData)
+            setLoading(false)
             }
 
             else {
                 setAuthData(undefined)
+                setLoading(false)
             }
 
             console.log("reached loadstoragedata function!")
@@ -50,7 +53,7 @@ import { authService } from '../services/authService';
     //Every time the App is opened, this provider is rendered
     //and call de loadStorageData function.
     loadStorageData();
-    }, []);
+    }, [loading]);
 
     const signIn = async (_email: string, _password: string): Promise<void> => { 
     try {
