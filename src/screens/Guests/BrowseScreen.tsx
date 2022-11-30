@@ -6,6 +6,7 @@ import BrowseCard from '../../components/Card/BrowseCard';
 import { useAuth } from '../../contexts/Auth';
 import Loading from '../../components/Loading';
 import jwt_decode from 'jwt-decode';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const BrowseScreen = ({}) => {
   
@@ -14,48 +15,38 @@ const BrowseScreen = ({}) => {
   const {authData, signOut} = useAuth()
 
   const [userId, setUserId] = React.useState()
-  const [decoded, setDecoded] = React.useState()
+  // const [decoded, setDecoded] = React.useState()
 
   const isFocused = useIsFocused()
   const [loading, setLoading] = React.useState(Boolean)
 
   const [userRole, setUserRole] = React.useState()
 
-  const [token, setToken] = React.useState("")
-    const logOut = async () => {
-        await signOut()
-    }
+  // const [token, setToken] = React.useState("")
+    // const logOut = async () => {
+    //     await signOut()
+    // }
 
 // 1. Get whether get is 1 or 2 for role 
 
 // 2. If role is 1: Run Host Mode URL 
 // 3. If role is 0: Run Guest Mode URL
 
+// const myToken = async () => {
+//   await AsyncStorage.getItem('@AuthData')
+// }
 
   React.useEffect(() => {
       console.log(authData)
       // Grab token value from authData
+      // Current there is a bug, so need to comment out token section for Browse, Guestlist, Invited, and Confirmed BEFORE attempting to sign in 
 
-      // if (authData.token !== false) {
-      
-      // }
-      try {
-          setToken(authData.token)
-            console.log(token)
-            setDecoded(jwt_decode(token))
+        const token = authData?.token
+        console.log(token)
+        const decoded = jwt_decode(token)
 
-            console.log(decoded)
-            setUserId(decoded.sub)
-
-            console.log(userId)
-          // valid token format
-        } catch(error) {
-                console.error(error)
-          logOut()
-        }
-      // if (!token) {
-      //   logOut()
-      // }
+        console.log(decoded)
+        setUserId(decoded.sub)
 
 
       // Extract the UserId from the sub property of the decoded object

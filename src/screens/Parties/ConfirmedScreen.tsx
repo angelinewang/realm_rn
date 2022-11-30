@@ -17,28 +17,23 @@ const ConfirmedScreen = () => {
   const [loading, setLoading] = React.useState(Boolean)
 
   const [token, setToken] = React.useState("")
-    const logOut = async () => {
-        await signOut()
-    }
+    // const logOut = async () => {
+    //     await signOut()
+    // }
 
   React.useEffect(() => {
 
       console.log(authData)
       // Grab token value from authData
-     try {
-          setToken(authData.token)
-            console.log(token)
-            setDecoded(jwt_decode(token))
 
-            console.log(decoded)
-            setUserId(decoded.sub)
+      // Current there is a bug, so need to comment out token section for Browse, Guestlist, Invited, and Confirmed BEFORE attempting to sign in 
 
-            console.log(userId)
-          // valid token format
-        } catch(error) {
-                console.error(error)
-          logOut()
-        }
+      const token = authData?.token
+        console.log(token)
+        const decoded = jwt_decode(token)
+
+        console.log(decoded)
+        setUserId(decoded.sub)
 
       // Extract the UserId from the sub property of the decoded object
 

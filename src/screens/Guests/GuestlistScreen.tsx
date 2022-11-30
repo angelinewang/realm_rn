@@ -14,36 +14,45 @@ const GuestlistScreen = () => {
   const {authData, signOut} = useAuth()
 
   const [hostId, setHostId] = React.useState()
-  const [decoded, setDecoded] = React.useState()
+  // const [decoded, setDecoded] = React.useState()
 
   const isFocused = useIsFocused()
   const [loading, setLoading] = React.useState(Boolean)
 
   const [userRole, setUserRole] = React.useState()
 
-  const [token, setToken] = React.useState("")
-    const logOut = async () => {
-        await signOut()
-    }
+  // const [token, setToken] = React.useState("")
+    // const logOut = async () => {
+    //     await signOut()
+    // }
 
   React.useEffect(
   () => {
     console.log(authData)
+          // Current there is a bug, so need to comment out token section for Browse, Guestlist, Invited, and Confirmed BEFORE attempting to sign in 
+
+      const token = authData?.token
+      console.log(token)
+      const decoded = jwt_decode(token)
+
+      console.log(decoded)
+      setHostId(decoded.sub)
+
       // Grab token value from authData
-      try {
-          setToken(authData.token)
-            console.log(token)
-            setDecoded(jwt_decode(token))
+      // try {
+      //     setToken(authData.token)
+      //       console.log(token)
+      //       setDecoded(jwt_decode(token))
 
-            console.log(decoded)
-            setHostId(decoded.sub)
+      //       console.log(decoded)
+      //       setHostId(decoded.sub)
 
-            console.log(hostId)
-          // valid token format
-        } catch(error) {
-          console.error(error)
-          logOut()
-        }
+      //       console.log(hostId)
+      //     // valid token format
+      //   } catch(error) {
+      //     console.error(error)
+      //     logOut()
+      //   }
 
       // if (!token) {
       //   logOut()

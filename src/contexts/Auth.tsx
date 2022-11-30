@@ -65,9 +65,11 @@ type AuthContextData = {
         console.log(_authData)
         // const _authData = response.json()
         // console.log(_authData)
-        setAuthData(_authData);
         console.log("Reached Auth Context before AsyncStorage")
+        setAuthData(_authData);
+        
         await AsyncStorage.setItem('@AuthData', JSON.stringify(_authData))
+
     } catch (error) {
         console.error(error);
     } 

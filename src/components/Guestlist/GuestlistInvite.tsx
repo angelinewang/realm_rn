@@ -6,34 +6,33 @@ import Loading from "../Loading";
 
 const GuestlistInvite = ({item}) => {
 
-  const [invite, setInvite] = React.useState()
-
   const [guest, setGuest] = React.useState()
   const [loading, setLoading] = React.useState(true)
 
   // Each invite has a different guest, so for each invite, one inviteCard and one guestCard needs to be rendered
   React.useEffect(
   () => {
-    setInvite(item)
-    setGuest(item.guest_id_id)
-      if (item) {
+    setGuest(item.guest_id)
+
+    if (guest) {
         setLoading(false)
-  }
+    }
 
   }, [loading, item]
 )
 
 return (
-invite ? (
+guest ? (
   <View style={{ flex: 1, flexDirection: 'column', backgroundColor: "#4abbff", marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
     <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
       <GuestlistGuest item={guest}/>
+      {/* <Text>GUEST INFO</Text> */}
       {/* Invite Response Information */}
       <Text style={{ fontSize: 18, color: 'white', fontWeight: 'bold'}}>
-      {invite.plus_ones ? `is bringing ${invite.plus_ones} +1s` : "no plus-ones"}
+      {item.plus_ones ? `is bringing ${item.plus_ones} +1s` : "no plus-ones"}
       </Text>
       <Text style={{ fontSize: 18, color: 'white', fontWeight: 'bold'}}>
-      {invite.status ? invite.status : "Invited"}
+      {item.status ? item.status : "Invited"}
       </Text>
     </View>
   </View>

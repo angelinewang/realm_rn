@@ -23,6 +23,8 @@ const ViewScreen = () => {
   React.useEffect(() => {
   console.log(authData)
   // Grab token value from authData
+  // Current there is a bug, so need to comment out token section for Browse, Guestlist, Invited, and Confirmed BEFORE attempting to sign in 
+
   const token = authData?.token
   console.log(token)
 
