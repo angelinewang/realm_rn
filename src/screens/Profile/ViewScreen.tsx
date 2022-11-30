@@ -8,71 +8,65 @@ import  AsyncStorage from '@react-native-async-storage/async-storage';
 
 import jwt_decode from 'jwt-decode';
 
-import { useAuth } from '../Authentication/LoginScreen';
-// const DATA = 
-//   {
-//     id: 1,
-//     name: 'Angeline Wang',
-//     birthdate: '2002-02-10',
-//     department: 'Law',
-//     profile_picture: '../../assets/profile_pictures/test1.jpg'
-//   };
+import {useAuth} from '../../contexts/Auth'
 
 const ViewScreen = () => {
 
   const {authData} = useAuth()
-  const [user, setUser] = React.useState(authData)
+  const [userId, setUserId] = React.useState()
+  const [user, setUser] = React.useState({})
 
-// const [authData, setToken] = React.useState("")
-//  const getToken = async () => {
-//   try {
-//     let _token = await AsyncStorage.getItem('@AuthData')
-//     setToken(_token)
-//     console.log(_token)
-//   } catch (error){
-//     console.error(error)
-//   }
+  React.useEffect(() => {
+  console.log(authData)
+  // Grab token value from authData
+  const token = authData?.token
+  console.log(token)
 
-//   }
-//   const [authData, setAuthData] = React.useState()
-//   React.useEffect(() => {
-//     getToken()
-//     // getUser()
-//   }, [])
-  
+  // Decode the token for the information inside
+  const decoded = jwt_decode(token)
+  // Extract the UserId from the sub property of the decoded object
+  setUserId(decoded.sub)
 
-const signOut = async () => {
-    //Remove data from context, so the App can be notified
-    //and send the user to the AuthStack
-    setUser(undefined);
+  console.log(userId)
 
-    //Remove the data from Async Storage
-    //to NOT be recovered in next session.
-    await AsyncStorage.removeItem('@AuthData');
-  };
+  // Get user profile information from API by passing in the UserId found through decoded token 
+  getUser()
+  }, [])
 
+// const signOut = async () => {
+//     //Remove data from context, so the App can be notified
+//     //and send the user to the AuthStack
+//     setUser(undefined);
 
-  // const getUser = async () => {
-  //     try {
-  //       let response = await fetch(`https://334d-193-61-207-166.eu.ngrok.io/api/user/v1/profile/${authData.id}`);
-  //       let json = await response.json();
-  //       set(json)
-  //       console.log(json)
-  //     }
-  //     catch (error) {
-  //         console.error(error);
-  //     }
-  // }
+//     //Remove the data from Async Storage
+//     //to NOT be recovered in next session.
+//     await AsyncStorage.removeItem('@AuthData');
+//   };
+    const {signOut} = useAuth()
 
-// const auth = useAuth();
+    const logOut = async () => {
+        await signOut()
+    }
+
+  const getUser = async () => {
+      try {
+        let response = await fetch(`https://3341-193-61-207-166.eu.ngrok.io/api/user/v1/profile/${userId}`);
+        let json = await response.json();
+        setUser(json)
+        console.log(json)
+      }
+      catch (error) {
+          console.error(error);
+      }
+  }
+
   return (
+    user ? (
     <View style={{ flex: 1, paddingTop: 12, paddingHorizontal: 10 }}>
-    {/* <Text>{user.name}</Text>
-    <Text>{user.birthdate}</Text>
-    <Text>{user.department}</Text> */}
-    {/* <ProfileCard item={authData}/> */}
-    <Button title="Log Out" onPress={signOut}/>
-    </View>
+    <ProfileCard user={user}/>
+    <Button title="Log Out" onPress={logOut}/>
+    </View>)
+     : null
   );
 };
 

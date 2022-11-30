@@ -63,6 +63,7 @@ import { authService } from '../services/authService';
     //Remove data from context, so the App can be notified
     //and send the user to the AuthStack
     setAuthData(undefined);
+    await AsyncStorage.removeItem('@AuthData');
   };
 
   return (
