@@ -1,6 +1,6 @@
 {
   "name": "realm_rn",
-  "proxy": "https://3341-193-61-207-166.eu.ngrok.io",
+  "proxy": "https://541f-193-61-207-186.eu.ngrok.io",
   "version": "1.0.0",
   "sdkVersion": "47.0.0",
   "main": "node_modules/expo/AppEntry.js",
@@ -77,6 +77,7 @@
     "react-native-image-resizer": "^1.4.5",
     "react-native-modal": "^13.0.1",
     "react-native-pager-view": "^6.0.1",
+    "react-native-picker-select": "^8.0.4",
     "react-native-radio-buttons": "^1.0.0",
     "react-native-radio-buttons-group": "^2.2.11",
     "react-native-safe-area-context": "4.4.1",

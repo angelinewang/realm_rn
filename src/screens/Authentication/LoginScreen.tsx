@@ -22,42 +22,19 @@ import { authService } from "../../services/authService";
 //and a empty object
 
 const LoginScreen: React.FC = () => {
-// const AuthContext = createContext<AuthContextData>({authData, loading} as AuthContextData);
-// const signInFunction = () => {
-//     // const auth = useAuth();
-//     console.log("Reached signinfunction call")
-//     const {signIn} = useAuth()
-//     signIn(_email, _password)
-// }
-// const auth = useAuth()
+
     const {signIn} = useAuth()
 
     const logIn = async () => {
         await signIn(_email, _password)
     }
 
-    // function getCookie(name: string) {
-    // var cookieValue = null;
-    // if (document.cookie && document.cookie !== '') {
-    //     var cookies = document.cookie.split(';');
-    //     for (var i = 0; i < cookies.length; i++) {
-    //         var cookie = jQuery.trim(cookies[i]);
-    //         if (cookie.substring(0, name.length + 1) === (name + '=')) {
-    //             cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-    //             break;
-    //         }
-    //     }
-    // }
-    // return cookieValue;
     const [_email, setEmail] = useState<String | null>(null);
     const [_password, setPassword] = useState<String | null>(null);
 
     useEffect(() => {
 
     }, [_email, _password])
-
-
-// var csrftoken = getCookie('csrftoken');
 
     const navigation = useNavigation<LoginScreenNavigationProp>();
 

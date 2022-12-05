@@ -28,7 +28,7 @@ const GuestlistScreen = () => {
 
   React.useEffect(
   () => {
-    console.log(authData)
+      console.log(authData)
           // Current there is a bug, so need to comment out token section for Browse, Guestlist, Invited, and Confirmed BEFORE attempting to sign in 
 
       const token = authData?.token
@@ -37,6 +37,8 @@ const GuestlistScreen = () => {
 
       console.log(decoded)
       setHostId(decoded.sub)
+
+      console.log("Reached Guestlist UseEffect")
 
       // Grab token value from authData
       // try {
@@ -63,7 +65,7 @@ const GuestlistScreen = () => {
       // Get user profile information from API by passing in the UserId found through decoded token 
 
       getUserRole(hostId)
-      // console.log(userRole)
+      console.log(userRole)
 
       if (userRole == 0) {
         setInvites("No Party")
@@ -81,11 +83,11 @@ const GuestlistScreen = () => {
 // Get party and invites at same time and only find the party with the host and then find the invites with that party id
   const getUserRole = async (hostId) => {
       try {
-        let response = await fetch(`https://3341-193-61-207-166.eu.ngrok.io/api/user/v1/profile/${hostId}`);
+        let response = await fetch(`https://541f-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${hostId}/`);
         let json = await response.json();
         setUserRole(json.role)
         console.log(userRole)
-        
+        console.log("Reached Get User Role Function")
         } catch (error) {
           console.error(error);
         }
@@ -93,9 +95,11 @@ const GuestlistScreen = () => {
 const getPartyAndInvites = async (hostId) => {
   try {
   // Get Party using User_id
-  let response = await fetch(`https://3341-193-61-207-166.eu.ngrok.io/api/invite/v1/guestlist/${hostId}/`);
+  let response = await fetch(`https://541f-193-61-207-186.eu.ngrok.io/api/invite/v1/guestlist/${hostId}/`);
   let json = await response.json();
   setInvites(json)
+  console.log(invites)
+  console.log("Reached Get Party And Invites Function")
   }
   catch (error) {
     console.error(error);

@@ -4,6 +4,8 @@ import MainContainer from "../../components/MainContainer";
 import KeyboardAvoidWrapper from "../../components/KeyboardAvoidWrapper";
 import CustomTextInput from "../../components/InputText/CustomTextInput";
 import ImagePicker from 'react-native-image-picker';
+import RNPickerSelect from 'react-native-picker-select';
+import { Formik, useFormik } from 'formik';
 
 import { AtSymbolIcon, LockClosedIcon } from "react-native-heroicons/solid";
 import CustomButton from "../../components/Buttons/CustomButton";
@@ -13,25 +15,62 @@ import { useNavigation } from '@react-navigation/native';
 import { SignUpScreenNavigationProp } from '../../navigation/types';
 import { useAuth } from "../../contexts/Auth";
 
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 const SignUpScreen = () => {
     const navigation = useNavigation<SignUpScreenNavigationProp>();
-    const auth = useAuth();
-    const [email, setEmail] = React.useState<String | null>(null);
-    const [password, setPassword] = React.useState<String | null>(null);
+    const [_email, setEmail] = React.useState<String | null>(null);
+    const [_password, setPassword] = React.useState<String | null>(null);
 
-    const [name, setName] = React.useState<String | null>(null);
+    const [_name, setName] = React.useState<String | null>(null);
+    const [_department, setDepartment] = React.useState<Number | null>();
+    const [_gender, setGender] = React.useState<Number | null>();
+
+    // Changed Data Type in Database for Birthdate into timestamp/DateTime in order to accept a Timestamp value entry
+    const [_birthdate, setBirthdate] = React.useState(new Date());
+
     // Add other necessary fields later 
     // Right now, just POST and get these fields
 
-    const onEmailChange = (email: String) => {
-        setEmail(email);
+        React.useEffect(() => {
+
+    }, [_email, _password, _name, _department, _gender, _birthdate])
+
+    const {signUp, signIn} = useAuth()
+
+    const onEmailChange = (newEmail: String) => {
+        setEmail(newEmail);
     };
-    const onPasswordChange = (password: String) => {
-        setPassword(password);
+    const onPasswordChange = (newPassword: String) => {
+        setPassword(newPassword);
     };
 
-    const onNameChange = (name: String) => {
-        setName(name);
+    const onNameChange = (newName: String) => {
+        setName(newName);
+    }
+
+    // Passed to Backend as Number 
+    const onDepartmentChange = (newDepartment: Number) => {
+        setDepartment(newDepartment);
+        console.log("Department Selected:");
+        console.log(_department); 
+    }
+
+    // Passed to Backend as Number 
+    const onGenderChange = (newGender: Number) => {
+        setGender(newGender);
+        console.log("Gender Selected:");
+        console.log(_gender); 
+    }
+
+    const signUpAndLogIn = async () => {
+        let signUpStatus = await signUp(_email, _password, _name, _department, _gender, _birthdate)
+        
+        signUpStatus ? logIn(_email, _password) : null
+    }
+
+    const logIn = async () => {
+        await signIn(_email, _password)
     }
 
     return (
@@ -47,21 +86,15 @@ const SignUpScreen = () => {
                     </Text>
                     <View className="h-[50px] w-full"></View>
 
-
+                <Formik initialValues={{_email: '', _name: "", _password: '', _department: '', _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
+                    
+                    <View>
                     <CustomTextInput 
                         icon={<AtSymbolIcon color={"#EFE3C850"} width={35} height={35} />}
                         onChangeText={onEmailChange}
                         label="Email"
                         keyboardType={"email-address"}
-                        placeholder="Enter your email"
-                    />
-
-                    <CustomTextInput 
-                        icon={<AtSymbolIcon color={"#EFE3C850"} width={35} height={35} />}
-                        onChangeText={onNameChange}
-                        label="Name"
-                        keyboardType={"name"}
-                        placeholder="Enter your name"
+                        placeholder="KCL Email"
                     />
 
                     <CustomTextInput 
@@ -70,27 +103,38 @@ const SignUpScreen = () => {
                         label="Password"
                         IsSecureText={true}
                         keyboardType="default"
-                        placeholder="* * * * * * * *"
+                        placeholder="Password"
                     />
 
-                <CustomTextInput icon={<LockClosedIcon color={"#EFE3C850"} width={35} height={35}/>}
-                    onChangeText={onPasswordChange}
-                    label="Confirm Password"
-                    IsSecureText={true}
-                    placeholder="* * * * * * * *"
-                />
+                    {/* Department Select From List Entry */}
+                    <RNPickerSelect onValueChange={onDepartmentChange} items={[{label: 'Arts/Humanities', value: 1}, {label: 'Business', value: 2}, {label: 'Dentistry', value: 3}, {label: 'Engineering', value: 4}, {label: 'Law', value: 5}, {label: 'Medic/Life Sciences', value: 6}, {label: 'Natural Sciences', value: 7}, {label: 'Nursing', value: 8}, {label: 'Pysch/Neuroscience', value: 9}, {label: 'Social Science', value: 10}]} />
+
+                    <CustomTextInput 
+                        icon={<AtSymbolIcon color={"#EFE3C850"} width={35} height={35} />}
+                        onChangeText={onNameChange}
+                        label="Name"
+                        keyboardType={"name"}
+                        placeholder="Name"
+                    />
+ 
+                {/* Gender Select From List Entry */}
+                    <RNPickerSelect onValueChange={onGenderChange} items={[{label: 'Male', value: 1}, {label: 'Female', value: 2}, {label: 'Other', value: 3}]} />
+
+                {/* Birthdate Date Entry */}
+
+                    <DateTimePicker textColor="#1B1B22" locale="GB" mode="date" value={_birthdate} onDateChange={setBirthdate}/>
 
                     <CustomButton 
                         buttonText="SignUp"
                         buttonClassNames="w-full rounded-md p-3 bg-[#EFE3C8] flex justify-center items-center mt-5"
                         textClassNames="text-[#4A2B29] text-[18px] font-semibold"
-                        onPress={auth.signIn}
+                        onPress={signUpAndLogIn}
                     />
+                    </View>
 
+                </Formik>
                     <View className="flex w-full justify-end items-end pt-4">
-                        <Pressable onPress={() =>
-          navigation.navigate('Login')
-        }>
+                        <Pressable onPress={() => navigation.navigate('Login')}>
                             <Text className="text-center text-gray-500 text-sm">
                                 Already have an account? 
                             </Text>

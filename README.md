@@ -66,3 +66,10 @@ See the navigation events guide for more details on the event listener API.
 
 In most cases, it's recommended to use the useFocusEffect hook instead of adding the listener manually. See below for details.
 ---
+
+Tools
+'Quick Database Diagrams' could be used for Data Structure
+
+Netflix Movies JSON File
+https://www.whats-on-netflix.com/wp-content/plugins/whats-on-netflix/json/movie.json
+--> Third party compilation of Netflix movies7

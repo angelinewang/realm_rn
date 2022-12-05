@@ -9,7 +9,7 @@ const signIn = async (email: string, password: string): Promise<AuthData> => {
     console.log(email);
     console.log(password);
     let response = await fetch(
-      "https://3341-193-61-207-166.eu.ngrok.io/api/user/v1/login/",
+      "https://541f-193-61-207-186.eu.ngrok.io/api/user/v1/login/",
       {
         method: "POST",
         headers: {
@@ -28,47 +28,69 @@ const signIn = async (email: string, password: string): Promise<AuthData> => {
     console.error(error);
   }
 };
-// console.log(_authData)
-// const signIn = async (_email: string, _password: string): Promise<AuthData> => {
-//   // this is a mock of an API call, in a real app
-//   // will be need connect with some real API,
-//   // send email and password, and if credential is corret
-//   //the API will resolve with some token and another datas as the below
-//   //   return new Promise((resolve) => {
-//   //     setTimeout(() => {
-//   //       resolve({
-//   //         token: JWTTokenMock,
-//   //         email: email,
-//   //         name: "Lucas Garcez",
-//   //       });
-//   //     }, 1000);
-//   //   });
 
-//   try {
-//     console.log("Reach authService!");
-//     let response = await fetch(
-//       "https://334d-193-61-207-166.eu.ngrok.io/api/user/v1/login/",
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Accept: "application/json",
-//         },
-//         body: JSON.stringify({ email: _email, password: _password }),
-//       }
-//     );
-//     return await response.json();
-//     // let json = await response.json();
-//     // setAuthData(json);
-//     // console.log(json);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+// Function used in Signup and that also signs the User in automatically after Account Creation and brings user to home flow
+const signUp = async (
+  email: String,
+  password: String,
+  name: String,
+  birthdate: Date,
+  department: Number,
+  gender: Number
+): Promise<void> => {
+  try {
+    console.log("Reach SignUpAndSignIn in authService!");
+
+    console.log(email);
+    console.log(password);
+    console.log(name);
+    console.log(birthdate);
+    console.log(department);
+    console.log(gender);
+
+    let response = await fetch(
+      "https://541f-193-61-207-186.eu.ngrok.io/api/user/v1/signup/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          name: name,
+          birthdate: birthdate,
+          department: department,
+          gender: gender,
+        }),
+      }
+    );
+    return response.json();
+    // if (signUpResponse) {
+    //   let signInResponse = await fetch(
+    //     "https://541f-193-61-207-186.eu.ngrok.io/api/user/v1/login/",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Accept: "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         email: email,
+    //         password: password,
+    //       }),
+    //     }
+    //   );
+    //   return signInResponse.json();
+    // }
+    // Sends the response with auth token back to Auth Context as Object
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const authService = {
   signIn,
+  signUp,
 };
-
-// const JWTTokenMock =
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikx1Y2FzIEdhcmNleiIsImlhdCI6MTUxNjIzOTAyMn0.oK5FZPULfF-nfZmiumDGiufxf10Fe2KiGe9G5Njoa64";

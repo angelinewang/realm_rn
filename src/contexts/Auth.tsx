@@ -11,6 +11,7 @@ type AuthContextData = {
         // loading: boolean;
         signIn(): Promise<void>;
         signOut(): void;
+        signUp(): void;
     };
 
     type AuthData = {
@@ -74,6 +75,24 @@ type AuthContextData = {
         console.error(error);
     } 
     }
+
+    // Used on SignUp Page to Create Account and Also Sign In
+const signUp = async (_email: string, _password: string, _name: string, _birthdate: Date, _department: number, _gender: number): Promise<void> => { 
+    try {
+        const _authData = await authService.signUp(_email, _password, _name, _birthdate, _department, _gender);
+        console.log(_authData)
+        // const _authData = response.json()
+        // console.log(_authData)
+        console.log("Reached Auth Context before AsyncStorage for signUpAndSignIn")
+        setAuthData(_authData);
+        
+        await AsyncStorage.setItem('@AuthData', JSON.stringify(_authData))
+
+    } catch (error) {
+        console.error(error);
+    } 
+    }
+
   const signOut = async () => {
     //Remove data from context, so the App can be notified
     //and send the user to the AuthStack
@@ -88,7 +107,7 @@ type AuthContextData = {
         <> 
 {
    isFocused ? (
-    <AuthContext.Provider value={{authData, signIn, signOut}}>
+    <AuthContext.Provider value={{authData, signIn, signUp, signOut}}>
         
         <>{authData ? <AppStack /> : <AuthStack />}</>
     
