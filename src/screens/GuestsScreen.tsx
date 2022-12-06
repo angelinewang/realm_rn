@@ -60,7 +60,7 @@ const GuestsScreen: React.FC = ({navigation}) => {
             <View style={styles.viewContainer}>
             <View style={styles.view}>
             <Tab.Navigator>
-                <Tab.Screen name="Browse" children={() => <BrowseScreen/>} />
+                <Tab.Screen name="Browse" children={() => <BrowseScreen handleModal={handleModal}/>} />
                 <Tab.Screen name="Guestlist" children={() => <GuestlistScreen/>}/>
             </Tab.Navigator>
             <Modal isVisible={isModalVisible} >

@@ -5,7 +5,7 @@ import Loading from "../Loading";
 import InviteSVG from '../../assets/images/invite.svg'
 // Card used to display each individual Guest Profile on the Browse and Guestlist Screens
 
-const BrowseCard = ({item}) => {
+const BrowseCard = ({item, userId, authData, userRole, handleModal}) => {
 // Called on User
 
 const [guest, setGuest] = React.useState()
@@ -16,7 +16,7 @@ const [loading, setLoading] = React.useState(true)
     console.log(`Item is ${item}`)
     console.log(item)
     getGuest(item)
-  }, [item, loading]
+  }, [item, loading, userId, authData, userRole]
 )
 
 const getGuest = async (item) => {
@@ -36,9 +36,32 @@ const getGuest = async (item) => {
   }
 }
 
+  const getUserRole = async (hostId) => {
+      try {
+        let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${hostId}/`);
+        let json = await response.json();
+        setUserRole(json.role)
+        console.log(userRole)
+        console.log("Reached Get User Role Function")
+        } catch (error) {
+          console.error(error);
+        }
+  }
+
 const handleInvite = async () => {
   // Add invite POST Request 
+  // item.id is the Guest ID being grabbed through getGet right now 
+  // Pass item.id through an API to send CREATE INVITE with the that id as the guest_id
   console.log("INVITE button pressed!")
+
+  if (userRole == 0) {
+    // Open Modal to Add Party
+    handleModal()
+    // Works: If User Role is not Host, open modal when invite button pressed
+  }
+  else if (userRole == 1) {
+    // POST request for creating invite
+  }
 }
     return (
 guest ? (
