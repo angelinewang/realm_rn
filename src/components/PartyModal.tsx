@@ -31,6 +31,7 @@ export default function PartyModal({isModalVisible, handleModal}) {
 
     const vibeOptions = [{id: '1', label: 'Chill', value: '1'}, {id: '2', label: 'Party', value: '2'}, {id: '3', label: 'Rager', value: '3'}]
 
+    const [apiResponse, setApiResponse] = useState(null)
     const [_vibe, setVibe] = useState()
 
     // Get authData, get token and get id from decoded token
@@ -67,11 +68,17 @@ export default function PartyModal({isModalVisible, handleModal}) {
         
         try {
             let response = await partyService.createParty(userId, _flat, _dateTime, _vibe)
+            setApiResponse(response)
             console.log(response)
+            // After successful response is received from the backend, the handleModal function is called in order to close the Modal from view
+            if (apiResponse) {
+                handleModal()
+            }
         }
         catch (error) {
             console.error(error);
         }
+
         }
     useEffect(() => {
       // TESTING: console.log(authData)
@@ -91,10 +98,7 @@ export default function PartyModal({isModalVisible, handleModal}) {
   }, [_flat, _dateTime, _vibe, loading, userId, isModalVisible])
 
   return (
-    // <>
-    // {
-    //         userId ? (
-    //         <View>
+
             <Modal isVisible={isModalVisible}>
                 <Formik initialValues={{flat: '', dateTime: "", vibe: ''}} onSubmit={handleSubmit}>
                     <View style={styles.modal}>
@@ -141,13 +145,7 @@ export default function PartyModal({isModalVisible, handleModal}) {
                 </Formik>
 
             </Modal>
-    //         </View>
 
-    //         ) : <Loading/>
-        
-    //         }
-    // </>
-    
   )
 }
 
