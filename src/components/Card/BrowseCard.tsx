@@ -21,7 +21,7 @@ const getGuest = async (item) => {
   try {
   // setInvite(item)
   // What's being based through as "item" is already the user, so just call id on "item"
-  let response = await fetch(`https://541f-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${item.id}/`);
+  let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${item.id}/`);
   let json = await response.json();
   setGuest(json)
   console.log(json)

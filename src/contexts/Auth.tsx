@@ -77,9 +77,10 @@ type AuthContextData = {
     }
 
     // Used on SignUp Page to Create Account and Also Sign In
-const signUp = async (_email: string, _password: string, _name: string, _birthdate: Date, _department: number, _gender: number): Promise<void> => { 
+const signUp = async (_email: string, _password: string, _department: number, _name: string, _gender: number, _birthdate: string): Promise<void> => { 
     try {
-        const _authData = await authService.signUp(_email, _password, _name, _birthdate, _department, _gender);
+        // 1. Email 2. Password 3. Department 4. Name 5. Gender 6. Birthdate
+        const _authData = await authService.signUp(_email, _password, _department, _name, _gender, _birthdate);
         console.log(_authData)
         // const _authData = response.json()
         // console.log(_authData)
@@ -108,8 +109,9 @@ const signUp = async (_email: string, _password: string, _name: string, _birthda
 {
    isFocused ? (
     <AuthContext.Provider value={{authData, signIn, signUp, signOut}}>
-        
-        <>{authData ? <AppStack /> : <AuthStack />}</>
+        {/* Commented out for testing purposes to final signup form */}
+        {/* <>{authData ? <AppStack /> : <AuthStack />}</> */}
+        <AuthStack/>
     
     </AuthContext.Provider>
    ) : null

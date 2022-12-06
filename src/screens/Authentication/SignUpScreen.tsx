@@ -64,7 +64,7 @@ const SignUpScreen = () => {
     }
 
     const signUpAndLogIn = async () => {
-        let signUpStatus = await signUp(_email, _password, _name, _department, _gender, _birthdate)
+        let signUpStatus = await signUp(_email, _password, _department, _name, _gender, _birthdate)
         
         signUpStatus ? logIn(_email, _password) : null
     }
@@ -86,7 +86,7 @@ const SignUpScreen = () => {
                     </Text>
                     <View className="h-[50px] w-full"></View>
 
-                <Formik initialValues={{_email: '', _name: "", _password: '', _department: '', _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
+                <Formik initialValues={{_email: '', _password: '', _department: '', _name: "", _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
                     
                     <View>
                     <CustomTextInput 
@@ -122,7 +122,7 @@ const SignUpScreen = () => {
 
                 {/* Birthdate Date Entry */}
 
-                    <DateTimePicker textColor="#1B1B22" locale="GB" mode="date" value={_birthdate} onDateChange={setBirthdate}/>
+                    <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={_birthdate} onDateChange={setBirthdate}/>
 
                     <CustomButton 
                         buttonText="SignUp"

@@ -9,7 +9,7 @@ const signIn = async (email: string, password: string): Promise<AuthData> => {
     console.log(email);
     console.log(password);
     let response = await fetch(
-      "https://541f-193-61-207-186.eu.ngrok.io/api/user/v1/login/",
+      "https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/login/",
       {
         method: "POST",
         headers: {
@@ -33,23 +33,23 @@ const signIn = async (email: string, password: string): Promise<AuthData> => {
 const signUp = async (
   email: String,
   password: String,
-  name: String,
-  birthdate: Date,
   department: Number,
-  gender: Number
+  name: String,
+  gender: Number,
+  birthdate: String
 ): Promise<void> => {
   try {
     console.log("Reach SignUpAndSignIn in authService!");
 
     console.log(email);
     console.log(password);
-    console.log(name);
-    console.log(birthdate);
     console.log(department);
+    console.log(name);
     console.log(gender);
+    console.log(birthdate);
 
     let response = await fetch(
-      "https://541f-193-61-207-186.eu.ngrok.io/api/user/v1/signup/",
+      "https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/signup/",
       {
         method: "POST",
         headers: {
@@ -59,10 +59,10 @@ const signUp = async (
         body: JSON.stringify({
           email: email,
           password: password,
-          name: name,
-          birthdate: birthdate,
           department: department,
+          name: name,
           gender: gender,
+          birthdate: birthdate,
         }),
       }
     );

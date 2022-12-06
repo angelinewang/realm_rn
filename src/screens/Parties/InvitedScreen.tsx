@@ -46,7 +46,7 @@ const getParties = async (userId) => {
 // If the userId has been set, then get parties
 
   try { 
-  let response = await fetch(`https://541f-193-61-207-186.eu.ngrok.io/api/invite/v1/parties/invited/${userId}`);
+  let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/invite/v1/parties/invited/${userId}`);
   let json = await response.json();
   // Current expected response:
   // [{"id":1,"created_at":"2022-11-26T00:00:01Z","updated_at":"2022-11-26T00:00:01Z","party_id":9,"guest_id":1,"status":0,"plus_ones":null}]

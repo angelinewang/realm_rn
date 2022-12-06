@@ -67,7 +67,7 @@ const BrowseScreen = ({}) => {
 
   const getUserRole = async (userId) => {
       try {
-        let response = await fetch(`https://541f-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${userId}/`);
+        let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${userId}/`);
         let json = await response.json();
         setUserRole(json.role)
         console.log(userRole)
@@ -83,7 +83,7 @@ const BrowseScreen = ({}) => {
 
 const getGuestsGuestMode = async (userId) => {
   try {
-  let response = await fetch(`https://541f-193-61-207-186.eu.ngrok.io/api/user/v1/guests/browse/${userId}/guestmode/`);
+  let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/guests/browse/${userId}/guestmode/`);
   let json = await response.json();
   setGuests(json)
   console.log(json)
@@ -98,7 +98,7 @@ const getGuestsGuestMode = async (userId) => {
 
 const getGuestsHostMode = async (userId) => {
   try {
-  let response = await fetch(`https://541f-193-61-207-186.eu.ngrok.io/api/user/v1/guests/browse/${userId}/hostmode/`);
+  let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/guests/browse/${userId}/hostmode/`);
   let json = await response.json();
   setGuests(json)
 
