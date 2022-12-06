@@ -1,6 +1,8 @@
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import React from "react";
 import Loading from "../Loading";
+// Added config to metro.config.js and declarations.d.ts to allow for direct import of SVGs
+import InviteSVG from '../../assets/images/invite.svg'
 // Card used to display each individual Guest Profile on the Browse and Guestlist Screens
 
 const BrowseCard = ({item}) => {
@@ -34,10 +36,14 @@ const getGuest = async (item) => {
   }
 }
 
+const handleInvite = async () => {
+  // Add invite POST Request 
+  console.log("INVITE button pressed!")
+}
     return (
 guest ? (
-      
-      <View style={{ flex: 1, flexDirection: 'column', backgroundColor: "#4abbff", marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
+      <View style={{ display: 'flex', flexDirection: 'row',  backgroundColor: "black", marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
+      <View style={{ flex: 1, flexDirection: 'column'}}>
         <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
         <Text style={{ fontSize: 28, color: 'white', fontWeight: 'bold'}}>
           {guest.name ? guest.name : "no name"}
@@ -47,6 +53,17 @@ guest ? (
           {/* Convert Deparment NUM to STRING */}
           { guest.department ? guest.department : "no department"}
          </Text>
+         
+         </View>
+         </View>
+         <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', margin: 25}}>
+          
+          <Text style={{color: '#4abbff', fontWeight: 'bold', fontSize: 14}}>INVITE</Text>
+          <Pressable onPress={handleInvite} style={{backgroundColor: '#4abbff', borderRadius: 100, width: 65, height: 65, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            {/* <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}> */}
+              <InviteSVG height={40} width={40} fill='white'/>
+            {/* </View> */}
+         </Pressable>
          </View>
       </View>  ) : <Loading />
     );

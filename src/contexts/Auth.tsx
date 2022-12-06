@@ -110,8 +110,9 @@ const signUp = async (_email: string, _password: string, _department: number, _n
    isFocused ? (
     <AuthContext.Provider value={{authData, signIn, signUp, signOut}}>
         {/* Commented out for testing purposes to final signup form */}
-        {/* <>{authData ? <AppStack /> : <AuthStack />}</> */}
-        <AuthStack/>
+        <>{authData ? <AppStack /> : <AuthStack />}</>
+        {/* <AuthStack/> */}
+        {/* Guests are shown in Browse after new registration, no party means displaying that guest has no party on the Guestlist Screen */}
     
     </AuthContext.Provider>
    ) : null
