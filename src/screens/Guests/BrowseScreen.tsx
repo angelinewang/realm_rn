@@ -37,17 +37,18 @@ const BrowseScreen = ({handleModal}) => {
 // }
 
   React.useEffect(() => {
-      console.log(authData)
+      // TESTING: console.log(authData)
       // Grab token value from authData
       // Current there is a bug, so need to comment out token section for Browse, Guestlist, Invited, and Confirmed BEFORE attempting to sign in 
 
         const token = authData?.token
-        console.log(token)
+        // console.log(token)
         const decoded = jwt_decode(token)
 
-        console.log(decoded)
-        setUserId(decoded.sub)
+        // TESTING: console.log(decoded)
 
+        // TESTING: console.log(userId)
+        setUserId(decoded.sub)
 
       // Extract the UserId from the sub property of the decoded object
 
@@ -63,7 +64,7 @@ const BrowseScreen = ({handleModal}) => {
       }
 
       // Adding "guests" to the below parameters caused infinite rerender and infinite server calls
-  }, [loading, userId, userRole, isFocused, handleModal])
+  }, [loading, userId, userRole, isFocused])
 
   const getUserRole = async (userId) => {
       try {

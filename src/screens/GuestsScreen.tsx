@@ -3,115 +3,49 @@ import {useState, useEffect} from 'react';
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import BrowseScreen from "./Guests/BrowseScreen";
 import GuestlistScreen from "./Guests/GuestlistScreen";
-import Modal from 'react-native-modal'
-import { Formik, useFormik } from 'formik';
-import  DateTimePicker from '@react-native-community/datetimepicker';
 
-import RadioGroup from 'react-native-radio-buttons-group';
+import PartyModal from "../components/PartyModal";
 
 const Tab = createMaterialTopTabNavigator();
 // isModalVisible, setIsModalVisible, handleModal
 
 const GuestsScreen: React.FC = ({navigation}) => { 
 
-    const formik = useFormik({
-        initialValues: {
-            flat: "",
-            date: "",
-            time: "",
-            vibe: ""
-        },
-        onSubmit: (values) => {
-            console.log(JSON.stringify(values, null, 2));
-        }
-    })
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const handleModal = () => setIsModalVisible(() => !isModalVisible);
-
-    const [flat, setFlat] = useState(" ")
-    const [dateTime, setDateTime] = useState(new Date())
-
-    const vibeOptions = [{id: '1', label: 'Chill', value: 'Chill'}, {id: '2', label: 'Party', value: 'Chill'}, {id: '3', label: 'Rager', value: 'Rager'}]
-
-    const [vibe, setVibe] = useState('Chill')
-
-    const setValue = (value: any) => {
-        let newArray = value.filter((item: any) => item.selected===true);
-        setVibe(newArray[0].value);
-    }
-
+    
     useEffect(() => {
+
         navigation.setOptions({
             headerRight: () => (
                 <Button onPress={handleModal} title="Add Party"/>
             )
         })
-    }, [navigation])
 
-    const handleSubmit = () => {
-        console.log("Form Submitted")
-        console.log(flat)
-        console.log(dateTime)
-        console.log(vibe)
-    }
+    }, [navigation, isModalVisible])
+
+    // const passUserId = (newUserId: number) => {
+    //     setPartyUserId(newUserId)
+    // }
     
     return (
-            <View style={styles.viewContainer}>
+        // If User Role is Guest, on press of INVITE button, Party Modal opens, so handleModal is passed as props
+        // DO NOT add comments inside the Tab Navigator, it will stop the Modal from opening
+        // Modal moved to separate module to be imported so that authData can be retrieved there 
+        // Moved PartyModal outside of inner View because Tabs disappeared when PartyModal was within
+
+        <View style={styles.viewContainer}>
             <View style={styles.view}>
-            <Tab.Navigator>
-                <Tab.Screen name="Browse" children={() => <BrowseScreen handleModal={handleModal}/>} />
-                <Tab.Screen name="Guestlist" children={() => <GuestlistScreen/>}/>
-            </Tab.Navigator>
-            <Modal isVisible={isModalVisible} >
-                <Formik initialValues={{flat: '', dateTime: "", vibe: ''}} onSubmit={handleSubmit}>
-                    <View style={styles.modal}>
-                        <View style={styles.header} className="modal-header">
-                        <Text style={styles.headerText}>
-                        Only invited guests will see this
-                        </Text>
-                        </View>
-                        
-                        <View style={styles.Body}className="modal-body">
-                        <View>
-                            <TextInput
-                            placeholder="Flat Number"
-                            placeholderTextColor="#1B1B22"
-                            style={styles.placeholderTextStyle}
-                            onChangeText={newFlat => setFlat(newFlat)}
-                            />
-                        </View>
-
-                        <View style={styles.dateTime} className="date-time">
-                            <View >
-                            <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={dateTime} onDateChange={setDateTime}/>
-                            </View>
-                        </View>
-
-                            <View className="radio-buttons">
-
-                            <RadioGroup layout="row" radioButtons={vibeOptions} onPress={(value) => setValue(value)}/>
-
-                            </View> 
-                        </View>
-
-                        <View className="modal-footer">
-                            <Pressable onPress={handleModal}>
-                                <Text style={styles.cancelText}>Cancel</Text>
-                            </Pressable>
-
-                            <Pressable style={styles.sendInvites} onPress={handleSubmit}>
-                                <Text style={styles.sendInvitesText}>Send Invites</Text>
-                            </Pressable>
-                   
-                        </View>
-                    </View>
-                </Formik>
-
-            </Modal>
+                <Tab.Navigator>
+                    <Tab.Screen name="Browse" children={() => <BrowseScreen handleModal={handleModal}/>} />
+                    <Tab.Screen name="Guestlist" children={() => <GuestlistScreen/>}/>
+                </Tab.Navigator>
             </View>
-            </View>
+            <PartyModal isModalVisible={isModalVisible} handleModal={handleModal}/>
+         </View>
     )
+
 }
 
 export default GuestsScreen;

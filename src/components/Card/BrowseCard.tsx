@@ -61,8 +61,22 @@ const handleInvite = async () => {
   }
   else if (userRole == 1) {
     // POST request for creating invite
+    
+    sendInvite(item)
   }
 }
+
+  const sendInvite = async (item) => {
+      try {
+        let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/invite/v1/invite/1/`);
+        let json = await response.json();
+
+
+        console.log("Reached end Invite Promise")
+        } catch (error) {
+          console.error(error);
+        }
+  }
     return (
 guest ? (
       <View style={{ display: 'flex', flexDirection: 'row',  backgroundColor: "black", marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>

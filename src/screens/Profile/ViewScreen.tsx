@@ -12,7 +12,7 @@ import {useAuth} from '../../contexts/Auth'
  import { useIsFocused } from '@react-navigation/native';
 
 const ViewScreen = () => {
-    const [loading, setLoading] = React.useState(Boolean)
+  const [loading, setLoading] = React.useState(Boolean)
 
   const isFocused = useIsFocused()
 

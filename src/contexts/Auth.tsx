@@ -27,8 +27,7 @@ type AuthContextData = {
     //The loading part will be explained in the persist step session
     //   const [loading, setLoading] = useState(true);
     
-
-  const isFocused = useIsFocused()
+    const isFocused = useIsFocused()
     async function loadStorageData(): Promise<void> {
         try {
         //Try get the data from Async Storage
