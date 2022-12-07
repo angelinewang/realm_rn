@@ -76,7 +76,7 @@ https://www.whats-on-netflix.com/wp-content/plugins/whats-on-netflix/json/movie.
 
 ### Role Differentiation
 All User Role Differentiation 
-= Done through `getUserRole()` functions
+= Done through `getRole()` functions made in `roleService`
 --> Which are connected to `'/api/user/v1/profile/${userId}/'`
 --> When this API is called, the backend checks if the user has a party whose first entry is more than 12 hours later than the time right now
 --> If yes, the user role is back to Guest
