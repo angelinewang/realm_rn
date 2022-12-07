@@ -5,7 +5,7 @@ import Loading from "../Loading";
 import InviteSVG from '../../assets/images/invite.svg'
 // Card used to display each individual Guest Profile on the Browse and Guestlist Screens
 
-const BrowseCard = ({item, authUserId, userRole, setIsModalVisible}) => {
+const BrowseCard = ({item, authUserId, userRole, setIsModalVisible, setCreateInvite}) => {
 // Called on User
 
 const [guest, setGuest] = React.useState()
@@ -117,6 +117,9 @@ const getParty = async (authUserId) => {
             );
             // Sends the response with auth token back to Auth Context as Object
             console.log("Reached end Create Invite Promise")
+
+            // Set createInvite to the API response in order to trigger page to re-render through useEffect props
+            setCreateInvite(response)
             return response.json();
         } catch (error) {
           console.error(error);

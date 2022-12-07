@@ -10,6 +10,10 @@ import {roleService} from '../../services/roleService';
 
 const BrowseScreen = ({isModalVisible, setIsModalVisible}) => {
   
+  const [createInvite, setCreateInvite] = React.useState()
+  // State set after invite sent, added as props in useEffect in order to re-ender BrowseScreen after sent
+  // So that the invited guest disappears
+
   const [guests, setGuests] = React.useState()
 
   const {authUserId} = useAuth()
@@ -54,7 +58,7 @@ const BrowseScreen = ({isModalVisible, setIsModalVisible}) => {
       }
 
       // Adding "guests" to the below parameters caused infinite rerender and infinite server calls
-  }, [loading, authUserId, userRole, isFocused, isModalVisible])
+  }, [loading, authUserId, userRole, isFocused, isModalVisible, createInvite])
 
 const getGuestsGuestMode = async (authUserId) => {
   try {
@@ -92,7 +96,7 @@ const getGuestsHostMode = async (authUserId) => {
 
 const guestCard = ({item}) => {
   return (
-    <BrowseCard item={item} authUserId={authUserId} userRole={userRole} setIsModalVisible={setIsModalVisible}/>
+    <BrowseCard item={item} authUserId={authUserId} userRole={userRole} setIsModalVisible={setIsModalVisible} setCreateInvite={setCreateInvite}/>
   )
 };
 
