@@ -12,21 +12,21 @@ import { tokenService } from '../services/tokenService';
 // Import Modal
 // Pass through: 1. ModalisVisible 2. HandleSubmit 
 
-// Modal separated from GuestsScreen in order to grab and pass in userId to POST request
+// Modal separated from GuestsScreen in order to grab and pass in authUserId to POST request
 export default function PartyModal({ isModalVisible, handleModal, setIsModalVisible }) {
     // const isFocused = useIsFocused()
 
     const [_flat, setFlat] = useState(" ")
     const [_dateTime, setDateTime] = useState(new Date())
 
-    const {authData} = useAuth()
+    // authUserId only set one in Auth Context, so no need for setting function
+    const {authUserId} = useAuth()
     const [loading, setLoading] = useState(Boolean)
 
-    const [userId, setUserId] = useState(null)
+    // const [authUserId, setUserId] = useState(null)
 
     console.log("Reacted PartyModal Component")
-    console.log(authData)
-    console.log(userId)
+    console.log(authUserId)
 
     const vibeOptions = [{id: '1', label: 'Chill', value: '1'}, {id: '2', label: 'Party', value: '2'}, {id: '3', label: 'Rager', value: '3'}]
 
@@ -42,29 +42,25 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
 
     const handleSubmit = async () => {
         try {
-            setUserId(tokenService.getUserId(authData))
-            console.log("User Id on PartyModal:")
-            console.log(userId)
-
-            if (userId) {
-                submitRequest(userId)
+            if (authUserId) {
+                submitRequest(authUserId)
             }
         } catch(error) {
             console.error(error)
         }
     }
 
-    const submitRequest = async (userId) => {
+    const submitRequest = async (authUserId) => {
         // TO DO: If user does not have a party whose first entry is less than 12 hours from current time, allow button to post, if does have party, disappear the posting button
         console.log("Form Submission Pressed")
         console.log(_flat)
         console.log(_dateTime)
         console.log(_vibe)
-        // userId set through setUserId from state which is passed to BrowseScreen and set when the UserId is set there
-        console.log(userId)
+        // authUserId set through setUserId from state which is passed to BrowseScreen and set when the UserId is set there
+        console.log(authUserId)
         
         try {
-            let response = await partyService.createParty(setIsModalVisible, userId, _flat, _dateTime, _vibe)
+            let response = await partyService.createParty(setIsModalVisible, authUserId, _flat, _dateTime, _vibe)
             setApiResponse(response)
             console.log(response)
             // After successful response is received from the backend, the handleModal function is called in order to close the Modal from view
@@ -88,11 +84,11 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
 
         // // TESTING: console.log(decoded)
 
-        // // TESTING: console.log(userId)
+        // // TESTING: console.log(authUserId)
         // setUserId(decoded.sub)
 
       // Adding "guests" to the below parameters caused infinite rerender and infinite server calls
-  }, [_flat, _dateTime, _vibe, loading, userId, isModalVisible])
+  }, [_flat, _dateTime, _vibe, loading, authUserId, isModalVisible])
 
   return (
 

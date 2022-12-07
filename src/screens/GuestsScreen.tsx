@@ -18,10 +18,9 @@ const GuestsScreen: React.FC = ({navigation}) => {
     // Cannot create useAuth() inside tokenService
     // So creating authData variable here and passing it to tokenService
 
-    const { authData } = useAuth();
-    // userId passed back in tokenService response 
+    const { authUserId } = useAuth();
+    // authUserId passed back in tokenService response 
     // Then setUserId in current file
-    const [userId, setUserId] = useState()
 
     const [passedLastEntry, setPassedLastEntry] = useState()
     const [userRole, setUserRole] = useState()
@@ -32,12 +31,7 @@ const GuestsScreen: React.FC = ({navigation}) => {
     const handleModal = () => setIsModalVisible(() => !isModalVisible);
     
     useEffect(() => {
-        
-        setUserId(tokenService.getUserId(authData))
-        console.log("User Id on GuestsScreen:")
-        console.log(userId)
-
-        roleService.getRole(userId, setUserRole, passedLastEntry, setPassedLastEntry)
+        roleService.getRole(authUserId, setUserRole, passedLastEntry, setPassedLastEntry)
         console.log("User Role on GuestsScreen:")
         console.log(userRole)
 
@@ -58,7 +52,7 @@ const GuestsScreen: React.FC = ({navigation}) => {
         }
 
 
-    }, [navigation, isModalVisible, userId, userRole, loadingComplete])
+    }, [navigation, isModalVisible, authUserId, userRole, loadingComplete])
 
     return (
         // If User Role is Guest, on press of INVITE button, Party Modal opens, so handleModal is passed as props

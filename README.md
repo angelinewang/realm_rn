@@ -82,7 +82,7 @@ Locations used:
 1. BrowseScreen 
 3. GuestlistScreen 
 
---> Which are connected to `'/api/user/v1/profile/${userId}/'`
+--> Which are connected to `'/api/user/v1/profile/${authUserId}/'`
 --> When this API is called, the backend checks if the user has a party whose first entry is more than 12 hours later than the time right now
 --> If yes, the user role is back to Guest
 
@@ -124,6 +124,7 @@ Services are files that contain ONLY *Functions* which are reused throughout the
 --> Functions are exported from these modules for use
 
 ### Using tokenService 
+= Currently only used on Auth Context and passed down through `useAuth()` to relevant Screens
 1. Create `const {authData} = useAuth()` inside File 
 --> Because Hooks cannot be used inside the service 
 2. Call `tokenService.getUserId` with `authData` argument

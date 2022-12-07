@@ -6,16 +6,15 @@ import BrowseCard from '../../components/Card/BrowseCard';
 import { useAuth } from '../../contexts/Auth';
 import Loading from '../../components/Loading';
 import jwt_decode from 'jwt-decode';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {roleService} from '../../services/roleService';
 
 const BrowseScreen = ({handleModal, isModalVisible}) => {
   
   const [guests, setGuests] = React.useState()
 
-  const {authData, signOut} = useAuth()
+  const {authUserId} = useAuth()
 
-  const [userId, setUserId] = React.useState()
   // const [decoded, setDecoded] = React.useState()
 
   const isFocused = useIsFocused()
@@ -23,10 +22,6 @@ const BrowseScreen = ({handleModal, isModalVisible}) => {
 
   const [userRole, setUserRole] = React.useState()
 
-  const [token, setToken] = React.useState("")
-    // const logOut = async () => {
-    //     await signOut()
-    // }
   const [passedLastEntry, setPassedLastEntry] = React.useState()
 
 
@@ -44,36 +39,27 @@ const BrowseScreen = ({handleModal, isModalVisible}) => {
       // Grab token value from authData
       // Current there is a bug, so need to comment out token section for Browse, Guestlist, Invited, and Confirmed BEFORE attempting to sign in 
 
-        const token = authData?.token
-        // console.log(token)
-        const decoded = jwt_decode(token)
-
-        // TESTING: console.log(decoded)
-
-        // TESTING: console.log(userId)
-        setUserId(decoded.sub)
-
       // Extract the UserId from the sub property of the decoded object
 
       // Get user profile information from API by passing in the UserId found through decoded token 
 
-      roleService.getRole(userId, setUserRole, passedLastEntry, setPassedLastEntry)
+      roleService.getRole(authUserId, setUserRole, passedLastEntry, setPassedLastEntry)
       // console.log(userRole)
 
       if (userRole == 0) {
-        getGuestsGuestMode(userId)
+        getGuestsGuestMode(authUserId)
       } else if (userRole == 1) {
         console.log("Passed last entry: (BrowseScreen)")
         console.log(passedLastEntry)
-        getGuestsHostMode(userId)
+        getGuestsHostMode(authUserId)
       }
 
       // Adding "guests" to the below parameters caused infinite rerender and infinite server calls
-  }, [loading, userId, userRole, isFocused, isModalVisible])
+  }, [loading, authUserId, userRole, isFocused, isModalVisible])
 
-const getGuestsGuestMode = async (userId) => {
+const getGuestsGuestMode = async (authUserId) => {
   try {
-  let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/guests/browse/${userId}/guestmode/`);
+  let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/guests/browse/${authUserId}/guestmode/`);
   let json = await response.json();
   setGuests(json)
   console.log(json)
@@ -86,9 +72,9 @@ const getGuestsGuestMode = async (userId) => {
   }
 }
 
-const getGuestsHostMode = async (userId) => {
+const getGuestsHostMode = async (authUserId) => {
   try {
-  let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/guests/browse/${userId}/hostmode/`);
+  let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/guests/browse/${authUserId}/hostmode/`);
   let json = await response.json();
   setGuests(json)
 
@@ -107,7 +93,7 @@ const getGuestsHostMode = async (userId) => {
 
 const guestCard = ({item}) => {
   return (
-    <BrowseCard item={item} userId={userId} authData={authData} userRole={userRole} handleModal={handleModal}/>
+    <BrowseCard item={item} authUserId={authUserId} authData={authData} userRole={userRole} handleModal={handleModal}/>
   )
 };
 

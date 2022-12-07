@@ -1,10 +1,8 @@
 import { View, Text, Button } from 'react-native';
 import React from 'react';
 
-// import { useAuth } from '../../contexts/Auth';
 import ProfileCard from '../../components/Card/ProfileCard';
 import Loading from '../../components/Loading';
-import  AsyncStorage from '@react-native-async-storage/async-storage';
 
 import jwt_decode from 'jwt-decode';
 
@@ -16,28 +14,18 @@ const ViewScreen = () => {
 
   const isFocused = useIsFocused()
 
-  const {authData} = useAuth()
-  const [userId, setUserId] = React.useState()
+  const {authUserId} = useAuth()
+
   const [user, setUser] = React.useState({})
 
   React.useEffect(() => {
-  console.log(authData)
+  console.log(authUserId)
   // Grab token value from authData
   // Current there is a bug, so need to comment out token section for Browse, Guestlist, Invited, and Confirmed BEFORE attempting to sign in 
 
-  const token = authData?.token
-  console.log(token)
-
-  // Decode the token for the information inside
-  const decoded = jwt_decode(token)
-  // Extract the UserId from the sub property of the decoded object
-  setUserId(decoded.sub)
-
-  console.log(userId)
-
   // Get user profile information from API by passing in the UserId found through decoded token 
-  getUser(userId)
-  }, [loading, userId, isFocused])
+  getUser(authUserId)
+  }, [loading, authUserId, isFocused])
   
 
 // const signOut = async () => {
@@ -56,9 +44,9 @@ const ViewScreen = () => {
     }
 
     // Must pass UserId/Arguments into async
-  const getUser = async (userId) => {
+  const getUser = async (authUserId) => {
       try {
-        let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${userId}`);
+        let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${authUserId}`);
         let json = await response.json();
         setUser(json)
         console.log(json)

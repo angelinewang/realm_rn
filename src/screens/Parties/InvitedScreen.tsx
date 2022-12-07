@@ -6,47 +6,34 @@ import React from 'react';
 import InvitePartyCard from '../../components/Card/InvitePartyCard';
 import Loading from '../../components/Loading';
 import { useAuth } from '../../contexts/Auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 const InvitedScreen = () => {  
   const [parties, setParties] = React.useState()
-  const {authData, signOut} = useAuth()
-  const [userId, setUserId] = React.useState()
-  const [decoded, setDecoded] = React.useState()
-  const logOut = async () => {
-      await signOut()
-  }
-  const [token, setToken] = React.useState("")
+  const {authUserId} = useAuth()
 
   const isFocused = useIsFocused()
   const [loading, setLoading] = React.useState(Boolean)
 
   React.useEffect(() => {
 
-      console.log(authData)
+      console.log(authUserId)
 
       // Current there is a bug, so need to comment out token section for Browse, Guestlist, Invited, and Confirmed BEFORE attempting to sign in 
-      const token = authData?.token
-        console.log(token)
-        const decoded = jwt_decode(token)
-
-        console.log(decoded)
-        setUserId(decoded.sub)
 
       // Extract the UserId from the sub property of the decoded object
 
       // Get user profile information from API by passing in the UserId found through decoded token 
       
-      getParties(userId)
+      getParties(authUserId)
 
-  }, [loading, userId, isFocused])
+  }, [loading, authUserId, isFocused])
 
-const getParties = async (userId) => {
+const getParties = async (authUserId) => {
 
 
-// If the userId has been set, then get parties
+// If the authUserId has been set, then get parties
 
   try { 
-  let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/invite/v1/parties/invited/${userId}`);
+  let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/invite/v1/parties/invited/${authUserId}`);
   let json = await response.json();
   // Current expected response:
   // [{"id":1,"created_at":"2022-11-26T00:00:01Z","updated_at":"2022-11-26T00:00:01Z","party_id":9,"guest_id":1,"status":0,"plus_ones":null}]

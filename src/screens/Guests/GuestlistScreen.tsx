@@ -8,13 +8,10 @@ import jwt_decode from 'jwt-decode';
 import { roleService } from '../../services/roleService';
 
 const GuestlistScreen = ({isModalVisible}) => {
-  // Set the userId to the Authenticated User ID 
+  // Set the authUserId to the Authenticated User ID 
   const [invites, setInvites] = React.useState()
 
-  const {authData, signOut} = useAuth()
-
-  const [userId, setUserId] = React.useState()
-  // const [decoded, setDecoded] = React.useState()
+  const {authUserId} = useAuth()
 
   const isFocused = useIsFocused()
   const [loading, setLoading] = React.useState(Boolean)
@@ -23,22 +20,8 @@ const GuestlistScreen = ({isModalVisible}) => {
 
   const [passedLastEntry, setPassedLastEntry] = React.useState()
 
-  // const [token, setToken] = React.useState("")
-    // const logOut = async () => {
-    //     await signOut()
-    // }
-
   React.useEffect(
   () => {
-      console.log(authData)
-          // Current there is a bug, so need to comment out token section for Browse, Guestlist, Invited, and Confirmed BEFORE attempting to sign in 
-
-      const token = authData?.token
-      console.log(token)
-      const decoded = jwt_decode(token)
-
-      console.log(decoded)
-      setUserId(decoded.sub)
 
       console.log("Reached Guestlist UseEffect")
 
@@ -48,17 +31,17 @@ const GuestlistScreen = ({isModalVisible}) => {
 
       // Get user profile information from API by passing in the UserId found through decoded token 
 
-      roleService.getRole(userId, setUserRole, passedLastEntry, setPassedLastEntry)
+      roleService.getRole(authUserId, setUserRole, passedLastEntry, setPassedLastEntry)
 
       console.log(userRole)
 
       if (userRole == 0) {
         setInvites("No Party")
       } else if (userRole == 1) {
-        getPartyAndInvites(userId)
+        getPartyAndInvites(authUserId)
       }
     
-  }, [loading, userId, userRole, isFocused, isModalVisible]
+  }, [loading, authUserId, userRole, isFocused, isModalVisible]
 )
 
 // Get party by host_id
@@ -67,10 +50,10 @@ const GuestlistScreen = ({isModalVisible}) => {
 
 // Get party and invites at same time and only find the party with the host and then find the invites with that party id
   
-const getPartyAndInvites = async (userId) => {
+const getPartyAndInvites = async (authUserId) => {
   try {
   // Get Party using User_id
-  let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/invite/v1/guestlist/${userId}/`);
+  let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/invite/v1/guestlist/${authUserId}/`);
   let json = await response.json();
   setInvites(json)
   console.log(invites)
