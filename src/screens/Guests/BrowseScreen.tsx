@@ -93,7 +93,7 @@ const getGuestsHostMode = async (authUserId) => {
 
 const guestCard = ({item}) => {
   return (
-    <BrowseCard item={item} authUserId={authUserId} authData={authData} userRole={userRole} handleModal={handleModal}/>
+    <BrowseCard item={item} authUserId={authUserId} userRole={userRole} handleModal={handleModal}/>
   )
 };
 

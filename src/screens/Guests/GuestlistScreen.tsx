@@ -37,6 +37,7 @@ const GuestlistScreen = ({isModalVisible}) => {
 
       if (userRole == 0) {
         setInvites("No Party")
+        debugger
       } else if (userRole == 1) {
         getPartyAndInvites(authUserId)
       }

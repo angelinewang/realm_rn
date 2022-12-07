@@ -5,7 +5,7 @@ import Loading from "../Loading";
 import InviteSVG from '../../assets/images/invite.svg'
 // Card used to display each individual Guest Profile on the Browse and Guestlist Screens
 
-const BrowseCard = ({item, authUserId, authData, userRole, handleModal}) => {
+const BrowseCard = ({item, authUserId, userRole, handleModal}) => {
 // Called on User
 
 const [guest, setGuest] = React.useState()
@@ -20,7 +20,7 @@ const [party, setParty] = React.useState()
     console.log(`Item is ${item}`)
     console.log(item)
     getGuest(item)
-  }, [item, loading, authUserId, authData, userRole]
+  }, [item, loading, authUserId, userRole]
 )
 
 const getGuest = async (item) => {

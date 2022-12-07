@@ -117,7 +117,8 @@ const signUp = async (_email: string, _password: string, _department: number, _n
    isFocused ? (
     <AuthContext.Provider value={{authData, authUserId, signIn, signUp, signOut}}>
         {/* Commented out for testing purposes to final signup form */}
-        <>{authUserId ? <AppStack /> : <AuthStack />}</>
+        {/* Need to check for authData on rendering, because authData needs to be passed into tokenService in order to decode the token and grab the authUserId needed */}
+        <>{authData ? <AppStack /> : <AuthStack />}</>
         {/* <AuthStack/> */}
         {/* Guests are shown in Browse after new registration, no party means displaying that guest has no party on the Guestlist Screen */}
     
