@@ -122,3 +122,9 @@ Individual Screens already reloaded on focus, thus unnecessary to `useIsFocused`
 ### Services
 Services are files that contain ONLY *Functions* which are reused throughout the program 
 --> Functions are exported from these modules for use
+
+### Using tokenService 
+1. Create `const {authData} = useAuth()` inside File 
+--> Because Hooks cannot be used inside the service 
+2. Call `tokenService.getUserId` with `authData` argument
+3. `setUserId` to response returned from `tokenService.getUserId(authData)`

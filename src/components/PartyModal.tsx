@@ -5,11 +5,10 @@ import  DateTimePicker from '@react-native-community/datetimepicker';
 import jwt_decode from 'jwt-decode'
 import RadioGroup from 'react-native-radio-buttons-group';
 import { useAuth } from "../contexts/Auth";
-import { useIsFocused } from '@react-navigation/native';
 import {partyService} from '../services/partyService';
-import Loading from "../components/Loading";
 import {StyleSheet, View, Text, Pressable, TextInput} from 'react-native';
 
+import { tokenService } from '../services/tokenService';
 // Import Modal
 // Pass through: 1. ModalisVisible 2. HandleSubmit 
 
@@ -43,9 +42,8 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
 
     const handleSubmit = async () => {
         try {
-            const token = await authData?.token 
-            const decoded = jwt_decode(token)
-            setUserId(decoded.sub)
+            setUserId(tokenService.getUserId(authData))
+            console.log("User Id on PartyModal:")
             console.log(userId)
 
             if (userId) {
@@ -54,7 +52,6 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
         } catch(error) {
             console.error(error)
         }
- 
     }
 
     const submitRequest = async (userId) => {

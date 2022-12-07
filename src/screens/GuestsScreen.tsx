@@ -17,9 +17,10 @@ const Tab = createMaterialTopTabNavigator();
 const GuestsScreen: React.FC = ({navigation}) => { 
     // Cannot create useAuth() inside tokenService
     // So creating authData variable here and passing it to tokenService
-    
+
     const { authData } = useAuth();
-    // Passed to tokenService to setUserId
+    // userId passed back in tokenService response 
+    // Then setUserId in current file
     const [userId, setUserId] = useState()
 
     const [passedLastEntry, setPassedLastEntry] = useState()
@@ -31,12 +32,6 @@ const GuestsScreen: React.FC = ({navigation}) => {
     const handleModal = () => setIsModalVisible(() => !isModalVisible);
     
     useEffect(() => {
-
-        // TASK:
-        // 1. Create tokenService 
-        // 2. Find all modules using token 
-        // 3. Replace all token use with tokenService to decode token and get userId
-
         
         setUserId(tokenService.getUserId(authData))
         console.log("User Id on GuestsScreen:")

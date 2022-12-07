@@ -3,9 +3,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppStack, AuthStack } from '../navigation/index';
 import { authService } from '../services/authService';
 import { useIsFocused } from '@react-navigation/native';
+import { tokenService } from '../services/tokenService';
 
 type AuthContextData = {
         authData?: AuthData;
+        authUserId?: Number;
         // AuthData will only have the token 
         // authData.token = User JWT Token
         // loading: boolean;
@@ -24,6 +26,7 @@ type AuthContextData = {
  
     const [loading, setLoading] = useState(true)
     const [authData, setAuthData] = useState()
+    const [authUserId, setAuthUserId] = useState()
     //The loading part will be explained in the persist step session
     //   const [loading, setLoading] = useState(true);
     
@@ -38,11 +41,13 @@ type AuthContextData = {
 
             if (_authData.token) {
             setAuthData(_authData)
+            setAuthUserId(tokenService.getUserId(authData))
             setLoading(false)
             }
 
             else {
             setAuthData(undefined)
+            setAuthUserId(undefined)
             setLoading(false)
             }
 
@@ -67,6 +72,7 @@ type AuthContextData = {
         // console.log(_authData)
         console.log("Reached Auth Context before AsyncStorage")
         setAuthData(_authData);
+        setAuthUserId(tokenService.getUserId(authData))
         
         await AsyncStorage.setItem('@AuthData', JSON.stringify(_authData))
 
@@ -85,6 +91,7 @@ const signUp = async (_email: string, _password: string, _department: number, _n
         // console.log(_authData)
         console.log("Reached Auth Context before AsyncStorage for signUpAndSignIn")
         setAuthData(_authData);
+        setAuthUserId(tokenService.getUserId(authData))
         
         await AsyncStorage.setItem('@AuthData', JSON.stringify(_authData))
 
@@ -97,6 +104,7 @@ const signUp = async (_email: string, _password: string, _department: number, _n
     //Remove data from context, so the App can be notified
     //and send the user to the AuthStack
     setAuthData(undefined);
+    setAuthUserId(undefined);
     await AsyncStorage.removeItem('@AuthData');
   };
 
@@ -104,12 +112,12 @@ const signUp = async (_email: string, _password: string, _department: number, _n
     //This component will be used to encapsulate the whole App,
     //so all components will have access to the Context
     
-        <> 
+<> 
 {
    isFocused ? (
-    <AuthContext.Provider value={{authData, signIn, signUp, signOut}}>
+    <AuthContext.Provider value={{authData, authUserId, signIn, signUp, signOut}}>
         {/* Commented out for testing purposes to final signup form */}
-        <>{authData ? <AppStack /> : <AuthStack />}</>
+        <>{authUserId ? <AppStack /> : <AuthStack />}</>
         {/* <AuthStack/> */}
         {/* Guests are shown in Browse after new registration, no party means displaying that guest has no party on the Guestlist Screen */}
     
