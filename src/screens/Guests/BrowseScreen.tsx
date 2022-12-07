@@ -79,20 +79,24 @@ const BrowseScreen = ({handleModal}) => {
     // 4. If last entry passed is true, then call API to change the User Role to Guest on the backend 
     // 5. And then grab new User Info with changed Role
       try {
-        let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${userId}/`);
+        let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${userId}/`);
         let json = await response.json();
 
+        // Option 1: IF User Role is "Guest": Set User Role variable and move on 
         if (json.role == 0) {
           setUserRole(json.role)
+          console.log("Reached Get User Role Function with Role = 0")
         }
 
+        // Options 2: IF User Role is "Host": Check Last Entry of recent party to determine whether to alter user role
        else if (json.role == 1) {
         // Sets user role, pending further change if last entry  
         setUserRole(json.role)
          getFirstEntry()
+         console.log("Reached Get User Role Function with Role = 1")
        }
 
-        console.log("Reached Get User Role Function")
+        
         } catch (error) {
           console.error(error);
         }
@@ -101,13 +105,14 @@ const BrowseScreen = ({handleModal}) => {
 const getFirstEntry = async () => {
   try {
     // Get most recent party of the user and return the first entry time of that party 
-    let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/firstentry/${userId}/`);
+    let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/firstentry/${userId}/`);
     let json = await response.json();
-    console.log(json)
+    console.log("Passed last entry:")
+    console.log(response)
     setPassedLastEntry(response)
     console.log(passedLastEntry)
 
-    if (passedLastEntry == true) {
+    if (json == true) {
       changeUserRole()
     }
   }
@@ -119,7 +124,7 @@ const getFirstEntry = async () => {
 const changeUserRole = async () => {
     try {
     // Get most recent party of the user and return the first entry time of that party 
-    let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/changerole/${userId}/`);
+    let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/changerole/${userId}/`);
     let json = await response.json();
     setUserRole(json.role)
     console.log(passedLastEntry)
@@ -131,7 +136,7 @@ const changeUserRole = async () => {
 
 const getGuestsGuestMode = async (userId) => {
   try {
-  let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/guests/browse/${userId}/guestmode/`);
+  let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/guests/browse/${userId}/guestmode/`);
   let json = await response.json();
   setGuests(json)
   console.log(json)
@@ -146,7 +151,7 @@ const getGuestsGuestMode = async (userId) => {
 
 const getGuestsHostMode = async (userId) => {
   try {
-  let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/guests/browse/${userId}/hostmode/`);
+  let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/guests/browse/${userId}/hostmode/`);
   let json = await response.json();
   setGuests(json)
 

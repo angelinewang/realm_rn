@@ -83,7 +83,7 @@ const GuestlistScreen = () => {
 // Get party and invites at same time and only find the party with the host and then find the invites with that party id
   const getUserRole = async (hostId) => {
       try {
-        let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${hostId}/`);
+        let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${hostId}/`);
         let json = await response.json();
         setUserRole(json.role)
         console.log(userRole)
@@ -96,7 +96,7 @@ const GuestlistScreen = () => {
 const getPartyAndInvites = async (hostId) => {
   try {
   // Get Party using User_id
-  let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/invite/v1/guestlist/${hostId}/`);
+  let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/invite/v1/guestlist/${hostId}/`);
   let json = await response.json();
   setInvites(json)
   console.log(invites)
