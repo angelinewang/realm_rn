@@ -5,21 +5,28 @@ import BrowseScreen from "./Guests/BrowseScreen";
 import GuestlistScreen from "./Guests/GuestlistScreen";
 import { roleService } from "../services/roleService";
 import Loading from "../components/Loading";
-import jwt_decode from 'jwt-decode';
 
-import PartyModal from "../components/PartyModal";
+import { tokenService } from "../services/tokenService";
+
 import { useAuth } from "../contexts/Auth";
+import PartyModal from "../components/PartyModal";
 
 const Tab = createMaterialTopTabNavigator();
 // isModalVisible, setIsModalVisible, handleModal
 
 const GuestsScreen: React.FC = ({navigation}) => { 
+    // Cannot create useAuth() inside tokenService
+    // So creating authData variable here and passing it to tokenService
+    
+    const { authData } = useAuth();
+    // Passed to tokenService to setUserId
     const [userId, setUserId] = useState()
+
     const [passedLastEntry, setPassedLastEntry] = useState()
     const [userRole, setUserRole] = useState()
     const [loadingComplete, setLoadingComplete] = useState(false)
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const {authData} = useAuth()
+    // const {authData} = useAuth()
 
     const handleModal = () => setIsModalVisible(() => !isModalVisible);
     
@@ -30,17 +37,12 @@ const GuestsScreen: React.FC = ({navigation}) => {
         // 2. Find all modules using token 
         // 3. Replace all token use with tokenService to decode token and get userId
 
-        // Create tokenService: with below code 
-        const token = authData?.token
-        console.log(token)
-        const decoded = jwt_decode(token)
-
-        console.log(decoded)
-        setUserId(decoded.sub)
-        // End
+        
+        setUserId(tokenService.getUserId(authData))
+        console.log("User Id on GuestsScreen:")
+        console.log(userId)
 
         roleService.getRole(userId, setUserRole, passedLastEntry, setPassedLastEntry)
-
         console.log("User Role on GuestsScreen:")
         console.log(userRole)
 

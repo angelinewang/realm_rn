@@ -118,3 +118,7 @@ Chronological Order:
 
 ### GuestsScreen 
 Individual Screens already reloaded on focus, thus unnecessary to `useIsFocused` or `setLoading` on `GuestsScreen`
+
+### Services
+Services are files that contain ONLY *Functions* which are reused throughout the program 
+--> Functions are exported from these modules for use
