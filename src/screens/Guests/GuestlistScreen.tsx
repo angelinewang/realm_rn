@@ -7,7 +7,7 @@ import { useIsFocused } from '@react-navigation/native';
 import jwt_decode from 'jwt-decode';
 import { roleService } from '../../services/roleService';
 
-const GuestlistScreen = () => {
+const GuestlistScreen = ({isModalVisible}) => {
   // Set the userId to the Authenticated User ID 
   const [invites, setInvites] = React.useState()
 
@@ -58,7 +58,7 @@ const GuestlistScreen = () => {
         getPartyAndInvites(userId)
       }
     
-  }, [loading, userId, userRole, isFocused]
+  }, [loading, userId, userRole, isFocused, isModalVisible]
 )
 
 // Get party by host_id

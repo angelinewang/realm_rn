@@ -3,47 +3,85 @@ import {useState, useEffect} from 'react';
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import BrowseScreen from "./Guests/BrowseScreen";
 import GuestlistScreen from "./Guests/GuestlistScreen";
+import { roleService } from "../services/roleService";
+import Loading from "../components/Loading";
+import jwt_decode from 'jwt-decode';
 
 import PartyModal from "../components/PartyModal";
+import { useAuth } from "../contexts/Auth";
 
 const Tab = createMaterialTopTabNavigator();
 // isModalVisible, setIsModalVisible, handleModal
 
 const GuestsScreen: React.FC = ({navigation}) => { 
-
+    const [userId, setUserId] = useState()
+    const [passedLastEntry, setPassedLastEntry] = useState()
+    const [userRole, setUserRole] = useState()
+    const [loadingComplete, setLoadingComplete] = useState(false)
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const {authData} = useAuth()
 
     const handleModal = () => setIsModalVisible(() => !isModalVisible);
     
     useEffect(() => {
 
-        navigation.setOptions({
-            headerRight: () => (
-                <Button onPress={handleModal} title="Add Party"/>
-            )
-        })
+        // TASK:
+        // 1. Create tokenService 
+        // 2. Find all modules using token 
+        // 3. Replace all token use with tokenService to decode token and get userId
 
-    }, [navigation, isModalVisible])
+        // Create tokenService: with below code 
+        const token = authData?.token
+        console.log(token)
+        const decoded = jwt_decode(token)
 
-    // const passUserId = (newUserId: number) => {
-    //     setPartyUserId(newUserId)
-    // }
-    
+        console.log(decoded)
+        setUserId(decoded.sub)
+        // End
+
+        roleService.getRole(userId, setUserRole, passedLastEntry, setPassedLastEntry)
+
+        console.log("User Role on GuestsScreen:")
+        console.log(userRole)
+
+        if (userRole == 0) {
+            navigation.setOptions({
+                headerRight: () => (
+                    <Button onPress={handleModal} title="Add Party"/>
+                )
+            })
+            setLoadingComplete(true)
+            console.log(userRole)
+        }
+
+        else if (userRole == 1) {
+            console.log("User Already Host: Do not display Add Party button")
+            setLoadingComplete(true)
+            console.log(userRole)
+        }
+
+
+    }, [navigation, isModalVisible, userId, userRole, loadingComplete])
+
     return (
         // If User Role is Guest, on press of INVITE button, Party Modal opens, so handleModal is passed as props
         // DO NOT add comments inside the Tab Navigator, it will stop the Modal from opening
         // Modal moved to separate module to be imported so that authData can be retrieved there 
         // Moved PartyModal outside of inner View because Tabs disappeared when PartyModal was within
 
+        // Individual Screens already reloaded on focus, thus unnecessary to useIsFocused or setLoading on GuestsScreen
+    loadingComplete ? (
         <View style={styles.viewContainer}>
             <View style={styles.view}>
                 <Tab.Navigator>
-                    <Tab.Screen name="Browse" children={() => <BrowseScreen handleModal={handleModal}/>} />
-                    <Tab.Screen name="Guestlist" children={() => <GuestlistScreen/>}/>
+                    <Tab.Screen name="Browse" children={() => <BrowseScreen handleModal={handleModal} isModalVisible={isModalVisible}/>} />
+                    <Tab.Screen name="Guestlist" children={() => <GuestlistScreen isModalVisible={isModalVisible}/>}/>
                 </Tab.Navigator>
             </View>
             <PartyModal isModalVisible={isModalVisible} handleModal={handleModal} setIsModalVisible={setIsModalVisible}/>
-         </View>
+        </View>
+    ) : <Loading />
+        
     )
 
 }

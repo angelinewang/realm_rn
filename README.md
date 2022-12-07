@@ -115,3 +115,6 @@ Chronological Order:
 - Installation steps
 - Relevant support issues 
 - Frequently performed command-line actions
+
+### GuestsScreen 
+Individual Screens already reloaded on focus, thus unnecessary to `useIsFocused` or `setLoading` on `GuestsScreen`

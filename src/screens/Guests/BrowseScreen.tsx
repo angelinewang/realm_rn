@@ -9,7 +9,7 @@ import jwt_decode from 'jwt-decode';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {roleService} from '../../services/roleService';
 
-const BrowseScreen = ({handleModal}) => {
+const BrowseScreen = ({handleModal, isModalVisible}) => {
   
   const [guests, setGuests] = React.useState()
 
@@ -69,7 +69,7 @@ const BrowseScreen = ({handleModal}) => {
       }
 
       // Adding "guests" to the below parameters caused infinite rerender and infinite server calls
-  }, [loading, userId, userRole, isFocused])
+  }, [loading, userId, userRole, isFocused, isModalVisible])
 
 const getGuestsGuestMode = async (userId) => {
   try {
