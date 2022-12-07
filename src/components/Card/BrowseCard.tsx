@@ -5,20 +5,24 @@ import Loading from "../Loading";
 import InviteSVG from '../../assets/images/invite.svg'
 // Card used to display each individual Guest Profile on the Browse and Guestlist Screens
 
-const BrowseCard = ({item, authUserId, userRole, handleModal}) => {
+const BrowseCard = ({item, authUserId, userRole, setIsModalVisible}) => {
 // Called on User
 
 const [guest, setGuest] = React.useState()
 
+const [guestId, setGuestId] = React.useState()
+
 const [loading, setLoading] = React.useState(true)
 
-const [party, setParty] = React.useState()
-
+const [partyId, setPartyId] = React.useState()
 
   React.useEffect(
   () => {
     console.log(`Item is ${item}`)
     console.log(item)
+    setGuestId(item.id)
+    console.log("GUEST ID: (on BrowseCard)")
+    console.log(guestId)
     getGuest(item)
   }, [item, loading, authUserId, userRole]
 )
@@ -40,31 +44,60 @@ const getGuest = async (item) => {
   }
 }
 
+// To send invite: 
+// #1 Check that user is a Host 
+// #2 Grab User Party 
+// #3 Create Invite with Party Id and Guest Id 
+
 const handleInvite = async () => {
   // Add invite POST Request 
   // item.id is the Guest ID being grabbed through getGet right now 
   // Pass item.id through an API to send CREATE INVITE with the that id as the guest_id
   console.log("INVITE button pressed!")
 
+  // #1 Check User is Host
   if (userRole == 0) {
     // Open Modal to Add Party
-    handleModal()
+    setIsModalVisible(true)
     // Works: If User Role is not Host, open modal when invite button pressed
   }
   else if (userRole == 1) {
     // POST request for creating invite
-    
-    sendInvite(item)
+    // #2 Grab User Party
+    getParty(authUserId)
   }
 }
 
+const getParty = async (authUserId) => {
+  try {
+  // Get Party using User_id
+
+  // 1. Create getParty API like the getPartyAndInvites API
+  let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/party/v1/myparties/${authUserId}/`);
+  let json = await response.json();
+
+  let latestParty = json.pop();
+  console.log("LATEST PARTY:")
+  console.log(latestParty)
+
+  setPartyId(latestParty.id)
+  console.log("PARTY ID of LATEST PARTY:")
+  console.log(partyId)
+  console.log("Reached Get Party Function")
+  }
+  catch (error) {
+    console.error(error);
+  }
+}
+
+
   const sendInvite = async (item) => {
       try {
-        let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/invite/v1/invite/1/`);
+        let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/invite/v1/createinvite/`);
         let json = await response.json();
 
 
-        console.log("Reached end Invite Promise")
+        console.log("Reached end Create Invite Promise")
         } catch (error) {
           console.error(error);
         }

@@ -38,17 +38,22 @@ type AuthContextData = {
         if (authDataSerialized) {
             //If there are data, it's converted to an Object and the state is updated.
             const _authData = JSON.parse(authDataSerialized);
+            console.log("Auth Data inside load storage data:")
+            console.log(_authData)
 
             if (_authData.token) {
-            setAuthData(_authData)
-            setAuthUserId(tokenService.getUserId(authData))
-            setLoading(false)
+                setAuthData(_authData)
+
+                // UserId can only be found with _authData variable
+                // authData variable cannot be passed for a successful result
+                setAuthUserId(tokenService.getUserId(_authData))
+                setLoading(false)
             }
 
             else {
-            setAuthData(undefined)
-            setAuthUserId(undefined)
-            setLoading(false)
+                setAuthData(undefined)
+                setAuthUserId(undefined)
+                setLoading(false)
             }
 
             console.log("reached loadstoragedata function!")
@@ -121,7 +126,6 @@ const signUp = async (_email: string, _password: string, _department: number, _n
         <>{authData ? <AppStack /> : <AuthStack />}</>
         {/* <AuthStack/> */}
         {/* Guests are shown in Browse after new registration, no party means displaying that guest has no party on the Guestlist Screen */}
-    
     </AuthContext.Provider>
    ) : null
 }

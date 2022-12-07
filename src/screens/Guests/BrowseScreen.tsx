@@ -5,11 +5,10 @@ import React from 'react';
 import BrowseCard from '../../components/Card/BrowseCard';
 import { useAuth } from '../../contexts/Auth';
 import Loading from '../../components/Loading';
-import jwt_decode from 'jwt-decode';
 
 import {roleService} from '../../services/roleService';
 
-const BrowseScreen = ({handleModal, isModalVisible}) => {
+const BrowseScreen = ({isModalVisible, setIsModalVisible}) => {
   
   const [guests, setGuests] = React.useState()
 
@@ -93,7 +92,7 @@ const getGuestsHostMode = async (authUserId) => {
 
 const guestCard = ({item}) => {
   return (
-    <BrowseCard item={item} authUserId={authUserId} userRole={userRole} handleModal={handleModal}/>
+    <BrowseCard item={item} authUserId={authUserId} userRole={userRole} setIsModalVisible={setIsModalVisible}/>
   )
 };
 
