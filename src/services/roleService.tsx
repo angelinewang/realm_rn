@@ -54,10 +54,6 @@ const getFirstEntry = async (userId, passedLastEntry, setPassedLastEntry, setUse
   }
 }
 
-// TASKS:
-// 1. Put getting user role into a separate module, whose content is passed down to all relevant pages
-// 2. Ensure that Party posting modal closes after posting party 
-
 const changeUserRole = async (userId, setUserRole, passedLastEntry) => {
     try {
     // Get most recent party of the user and return the first entry time of that party 

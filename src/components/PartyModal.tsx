@@ -14,7 +14,7 @@ import {StyleSheet, View, Text, Pressable, TextInput} from 'react-native';
 // Pass through: 1. ModalisVisible 2. HandleSubmit 
 
 // Modal separated from GuestsScreen in order to grab and pass in userId to POST request
-export default function PartyModal({isModalVisible, handleModal}) {
+export default function PartyModal({ isModalVisible, handleModal, setIsModalVisible }) {
     // const isFocused = useIsFocused()
 
     const [_flat, setFlat] = useState(" ")
@@ -67,13 +67,13 @@ export default function PartyModal({isModalVisible, handleModal}) {
         console.log(userId)
         
         try {
-            let response = await partyService.createParty(userId, _flat, _dateTime, _vibe)
+            let response = await partyService.createParty(setIsModalVisible, userId, _flat, _dateTime, _vibe)
             setApiResponse(response)
             console.log(response)
             // After successful response is received from the backend, the handleModal function is called in order to close the Modal from view
-            if (apiResponse) {
-                handleModal()
-            }
+            // if (apiResponse) {
+            //     handleModal()
+            // }
         }
         catch (error) {
             console.error(error);

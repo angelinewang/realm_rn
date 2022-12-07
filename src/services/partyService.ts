@@ -10,6 +10,7 @@
 // Function used in Signup and that also signs the User in automatically after Account Creation and brings user to home flow
 const createParty = async (
   // These arguments need to be passed into the function in the preceding order when function is called
+  setIsModalVisible,
   host_id: Number,
   flat: String,
   first_entry: String,
@@ -39,6 +40,7 @@ const createParty = async (
         }),
       }
     );
+    setIsModalVisible(false);
     return response.json();
   } catch (error) {
     console.error(error);
