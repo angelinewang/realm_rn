@@ -73,3 +73,40 @@ Tools
 Netflix Movies JSON File
 https://www.whats-on-netflix.com/wp-content/plugins/whats-on-netflix/json/movie.json
 --> Third party compilation of Netflix movies7
+
+### Role Differentiation
+All User Role Differentiation 
+= Done through `getUserRole()` functions
+--> Which are connected to `'/api/user/v1/profile/${userId}/'`
+--> When this API is called, the backend checks if the user has a party whose first entry is more than 12 hours later than the time right now
+--> If yes, the user role is back to Guest
+
+### Planning 
+##### Frontend System Architecture Visualization
+[Link to Lucidchart File](https://lucid.app/lucidchart/afc1685f-c9fb-4c09-b2f9-5e5e08608ccc/edit?viewport_loc=111%2C-190%2C1247%2C1193%2CHWEp-vi-RSFO&invitationId=inv_61f8a30a-028f-419a-b5e1-5054ec789617)
+
+### Guide for Documentation
+= Keep all documentation in this one README doc 
+[How to write good documentation: by Victoria Drake](https://victoria.dev/blog/how-to-write-good-documentation/) 
+Chronological Order: 
+1. Live-time, short notes
+--> Written in separate document
+- Commands 
+- Decisions 
+- Sources
+2. Context, ideas, decisions
+= Expanding on short notes from above
+= Make into conversational writing
+--> When on break from coding
+- Challenges
+- Architectural decisions that support project goals 
+- Odd-looking decisions 
+3. Re-read doc & fill-in blanks
+--> After distance from project
+--> After a long break, or the next day
+--> More time
+- Link to prerequisite knowledge
+- ie Link to API documentation
+- Installation steps
+- Relevant support issues 
+- Frequently performed command-line actions

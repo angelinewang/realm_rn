@@ -11,6 +11,10 @@ const BrowseCard = ({item, userId, authData, userRole, handleModal}) => {
 const [guest, setGuest] = React.useState()
 
 const [loading, setLoading] = React.useState(true)
+
+const [party, setParty] = React.useState()
+
+
   React.useEffect(
   () => {
     console.log(`Item is ${item}`)
@@ -35,18 +39,6 @@ const getGuest = async (item) => {
     console.error(error);
   }
 }
-
-  const getUserRole = async (hostId) => {
-      try {
-        let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${hostId}/`);
-        let json = await response.json();
-        setUserRole(json.role)
-        console.log(userRole)
-        console.log("Reached Get User Role Function")
-        } catch (error) {
-          console.error(error);
-        }
-  }
 
 const handleInvite = async () => {
   // Add invite POST Request 

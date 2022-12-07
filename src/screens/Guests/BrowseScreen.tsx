@@ -26,6 +26,8 @@ const BrowseScreen = ({handleModal}) => {
     // const logOut = async () => {
     //     await signOut()
     // }
+  const [passedLastEntry, setPassedLastEntry] = React.useState()
+
 
 // 1. Get whether get is 1 or 2 for role 
 
@@ -66,21 +68,66 @@ const BrowseScreen = ({handleModal}) => {
       // Adding "guests" to the below parameters caused infinite rerender and infinite server calls
   }, [loading, userId, userRole, isFocused])
 
+
   const getUserRole = async (userId) => {
+    // REPEATED AT: all getUserRoles --> Move into a module 
+
+    // Every getUserRole function calls: 
+    // 1. Get Profile 
+    // 2. If Role is Guest, setUserRole 
+    // 3. If Role is Host, API to find party, grab the party first entry and see if last entry passed is true or false  
+    // 4. If last entry passed is true, then call API to change the User Role to Guest on the backend 
+    // 5. And then grab new User Info with changed Role
       try {
         let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${userId}/`);
         let json = await response.json();
+
+        if (json.role == 0) {
+          setUserRole(json.role)
+        }
+
+       else if (json.role == 1) {
+        // Sets user role, pending further change if last entry  
         setUserRole(json.role)
-        console.log(userRole)
-      
-        // if (userRole) {
-        // setLoading(false)
-        // }
+         getFirstEntry()
+       }
+
+        console.log("Reached Get User Role Function")
         } catch (error) {
           console.error(error);
         }
-
   }
+
+const getFirstEntry = async () => {
+  try {
+    // Get most recent party of the user and return the first entry time of that party 
+    let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/firstentry/${userId}/`);
+    let json = await response.json();
+    console.log(json)
+    setPassedLastEntry(response)
+    console.log(passedLastEntry)
+
+    if (passedLastEntry == true) {
+      changeUserRole()
+    }
+  }
+  catch (error) {
+    console.error(error);
+  }
+}
+
+const changeUserRole = async () => {
+    try {
+    // Get most recent party of the user and return the first entry time of that party 
+    let response = await fetch(`https://3c6c-193-61-207-186.eu.ngrok.io/api/user/v1/changerole/${userId}/`);
+    let json = await response.json();
+    setUserRole(json.role)
+    console.log(passedLastEntry)
+  }
+  catch (error) {
+    console.error(error);
+  }
+}
 
 const getGuestsGuestMode = async (userId) => {
   try {

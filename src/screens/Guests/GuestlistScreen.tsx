@@ -92,6 +92,7 @@ const GuestlistScreen = () => {
           console.error(error);
         }
   }
+  
 const getPartyAndInvites = async (hostId) => {
   try {
   // Get Party using User_id
