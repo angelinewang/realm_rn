@@ -16,8 +16,7 @@ const [loading, setLoading] = React.useState(true)
 
 const [partyId, setPartyId] = React.useState()
 
-  React.useEffect(
-  () => {
+React.useEffect(() => {
     console.log(`Item is ${item}`)
     console.log(item)
     setGuestId(item.id)
@@ -29,15 +28,15 @@ const [partyId, setPartyId] = React.useState()
 
 const getGuest = async (item) => {
   try {
-  // setInvite(item)
-  // What's being based through as "item" is already the user, so just call id on "item"
-  let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${item.id}/`);
-  let json = await response.json();
-  setGuest(json)
-  console.log(json)
-  if (guest) {
-    setLoading(false)
-  }
+    // setInvite(item)
+    // What's being based through as "item" is already the user, so just call id on "item"
+    let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${item.id}/`);
+    let json = await response.json();
+    setGuest(json)
+    console.log(json)
+    if (guest) {
+      setLoading(false)
+    }
   }
   catch (error) {
     console.error(error);
@@ -81,8 +80,8 @@ const getParty = async (authUserId) => {
   console.log(latestParty)
 
   setPartyId(latestParty.id)
-  console.log("PARTY ID of LATEST PARTY:")
-  console.log(partyId)
+
+  sendInvite(partyId)
   console.log("Reached Get Party Function")
   }
   catch (error) {
@@ -91,13 +90,34 @@ const getParty = async (authUserId) => {
 }
 
 
-  const sendInvite = async (item) => {
+  const sendInvite = async (partyId, guestId) => {
       try {
-        let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/invite/v1/createinvite/`);
-        let json = await response.json();
+        console.log("PARTY ID of LATEST PARTY:")
+        console.log(partyId)
 
+        // RESOLVE LATER: guestId sometimes successfully sets, but sometimes not 
+        // Only reliable source for guest_id right now is the item.id
+        setGuestId(item.id)
+        console.log("GUEST ID on current Browse Card:")
+        console.log(item.id)
 
-        console.log("Reached end Create Invite Promise")
+        let response = await fetch(
+              `https://212a-193-61-207-186.eu.ngrok.io/api/invite/v1/createinvite/`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                },
+                body: JSON.stringify({
+                  party_id: partyId,
+                  guest_id: item.id,
+                }),
+              }
+            );
+            // Sends the response with auth token back to Auth Context as Object
+            console.log("Reached end Create Invite Promise")
+            return response.json();
         } catch (error) {
           console.error(error);
         }
