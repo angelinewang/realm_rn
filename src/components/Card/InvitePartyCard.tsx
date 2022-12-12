@@ -57,32 +57,27 @@ console.log(invite.id)
 // 5. Connect the API to this frontend page
 
 let response = await fetch(
-    `https://27f9-193-61-207-186.eu.ngrok.io/api/invite/v1/createinvite/`,
+    `https://27f9-193-61-207-186.eu.ngrok.io/api/invite/v1/confirm/${invite.id}/`,
     {
-      method: "POST",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify({
-        party_id: partyId,
-        guest_id: item.id,
-      }),
     }
   );
   // Sends the response with auth token back to Auth Context as Object
-  console.log("Reached end Create Invite Promise")
-
+  console.log("Reached end Confirm Invite Promise")
+  console.log(response.json())
   // Set createInvite to the API response in order to trigger page to re-render through useEffect props
-  setConfirm(response)
-  return response.json();
+  setConfirm(response.json())
+  // return response.json();
  } catch(error) {
   console.error
  }
 }
 
 return (
-
 party ? (
 <View style={{backgroundColor: "black", marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
   {/* Host Information */}
