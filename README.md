@@ -132,3 +132,13 @@ Services are files that contain ONLY *Functions* which are reused throughout the
 
 12 Dec 2022
 = Decided to defer the issue with logins without token to later 
+
+### Create SVG
+1. Export SVG from Figma
+2. Import SVG into assets/images/
+a. Download SVG Vector from Figma
+b. Then just drag and drop the SVG into VSCode and a file with the SVG element code will be created 
+3. Import SVG into relevant page through:
+```
+import InviteSVG from '../../assets/images/invite.svg'
+```

@@ -128,28 +128,31 @@ const getParty = async (authUserId) => {
     return (
 guest ? (
       <View style={{ display: 'flex', flexDirection: 'row',  backgroundColor: "black", marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
-      <View style={{ flex: 1, flexDirection: 'column'}}>
-        <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
-        <Text style={{ fontSize: 28, color: 'white', fontWeight: 'bold'}}>
-          {guest.name ? guest.name : "no name"}
+        
+        <View style={{ flex: 1, flexDirection: 'column'}}>
+          <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
+            <Text style={{ fontSize: 28, color: 'white', fontWeight: 'bold'}}>
+              {guest.name ? guest.name : "no name"}
+            </Text>
+            <Text style={{ fontSize: 18, color: 'white'}}>
+              { guest.birthdate ? `${guest.birthdate} ` : "no birthdate"}
+              {/* Convert Deparment NUM to STRING */}
+              { guest.department ? guest.department : "no department"}
+            </Text>
+          </View>
+        </View>
+
+        <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', margin: 25}}>  
+          <Text style={{color: '#4abbff', fontWeight: 'bold', fontSize: 14}}>
+            INVITE
           </Text>
-          <Text style={{ fontSize: 18, color: 'white'}}>
-          { guest.birthdate ? `${guest.birthdate} ` : "no birthdate"}
-          {/* Convert Deparment NUM to STRING */}
-          { guest.department ? guest.department : "no department"}
-         </Text>
-         
-         </View>
-         </View>
-         <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', margin: 25}}>
-          
-          <Text style={{color: '#4abbff', fontWeight: 'bold', fontSize: 14}}>INVITE</Text>
           <Pressable onPress={handleInvite} style={{backgroundColor: '#4abbff', borderRadius: 100, width: 65, height: 65, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-            {/* <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}> */}
-              <InviteSVG height={40} width={40} fill='white'/>
-            {/* </View> */}
-         </Pressable>
-         </View>
+
+            <InviteSVG height={40} width={40} fill='white'/>
+     
+          </Pressable>
+        </View>
+
       </View>  ) : <Loading />
     );
 };  

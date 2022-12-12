@@ -31,7 +31,6 @@ const ConfirmedScreen = () => {
 
 const getParties = async (authUserId) => {
 
-
 // If the authUserId has been set, then get parties
 
   try { 
