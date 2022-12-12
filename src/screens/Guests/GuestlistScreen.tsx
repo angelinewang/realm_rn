@@ -54,7 +54,7 @@ const GuestlistScreen = ({isModalVisible}) => {
 const getPartyAndInvites = async (authUserId) => {
   try {
   // Get Party using User_id
-  let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/invite/v1/guestlist/${authUserId}/`);
+  let response = await fetch(`https://27f9-193-61-207-186.eu.ngrok.io/api/invite/v1/guestlist/${authUserId}/`);
   let json = await response.json();
   setInvites(json)
   console.log(invites)

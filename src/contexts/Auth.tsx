@@ -38,6 +38,7 @@ type AuthContextData = {
         if (authDataSerialized) {
             //If there are data, it's converted to an Object and the state is updated.
             const _authData = JSON.parse(authDataSerialized);
+            // TODO: Not reaching loadstoragedata upon login and loading on GuestsScreen
             console.log("Auth Data inside load storage data:")
             console.log(_authData)
 
@@ -67,17 +68,20 @@ type AuthContextData = {
     //Every time the App is opened, this provider is rendered
     //and call de loadStorageData function.
     loadStorageData();
-    }, [loading]);
+    }, [loading, isFocused]);
 
     const signIn = async (_email: string, _password: string): Promise<void> => { 
     try {
         const _authData = await authService.signIn(_email, _password);
+
+        console.log("Reached Auth Context before AsyncStorage")
+        console.log("AUTHDATA:")
         console.log(_authData)
         // const _authData = response.json()
         // console.log(_authData)
-        console.log("Reached Auth Context before AsyncStorage")
+    
         setAuthData(_authData);
-        setAuthUserId(tokenService.getUserId(authData))
+        setAuthUserId(tokenService.getUserId(_authData))
         
         await AsyncStorage.setItem('@AuthData', JSON.stringify(_authData))
 

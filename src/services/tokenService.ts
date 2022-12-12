@@ -9,8 +9,14 @@ import jwt_decode from "jwt-decode";
 // 1. Add tokenService to Auth Context
 // 2. Change all token use into {authUserId} = useAuth()
 
-const getUserId = (authData) => {
-  const token = authData?.token;
+const getUserId = (_authData) => {
+  // Not allowed to call useAuth() within tokenService
+  // const { authData } = useAuth();
+
+  console.log("TOKEN SERVICE AUTH DATA:");
+  console.log(_authData);
+
+  const token = _authData?.token;
   console.log("TOKEN:");
   console.log(token);
 

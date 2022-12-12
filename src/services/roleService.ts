@@ -19,7 +19,7 @@ const getRole = async (
   // 5. And then grab new User Info with changed Role
   try {
     let response = await fetch(
-      `https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${authUserId}/`
+      `https://27f9-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${authUserId}/`
     );
     let json = await response.json();
 

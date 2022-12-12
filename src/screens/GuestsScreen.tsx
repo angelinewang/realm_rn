@@ -31,7 +31,15 @@ const GuestsScreen: React.FC = ({navigation}) => {
     const handleModal = () => setIsModalVisible(() => !isModalVisible);
     
     useEffect(() => {
-        roleService.getRole(authUserId, setUserRole, passedLastEntry, setPassedLastEntry)
+
+        getUserRole(authUserId, setUserRole, passedLastEntry, setPassedLastEntry)
+
+    }, [navigation, isModalVisible, authUserId, userRole, loadingComplete])
+
+    const getUserRole = async (authUserId, setUserRole, passedLastEntry, setPassedLastEntry) => {
+        try {
+
+        await roleService.getRole(authUserId, setUserRole, passedLastEntry, setPassedLastEntry)
         console.log("User Role on GuestsScreen:")
         console.log(userRole)
 
@@ -51,8 +59,10 @@ const GuestsScreen: React.FC = ({navigation}) => {
             console.log(userRole)
         }
 
-
-    }, [navigation, isModalVisible, authUserId, userRole, loadingComplete])
+        } catch(error) {
+            console.error
+        }
+    }
 
     return (
         // If User Role is Guest, on press of INVITE button, Party Modal opens, so handleModal is passed as props

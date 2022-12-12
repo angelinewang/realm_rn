@@ -46,7 +46,7 @@ const ViewScreen = () => {
     // Must pass UserId/Arguments into async
   const getUser = async (authUserId) => {
       try {
-        let response = await fetch(`https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${authUserId}`);
+        let response = await fetch(`https://27f9-193-61-207-186.eu.ngrok.io/api/user/v1/profile/${authUserId}`);
         let json = await response.json();
         setUser(json)
         console.log(json)
