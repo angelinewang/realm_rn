@@ -129,3 +129,6 @@ Services are files that contain ONLY *Functions* which are reused throughout the
 --> Because Hooks cannot be used inside the service 
 2. Call `tokenService.getUserId` with `authData` argument
 3. `setUserId` to response returned from `tokenService.getUserId(authData)`
+
+12 Dec 2022
+= Decided to defer the issue with logins without token to later 

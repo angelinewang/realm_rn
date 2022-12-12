@@ -1,10 +1,8 @@
-import { View, Text, Button } from 'react-native';
+import { View, Button } from 'react-native';
 import React from 'react';
 
 import ProfileCard from '../../components/Card/ProfileCard';
 import Loading from '../../components/Loading';
-
-import jwt_decode from 'jwt-decode';
 
 import {useAuth} from '../../contexts/Auth'
  import { useIsFocused } from '@react-navigation/native';
@@ -40,7 +38,12 @@ const ViewScreen = () => {
     const {signOut} = useAuth()
 
     const logOut = async () => {
+      try {
         await signOut()
+      } catch(error) {
+        console.error
+      }
+        
     }
 
     // Must pass UserId/Arguments into async

@@ -33,6 +33,10 @@ const getParties = async (authUserId) => {
 // If the authUserId has been set, then get parties
 
   try { 
+
+    // Invites should only get the ones in the future
+    // Currently Bob should have 5 Invites: 3 in the future, 2 in the past
+    
   let response = await fetch(`https://27f9-193-61-207-186.eu.ngrok.io/api/invite/v1/parties/invited/${authUserId}`);
   let json = await response.json();
   // Current expected response:
@@ -48,6 +52,11 @@ const getParties = async (authUserId) => {
   }
 
 }
+
+// 1. Get Parties whose first entry is less than 12 hours past 
+// 2. Only send back parties with relevant first entries from the backend 
+// 3. Test Invited API on Postman
+// 4. Test Confirmed API on Postman
 
 const partyCard = ({item}) => {
 

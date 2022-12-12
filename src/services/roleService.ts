@@ -54,6 +54,8 @@ const getFirstEntry = async (
 ) => {
   try {
     // Get most recent party of the user and return the first entry time of that party
+
+    // Same log from below API endpoint used to find relevant invited parties for guests
     let response = await fetch(
       `https://212a-193-61-207-186.eu.ngrok.io/api/user/v1/firstentry/${authUserId}/`
     );

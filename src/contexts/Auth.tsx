@@ -4,6 +4,7 @@ import { AppStack, AuthStack } from '../navigation/index';
 import { authService } from '../services/authService';
 import { useIsFocused } from '@react-navigation/native';
 import { tokenService } from '../services/tokenService';
+import Loading from '../components/Loading';
 
 type AuthContextData = {
         authData?: AuthData;
