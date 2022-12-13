@@ -6,6 +6,7 @@ import CustomTextInput from "../../components/InputText/CustomTextInput";
 import {launchImageLibrary} from 'react-native-image-picker';
 import RNPickerSelect from 'react-native-picker-select';
 import { Formik, useFormik } from 'formik';
+import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
 
 import * as ImagePicker from 'expo-image-picker';
 
@@ -25,22 +26,35 @@ const SignUpScreen = () => {
 
     const pickImage = async () => {
         // No permissions request needed to launch image library 
-        let result = await ImagePicker.launchImageLibraryAsync({
-            // mediaTypes: ImagePicker.MediaTypeOptions.All,
-            // allowsEditing: true, 
-            // aspect: [4, 3],
-            // quality: 1,
-            base64: true, 
-            allowsEditing: false, 
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true, 
             aspect: [4, 3],
+            quality: 1,
+            // base64: true, 
+            // allowsEditing: false, 
+            // aspect: [4, 3],
         })
 
-        console.log('image', result);
+        console.log('image', result.assets[0]);
 
         if(!result.canceled) {
             // setImage(result.assets[0].uri);
-            setImage({result});
+            setImage(result.assets[0].uri)
+
+            // let base64 = result.assets[0].base64
+            // setImage({base64: base64, fileExtension: 'jpg'
+                
+            // })
+
+            // 1. Add File Extension to Image
+
+            // set
         }
+    } catch(error) {
+        console.error
+    }
     }
 
     const navigation = useNavigation<SignUpScreenNavigationProp>();

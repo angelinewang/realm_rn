@@ -158,3 +158,7 @@ Attempted to use React Native Image Picker
 ### App Store Connect Information
 #### App Bundle 
 com.realmpartyapp.realm
+
+### Daily Notes 
+#### 13/12/22
+Don't overcomplicate first versions of features...
