@@ -148,3 +148,7 @@ Connected to `/confirm/<int:pk>/`
 Creates a PATCH request to the backend that changes the status of the invite to 1 
 Returns the new status 
 Currently throwing a Possible Unhandled Rejection Error on Expo Go 
+
+### Signup Form 
+#### Expo Image Picker
+[Expo Documentation - Image Picker](https://docs.expo.dev/versions/latest/sdk/imagepicker/)
