@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet, View, Text, Pressable, FlatList } from 'react-native';
 import Loading from '../../components/Loading';
-import React from 'react';
+import React, { isValidElement } from 'react';
 import GuestlistInvite from '../../components/Guestlist/GuestlistInvite';
 import { useAuth } from '../../contexts/Auth';
 import { useIsFocused } from '@react-navigation/native';
@@ -14,12 +14,13 @@ const GuestlistScreen = ({isModalVisible}) => {
   const {authUserId} = useAuth()
 
   const isFocused = useIsFocused()
-  const [loading, setLoading] = React.useState(Boolean)
+  const [loading, setLoading] = React.useState(true)
 
   const [userRole, setUserRole] = React.useState()
 
   const [passedLastEntry, setPassedLastEntry] = React.useState()
 
+  const [renderInvites, setRenderInvites] = React.useState(<></>)
   React.useEffect(
   () => {
 
@@ -42,7 +43,7 @@ const GuestlistScreen = ({isModalVisible}) => {
         getPartyAndInvites(authUserId)
       }
     
-  }, [loading, authUserId, userRole, isFocused, isModalVisible]
+  }, [loading, authUserId, userRole, isFocused, isModalVisible, renderInvites]
 )
 
 // Get party by host_id
@@ -54,11 +55,30 @@ const GuestlistScreen = ({isModalVisible}) => {
 const getPartyAndInvites = async (authUserId) => {
   try {
   // Get Party using User_id
-  let response = await fetch(`https://27f9-193-61-207-186.eu.ngrok.io/api/invite/v1/guestlist/${authUserId}/`);
+  let response = await fetch(`https://4c33-193-61-207-186.eu.ngrok.io/api/invite/v1/guestlist/${authUserId}/`);
   let json = await response.json();
   setInvites(json)
+  // setLoading(false)
   console.log(invites)
   console.log("Reached Get Party And Invites Function")
+
+   if (loading == true && invites == "No Party") {
+
+  console.log("Reached no party inside renderInvites")
+    setRenderInvites(<Text>{invites}</Text>)
+    setLoading(false)
+  }
+
+  else if (loading == true && invites) {
+    console.log("Reached else if for renderInvites")
+    console.log(renderInvites)
+    setRenderInvites(
+    <SafeAreaView style={{ flex: 1, flexDirection: 'column', }}>
+      <FlatList data={invites} renderItem={inviteCard} keyExtractor={item => item.id}/>
+    </SafeAreaView>
+    )
+    setLoading(false)
+  }
   }
   catch (error) {
     console.error(error);
@@ -66,34 +86,61 @@ const getPartyAndInvites = async (authUserId) => {
 }
 
   const inviteCard = ({item}) => {
+    console.log("Reached inviteCard function")
     return (
       <GuestlistInvite item={item}/>
     )
   };
 
-
-if (invites == "No Party") {
-  return (
-    <Text>You don't have a party</Text>
-  )
-}
-
-else {
-    return (   
-        isFocused ? (invites ? (
-          <>
-                      <FlatList data={invites} renderItem={inviteCard} keyExtractor={item => item.id}/>
-          </>
-          // <SafeAreaView style={{ flex: 1, flexDirection: 'column', }}>
-          // </SafeAreaView>
-        ) : <Loading/>) : null
-      
-    )
-}
-    
-
-    
+  // Must add condition that renderInvites is at initial state or else the page renders infinitely
   
-};
+//  const renderInvitesFunction = () => {
+
+  // }
+  
+  return (
+    <>
+    {
+      isFocused ? (
+        invites ? 
+        <>
+          {renderInvites}
+        </>
+        : <Loading/>
+      ) : null
+    }
+    </>
+  )
+    
+
+}
 
 export default GuestlistScreen;
+
+// return (   
+//     // After Invites API is called, invites are not set and the page does not escape loading 
+
+//       <>
+//        { isFocused ? (invites ? { 
+//         if (invites == "No Party") {
+//   // return (
+//     <Text>You don't have a party</Text>
+//   // )
+// }
+// else {
+  
+//           <SafeAreaView style={{ flex: 1, flexDirection: 'column', }}>
+
+//             <FlatList data={invites} renderItem={inviteCard} keyExtractor={item => item.id}/>
+
+//           </SafeAreaView>
+  
+//         ) : <Loading/>) : null
+
+//        }
+      
+//    }
+//     </>
+
+//     )
+    

@@ -12,7 +12,8 @@ const GuestlistInvite = ({item}) => {
   // Each invite has a different guest, so for each invite, one inviteCard and one guestCard needs to be rendered
   React.useEffect(
   () => {
-    setGuest(item.guest_id)
+    // Set property call to guest_id_id because guest_id does not work 
+    setGuest(item.guest_id_id)
 
     if (guest) {
         setLoading(false)

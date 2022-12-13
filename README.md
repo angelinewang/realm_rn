@@ -142,3 +142,9 @@ b. Then just drag and drop the SVG into VSCode and a file with the SVG element c
 ```
 import InviteSVG from '../../assets/images/invite.svg'
 ```
+
+### Confirm Invite Function 
+Connected to `/confirm/<int:pk>/`
+Creates a PATCH request to the backend that changes the status of the invite to 1 
+Returns the new status 
+Currently throwing a Possible Unhandled Rejection Error on Expo Go 
