@@ -152,3 +152,9 @@ Currently throwing a Possible Unhandled Rejection Error on Expo Go
 ### Signup Form 
 #### Expo Image Picker
 [Expo Documentation - Image Picker](https://docs.expo.dev/versions/latest/sdk/imagepicker/)
+Attempted to use React Native Image Picker
+--> But did not work 
+
+### App Store Connect Information
+#### App Bundle 
+com.realmpartyapp.realm

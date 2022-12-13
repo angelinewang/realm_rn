@@ -30,7 +30,9 @@ const signIn = async (email: string, password: string): Promise<AuthData> => {
 };
 
 // Function used in Signup and that also signs the User in automatically after Account Creation and brings user to home flow
+
 const signUp = async (
+  image: any,
   email: String,
   password: String,
   department: Number,
@@ -41,6 +43,11 @@ const signUp = async (
   try {
     console.log("Reach SignUpAndSignIn in authService!");
 
+    // Image submission needs to be done with a "file" field
+    // Need to upload files using base64 encoded string
+    // The raw file is not supported by Django
+
+    console.log(image);
     console.log(email);
     console.log(password);
     console.log(department);
@@ -48,22 +55,24 @@ const signUp = async (
     console.log(gender);
     console.log(birthdate);
 
+    let formData = new FormData();
+    formData.append("profile_picture", image);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("department", department);
+    formData.append("name", name);
+    formData.append("gender", gender);
+    formData.append("birthdate", birthdate);
+
     let response = await fetch(
       "https://4c33-193-61-207-186.eu.ngrok.io/api/user/v1/signup/",
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+          // Accept: "multipart/form-data",
         },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-          department: department,
-          name: name,
-          gender: gender,
-          birthdate: birthdate,
-        }),
+        body: formData,
       }
     );
     return response.json();

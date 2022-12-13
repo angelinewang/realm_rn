@@ -19,71 +19,27 @@ import { useAuth } from "../../contexts/Auth";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-// START of logic for photo upload -- React Native Version
-// const SERVER_URL = 'https://4c33-193-61-207-186.eu.ngrok.io';
-
-// const createFormData = (photo, body = {}) => {
-//     const data = new FormData();
-
-//     data.append('photo', {
-//         name: photo.fileName, 
-//         type: photo.type, 
-//         uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri, 
-
-//     });
-
-//     Object.keys(body).forEach((key) => {
-//         data.append(key, body[key]);
-//     });
-
-//     return data;
-// }
-// END of logic for photo upload -- React Native Version
-
 const SignUpScreen = () => {
-
-    // const [photo, setPhoto] = React.useState(null);
-
-    // const handleChoosePhoto = () => {
-    //     launchImageLibrary({noData: true}, (response) => {
-    //         console.log(response)
-    //         if (response) {
-    //             setPhoto(response);
-    //         }
-    //     })
-    // }
-
-    // const handleUploadPhoto = async () => { 
-    //     // try {
-    //     console.log('Photo Handled', createFormData(photo))
-    // //    let response = await fetch(`${SERVER_URL}/api/upload`, {
-    // //         method: 'POST',
-    // //         body: createFormData(photo, { userId: '123' }),
-    // //     })
-    // //    response.json()
-
-    // //     console.log('response', response)
-
-    // // } catch(error) {
-    // //     console.error
-    // // }
-    // }
 
     const [image, setImage] = React.useState(null);
 
     const pickImage = async () => {
         // No permissions request needed to launch image library 
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true, 
+            // mediaTypes: ImagePicker.MediaTypeOptions.All,
+            // allowsEditing: true, 
+            // aspect: [4, 3],
+            // quality: 1,
+            base64: true, 
+            allowsEditing: false, 
             aspect: [4, 3],
-            quality: 1,
         })
 
         console.log('image', result);
 
         if(!result.canceled) {
-            setImage(result.assets[0].uri);
+            // setImage(result.assets[0].uri);
+            setImage({result});
         }
     }
 
@@ -133,7 +89,7 @@ const SignUpScreen = () => {
     }
 
     const signUpAndLogIn = async () => {
-        let signUpStatus = await signUp(_email, _password, _department, _name, _gender, _birthdate)
+        let signUpStatus = await signUp(image, _email, _password, _department, _name, _gender, _birthdate)
         
         signUpStatus ? logIn(_email, _password) : null
     }
@@ -160,17 +116,6 @@ const SignUpScreen = () => {
                 <Formik initialValues={{_email: '', _password: '', _department: '', _name: "", _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
                     
                     <View>
-
-                        {/* REACT NATIVE VERSION -- 
-                        {
-                            photo && (
-                                <>
-                                <Image source={{ uri: photo.uri }} style={{width: 300, height: 300}}/>
-                                <Button title="Upload Photo" onPress={handleUploadPhoto} />
-                                </>
-                            )
-                        }
-                        <Button title="Choose Photo" onPress={handleChoosePhoto} /> */}
                         <Button title="Pick an image from camera roll" onPress={pickImage}/>
                         {
                             image && <Image source={{uri: image}} style={{width: 200, height: 200}}/>

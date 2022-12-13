@@ -92,10 +92,10 @@ type AuthContextData = {
     }
 
     // Used on SignUp Page to Create Account and Also Sign In
-const signUp = async (_email: string, _password: string, _department: number, _name: string, _gender: number, _birthdate: string): Promise<void> => { 
+const signUp = async (image: any, _email: string, _password: string, _department: number, _name: string, _gender: number, _birthdate: string): Promise<void> => { 
     try {
         // 1. Email 2. Password 3. Department 4. Name 5. Gender 6. Birthdate
-        const _authData = await authService.signUp(_email, _password, _department, _name, _gender, _birthdate);
+        const _authData = await authService.signUp(image, _email, _password, _department, _name, _gender, _birthdate);
         console.log(_authData)
         // const _authData = response.json()
         // console.log(_authData)
