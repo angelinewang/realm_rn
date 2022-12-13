@@ -12,7 +12,7 @@ const ProfileCard = ({user}) => {
   const {authUserId} = useAuth()
 
 const isFocused = useIsFocused()
-const [image, setImage] = React.useState(user.profile_picture);
+const [image, setImage] = React.useState();
 
     const pickImage = async () => {
         // No permissions request needed to launch image library 
@@ -78,7 +78,6 @@ const uploadImage = async () => {
   () => {
     console.log("Reached Profile Card")
     console.log(user)
-
   }, [user, image]
   )
 
@@ -86,9 +85,10 @@ const uploadImage = async () => {
   <> 
 {
    isFocused ? ( user ? (
+
     <View style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
       {/* Setting the uri to "image" does not work */}
-      <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: image}} >
+      <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: image ? image : user.profile_picture}} >
         {/* <Pressable style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}} onPress={pickImage}> */}
       <View style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
       <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
@@ -108,6 +108,7 @@ const uploadImage = async () => {
         <Button title="Update Profile Photo" onPress={uploadImage}/>
         </ImageBackground>
     </View>
+  
     ) : <Loading/>) : null
 }
 </>
