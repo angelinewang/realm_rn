@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, ImageBackground } from "react-native";
 import React from "react";
 import Loading from "../Loading";
 import { useIsFocused } from '@react-navigation/native';
@@ -20,9 +20,11 @@ const isFocused = useIsFocused()
   <> 
 {
    isFocused ? ( user ? (
-    <View style={{ flex: 1, flexDirection: 'column', backgroundColor: "#4abbff", marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
+    <View style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
+      <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: user.profile_picture}} >
+      <View style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
       <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
-      <Image style={{height: '10%'}} source={{uri: user.profile_picture}}/>
+      {/* <Image style={{height: '10%'}} source={{uri: user.profile_picture}}/> */}
       <Text style={{ fontSize: 28, color: 'white', fontWeight: 'bold'}}>
         {user.name ? user.name : "no name"}
         </Text>
@@ -32,10 +34,16 @@ const isFocused = useIsFocused()
         { user.department ? user.department : "no department"}
         </Text>
         </View>
+        </View>
+        </ImageBackground>
     </View>
     ) : <Loading/>) : null
 }
 </>
+
+// 1. Add ImageBackground to cards in Invited, Confirmed, Browse, and Guestlist
+// 2. Allow user to upload profile picture through profile page
+
   );
 };
 

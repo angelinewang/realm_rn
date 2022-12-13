@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, ImageBackground } from "react-native";
 import React from "react";
 import HostCard from "./HostCard";
 import Loading from "../Loading";
@@ -9,12 +9,13 @@ const InvitePartyCard = ({item}) => {
   const [party, setParty] = React.useState()
   const [invite, setInvite] = React.useState(item)
   const [confirm, setConfirm] = React.useState()
+  const [host, setHost] = React.useState()
 
   React.useEffect( () =>
 {
        getParty()
 
-  }, [item]
+  }, [item, host]
 )
 
 const getParty = async () => {
@@ -79,9 +80,12 @@ let response = await fetch(
 
 return (
 party ? (
-<View style={{backgroundColor: "black", marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
+<View style={{marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
+  <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: host?.profile_picture}}>
+    <View style={{marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
+
   {/* Host Information */}
-  <HostCard item={party.host_id}/>
+  <HostCard item={party.host_id} host={host} setHost={setHost}/>
   {/* Party Information */}
   {/* <View style={{display: "flex", flexDirection: "row"}}>
   <View style={{flex: 1, flexDirection: 'column', padding: 30, height: "10%", justifyContent: "flex-end"}}>
@@ -111,7 +115,8 @@ party ? (
     </Pressable>
   </View>
   </View>
-
+  </View>
+</ImageBackground>
 </View> 
 ) : <Loading />
 

@@ -1,4 +1,4 @@
-import { SafeAreaView, FlatList, View, Text } from "react-native";
+import { SafeAreaView, FlatList, View, Text, ImageBackground } from "react-native";
 import React from "react";
 
 import GuestlistGuest from "./GuestlistGuest";
@@ -24,9 +24,12 @@ const GuestlistInvite = ({item}) => {
 
 return (
 guest ? (
-  <View style={{ flex: 1, flexDirection: 'column', backgroundColor: "#4abbff", marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
+  <View style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
+    <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: guest.profile_picture}}>
+    <View style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
+
     <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
-      <GuestlistGuest item={guest}/>
+      <GuestlistGuest item={guest} setGuest={setGuest} guest={guest}/>
       {/* <Text>GUEST INFO</Text> */}
       {/* Invite Response Information */}
       <Text style={{ fontSize: 18, color: 'white', fontWeight: 'bold'}}>
@@ -36,6 +39,8 @@ guest ? (
       {item.status ? item.status : "Invited"}
       </Text>
     </View>
+    </View>
+            </ImageBackground>
   </View>
   ) : <Loading/>
 )

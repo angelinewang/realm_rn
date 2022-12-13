@@ -2,11 +2,11 @@ import { View, Text } from "react-native";
 import React from "react";
 // Card used to display each individual Guest Profile on the Browse and Guestlist Screens
 import Loading from "../Loading";
-const GuestlistGuest = ({item}) => {
+const GuestlistGuest = ({item, setGuest, guest}) => {
 
 // item = guest_id 
 // used to find the guest profile
-  const [guest, setGuest] = React.useState()
+  // const [guest, setGuest] = React.useState()
 
   const [loading, setLoading] = React.useState(true)
 

@@ -2,8 +2,8 @@ import { View, Text } from "react-native";
 import React from "react";
 import Loading from "../Loading";
 
-const HostCard = ({item}) => {  
-  const [host, setHost] = React.useState()
+const HostCard = ({item, host, setHost}) => {  
+  // const [host, setHost] = React.useState()
 
   React.useEffect(
   () => {

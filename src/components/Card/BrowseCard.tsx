@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, ImageBackground } from "react-native";
 import React from "react";
 import Loading from "../Loading";
 // Added config to metro.config.js and declarations.d.ts to allow for direct import of SVGs
@@ -127,8 +127,10 @@ const getParty = async (authUserId) => {
   }
     return (
 guest ? (
-      <View style={{ display: 'flex', flexDirection: 'row',  backgroundColor: "black", marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
-        
+      <View style={{ display: 'flex', flexDirection: 'row',  marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
+        <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: guest.profile_picture}}>
+        {/* Adding an extra View allows the Card to retain original styling */}
+        <View style={{ display: 'flex', flexDirection: 'row',  marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
         <View style={{ flex: 1, flexDirection: 'column'}}>
           <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
             <Text style={{ fontSize: 28, color: 'white', fontWeight: 'bold'}}>
@@ -152,6 +154,8 @@ guest ? (
      
           </Pressable>
         </View>
+        </View>
+        </ImageBackground>
 
       </View>  ) : <Loading />
     );
