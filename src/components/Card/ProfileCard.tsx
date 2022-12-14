@@ -57,7 +57,7 @@ const uploadImage = async () => {
     formData.append("profile_picture", image);
 
     let response = await fetch(
-      `https://4c33-193-61-207-186.eu.ngrok.io/api/user/v1/updatephoto/${authUserId}/`,
+      `https://c4a0-193-61-207-186.eu.ngrok.io/api/user/v1/updatephoto/${authUserId}/`,
       {
         method: "PATCH",
         headers: {
@@ -113,10 +113,11 @@ const uploadImage = async () => {
 }
 </>
 
+// Tues 13 December 2022
 // 1. DONE - Add ImageBackground to cards in Invited, Confirmed, Browse, and Guestlist
-// 2. Allow user to upload profile picture through profile page
-  // a. Create backend API to patch profile_picture 
-  // b. Add same logic for signup photo upload to profile card
+// 2. DONE - Allow user to upload profile picture through profile page
+  // a. DONE - Create backend API to patch profile_picture 
+  // b. DONE - Add same logic for signup photo upload to profile card
   );
 };
 

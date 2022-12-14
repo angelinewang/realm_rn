@@ -155,10 +155,57 @@ Currently throwing a Possible Unhandled Rejection Error on Expo Go
 Attempted to use React Native Image Picker
 --> But did not work 
 
+#### Base64ImageField Creation in Django Serializers
+[Django REST Framework upload image: "The submitted data was not a file"](https://stackoverflow.com/questions/28036404/django-rest-framework-upload-image-the-submitted-data-was-not-a-file)
+
 ### App Store Connect Information
 #### App Bundle 
 com.realmpartyapp.realm
 
 ### Daily Notes 
 #### 13/12/22
-Don't overcomplicate first versions of features...
+Currently all Image Upload and Rendering is done with uri only
+Begin writing daily notes here
+##### Resources from today
+[Uploading Images to Django REST Framework from Forms in React - dev.to by Thom Zolghadr](https://dev.to/thomz/uploading-images-to-django-rest-framework-from-forms-in-react-3jhj)
+--> Used for how to send React Native data as Form Data
+###### Tips for next time
+- Leave half an hour at end of day to go through all links used 
+  - Document the ones with concepts I ended up using
+- Don't overcomplicate first versions of features...
+
+### Profile Photo
+[ImageBackground Usage: Stack Overflow](https://stackoverflow.com/questions/49442165/how-do-you-add-borderradius-to-imagebackground)
+--> Used to add borderRadius to ImageBackground
+--> `<ImageBackground>` = a `<View>` wrapping an `<Image>`
+--> `style` prop only passes height and width to the `<Image>`
+
+### Google Cloud & Firebase Configuration
+#### Firebase Project 
+Project ID: realm-rn-dj
+
+#### Google Cloud Console Project
+Configurations:
+- Firebase enabled
+- Connected to Google Analytics
+Project ID: realm-rn-dj
+
+#### Google Analytics 
+Property Name: **realm-rn-dj**
+Property ID: 343867366
+
+## Deployment
+### Database Configuration 
+Database Type: PostgreSQL
+Database Name: realm_django
+View Database Contents: PGAdmin
+
+#### PostgreSQL Instance 
+Location: Google Cloud Console
+Instance ID: realm-django
+Password: same as database password
+Connection name: realm-rn-dj:europe-west1:realm-django
+Public IP address: 35.205.61.83
+Service account: p169578510116-ro9r5d@gcp-sa-cloud-sql.iam.gserviceaccount.com
+
+### APIs Configuration

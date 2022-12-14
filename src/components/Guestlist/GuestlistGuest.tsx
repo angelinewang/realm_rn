@@ -18,7 +18,7 @@ const GuestlistGuest = ({item, setGuest, guest}) => {
   const getGuest = async (item) => {
     try {
     // setInvite(item)
-    let response = await fetch(`https://4c33-193-61-207-186.eu.ngrok.io/api/invite/v1/guestlist/guest/${item}/`);
+    let response = await fetch(`https://c4a0-193-61-207-186.eu.ngrok.io/api/invite/v1/guestlist/guest/${item}/`);
     let json = await response.json();
     setGuest(json)
     console.log(json)

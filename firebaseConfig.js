@@ -27,13 +27,15 @@ import * as firebase from "firebase";
 import "@firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "YOUR_KEY_HERE_AIzaSyAOWH",
-  authDomain: "your-auth-domain-b1234.firebaseapp.com",
-  databaseURL: "https://your-database-name.firebaseio.com",
-  projectId: "your-project-id-1234",
-  storageBucket: "your-project-id-1234.appspot.com",
-  messagingSenderId: "12345-insert-yourse",
-  appId: "insert yours: 1:1234:web:ee873bd1234c0deb7eba61ce",
+  // apiKey is the same as one in GoogleService-Info.plist
+  apiKey: "AIzaSyAxCmJwm2tIvHEiUnMy1c9AH3T85zgNQgQ",
+  authDomain: "your-auth-domain-b1234.firebaseapp.com", // TODO AFTER Frontend Link Deployment
+  databaseURL: "https://your-database-name.firebaseio.com", // TODO AFTER Backend deployment
+  projectId: "realm-rn-dj",
+  // Firebase project id is the same as Google Cloud Console project id
+  storageBucket: "realm-rn-dj.appspot.com",
+  messagingSenderId: "1169578510116",
+  appId: "1:169578510116:ios:c8c758a749199a448d25b1",
 };
 
 if (!firebase.apps.length) {
