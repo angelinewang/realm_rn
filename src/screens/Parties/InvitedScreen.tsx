@@ -37,7 +37,7 @@ const getParties = async (authUserId) => {
     // Invites should only get the ones in the future
     // Currently Bob should have 5 Invites: 3 in the future, 2 in the past
     
-  let response = await fetch(`https://c4a0-193-61-207-186.eu.ngrok.io/api/invite/v1/parties/invited/${authUserId}`);
+  let response = await fetch(`https://effb-82-0-186-223.eu.ngrok.io/api/invite/v1/parties/invited/${authUserId}`);
   let json = await response.json();
   // Current expected response:
   // [{"id":1,"created_at":"2022-11-26T00:00:01Z","updated_at":"2022-11-26T00:00:01Z","party_id":9,"guest_id":1,"status":0,"plus_ones":null}]

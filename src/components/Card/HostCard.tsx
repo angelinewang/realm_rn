@@ -13,7 +13,7 @@ const HostCard = ({item, host, setHost}) => {
 
 const getHost = async (item) => {
   try {
-  let response = await fetch(`https://c4a0-193-61-207-186.eu.ngrok.io/api/invite/v1/parties/host/${item}/`);
+  let response = await fetch(`https://effb-82-0-186-223.eu.ngrok.io/api/invite/v1/parties/host/${item}/`);
   let json = await response.json();
   setHost(json)
   console.log(json)

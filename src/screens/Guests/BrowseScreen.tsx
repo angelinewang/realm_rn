@@ -62,7 +62,7 @@ const BrowseScreen = ({isModalVisible, setIsModalVisible}) => {
 
 const getGuestsGuestMode = async (authUserId) => {
   try {
-  let response = await fetch(`https://c4a0-193-61-207-186.eu.ngrok.io/api/user/v1/guests/browse/${authUserId}/guestmode/`);
+  let response = await fetch(`https://effb-82-0-186-223.eu.ngrok.io/api/user/v1/guests/browse/${authUserId}/guestmode/`);
   let json = await response.json();
   setGuests(json)
   console.log(json)
@@ -77,7 +77,7 @@ const getGuestsGuestMode = async (authUserId) => {
 
 const getGuestsHostMode = async (authUserId) => {
   try {
-  let response = await fetch(`https://c4a0-193-61-207-186.eu.ngrok.io/api/user/v1/guests/browse/${authUserId}/hostmode/`);
+  let response = await fetch(`https://effb-82-0-186-223.eu.ngrok.io/api/user/v1/guests/browse/${authUserId}/hostmode/`);
   let json = await response.json();
   setGuests(json)
 

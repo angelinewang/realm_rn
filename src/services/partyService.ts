@@ -26,7 +26,7 @@ const createParty = async (
 
     let response = await fetch(
       // ERROR: From Server --> Method Not Allowed
-      `https://c4a0-193-61-207-186.eu.ngrok.io/api/party/v1/post/${host_id}/`,
+      `https://effb-82-0-186-223.eu.ngrok.io/api/party/v1/post/${host_id}/`,
       {
         method: "POST",
         headers: {
