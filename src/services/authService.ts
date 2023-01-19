@@ -9,7 +9,7 @@ const signIn = async (email: string, password: string): Promise<AuthData> => {
     console.log(email);
     console.log(password);
     let response = await fetch(
-      "https://effb-82-0-186-223.eu.ngrok.io/api/user/v1/login/",
+      "https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/login/",
       {
         method: "POST",
         headers: {
@@ -65,7 +65,7 @@ const signUp = async (
     formData.append("birthdate", birthdate);
 
     let response = await fetch(
-      "https://effb-82-0-186-223.eu.ngrok.io/api/user/v1/signup/",
+      "https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/signup/",
       {
         method: "POST",
         headers: {

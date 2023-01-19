@@ -20,7 +20,7 @@ const InvitePartyCard = ({item}) => {
 
 const getParty = async () => {
   try {
-  let response = await fetch(`https://effb-82-0-186-223.eu.ngrok.io/api/invite/v1/parties/party/${invite.party_id_id}/`);
+  let response = await fetch(`https://realm-dj-34ezrkuhla-ew.a.run.app/api/invite/v1/parties/party/${invite.party_id_id}/`);
   let json = await response.json();
   setParty(json)
   console.log(json)
@@ -58,7 +58,7 @@ console.log(invite.id)
 // 5. Connect the API to this frontend page
 
 let response = await fetch(
-    `https://effb-82-0-186-223.eu.ngrok.io/api/invite/v1/confirm/${invite.id}/`,
+    `https://realm-dj-34ezrkuhla-ew.a.run.app/api/invite/v1/confirm/${invite.id}/`,
     {
       method: "PATCH",
       headers: {

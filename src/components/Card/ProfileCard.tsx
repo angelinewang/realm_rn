@@ -57,7 +57,7 @@ const uploadImage = async () => {
     formData.append("profile_picture", image);
 
     let response = await fetch(
-      `https://effb-82-0-186-223.eu.ngrok.io/api/user/v1/updatephoto/${authUserId}/`,
+      `https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/updatephoto/${authUserId}/`,
       {
         method: "PATCH",
         headers: {

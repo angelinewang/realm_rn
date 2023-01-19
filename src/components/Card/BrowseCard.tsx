@@ -30,7 +30,7 @@ const getGuest = async (item) => {
   try {
     // setInvite(item)
     // What's being based through as "item" is already the user, so just call id on "item"
-    let response = await fetch(`https://effb-82-0-186-223.eu.ngrok.io/api/user/v1/profile/${item.id}/`);
+    let response = await fetch(`https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/profile/${item.id}/`);
     let json = await response.json();
     setGuest(json)
     console.log(json)
@@ -72,7 +72,7 @@ const getParty = async (authUserId) => {
   // Get Party using User_id
 
   // 1. Create getParty API like the getPartyAndInvites API
-  let response = await fetch(`https://effb-82-0-186-223.eu.ngrok.io/api/party/v1/myparties/${authUserId}/`);
+  let response = await fetch(`https://realm-dj-34ezrkuhla-ew.a.run.app/api/party/v1/myparties/${authUserId}/`);
   let json = await response.json();
 
   let latestParty = json.pop();
@@ -102,7 +102,7 @@ const getParty = async (authUserId) => {
         console.log(item.id)
 
         let response = await fetch(
-              `https://effb-82-0-186-223.eu.ngrok.io/api/invite/v1/createinvite/`,
+              `https://realm-dj-34ezrkuhla-ew.a.run.app/api/invite/v1/createinvite/`,
               {
                 method: "POST",
                 headers: {

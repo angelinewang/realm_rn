@@ -1,6 +1,6 @@
 {
   "name": "realm_rn",
-  "proxy": "https://effb-82-0-186-223.eu.ngrok.io",
+  "proxy": "https://realm-dj-34ezrkuhla-ew.a.run.app",
   "version": "1.0.0",
   "sdkVersion": "47.0.0",
   "main": "node_modules/expo/AppEntry.js",
