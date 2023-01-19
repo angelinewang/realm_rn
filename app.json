@@ -17,21 +17,29 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "platforms": ["ios"],
+    "platforms": [
+      "ios"
+    ],
     "ios": {
       "infoPlist": {
         "NSAppTransportSecurity": {
           "NSAllowArbitraryLoads": true
         }
-      }
+      },
+      "bundleIdentifier": "com.realmpartyapp.realm-rn"
     },
     "plugins": [
       [
-      "expo-image-picker",
-      {
-        "photosPermission": "The app accesses your photos to let you share them with other users."
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with other users."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "a7edb0ed-e973-4ad7-8f55-90b953505514"
       }
-    ]
-    ]
+    }
   }
 }
