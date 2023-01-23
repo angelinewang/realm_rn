@@ -23,6 +23,8 @@ import { authService } from "../../services/authService";
 
 const LoginScreen: React.FC = () => {
 
+    const [error, setError] = useState();
+
     const {signIn} = useAuth()
 
     const logIn = async () => {

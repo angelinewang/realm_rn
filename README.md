@@ -218,4 +218,12 @@ https://pnpm.io/npmrc
 https://dev.to/matthewzruiz/firebase-the-following-swift-pods-cannot-yet-be-integrated-as-static-libraries-b59
 
 ### Solution for adding modular headers in Podfile 
-https://github.com/invertase/react-native-firebase/issues/6332#issuecomment-1172950523
+Integrate Swift pods as static libraries:
+[The following Swift pods cannot yet be integrated as static libraries](https://github.com/invertase/react-native-firebase/issues/6332#issuecomment-1172950523)
+
+Separating plugins in app.json:
+[Adding plugin to app.config.js causes an error with eas cli](https://github.com/expo/sentry-expo/issues/239)
+
+Expo documentation for build properties:
+[BuildProperties - Expo Docs](https://docs.expo.dev/versions/latest/sdk/build-properties/)
+
