@@ -22,7 +22,7 @@
       "ios"
     ],
     "ios": {
-      "buildNumber": "11",
+      "buildNumber": "12",
       "icon": "./src/assets/images/icon.png",
       "infoPlist": {
         "NSAppTransportSecurity": {
