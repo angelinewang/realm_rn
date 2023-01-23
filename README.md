@@ -211,4 +211,8 @@ Service account: p169578510116-ro9r5d@gcp-sa-cloud-sql.iam.gserviceaccount.com
 ### APIs Configuration
 gcloud builds submit --region=europe-west1 --tag europe-west1-docker.pkg.dev/realm-rn-dj/quickstart-docker-repo/quickstart-image:tag1
 
+### .npmrc configuration
+https://pnpm.io/npmrc
+
+
 
