@@ -21,6 +21,7 @@
       "ios"
     ],
     "ios": {
+      "icon": "./src/assets/images/icon.png",
       "infoPlist": {
         "NSAppTransportSecurity": {
           "NSAllowArbitraryLoads": true
@@ -28,8 +29,18 @@
       },
       "bundleIdentifier": "com.realmpartyapp.realm-rn"
     },
+    "notification": {
+        "icon": "./src/assets/images/icon.png",
+        "color": "#2abbff"
+    },
     "plugins": [
       [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        },
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you share them with other users."

@@ -214,5 +214,8 @@ gcloud builds submit --region=europe-west1 --tag europe-west1-docker.pkg.dev/rea
 ### .npmrc configuration
 https://pnpm.io/npmrc
 
+### Add Podfile to resolve issue with pod install in eas build 
+https://dev.to/matthewzruiz/firebase-the-following-swift-pods-cannot-yet-be-integrated-as-static-libraries-b59
 
-
+### Solution for adding modular headers in Podfile 
+https://github.com/invertase/react-native-firebase/issues/6332#issuecomment-1172950523
