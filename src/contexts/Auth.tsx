@@ -118,25 +118,29 @@ const signUp = async (image: any, _email: string, _password: string, _department
     await AsyncStorage.removeItem('@AuthData');
   };
 
-  return (
-    //This component will be used to encapsulate the whole App,
-    //so all components will have access to the Context
-    
-<> 
-{
-   isFocused ? (
+  if (isFocused && authData?.token) {
+    return (
     <AuthContext.Provider value={{authData, authUserId, signIn, signUp, signOut}}>
         {/* Commented out for testing purposes to final signup form */}
         {/* Need to check for authData on rendering, because authData needs to be passed into tokenService in order to decode the token and grab the authUserId needed */}
-        <>{authData ? { authData.token ? <AppStack /> : <AuthStack /> } : <AuthStack/>}</>
+       <AppStack />
         {/* <AuthStack/> */}
         {/* Guests are shown in Browse after new registration, no party means displaying that guest has no party on the Guestlist Screen */}
     </AuthContext.Provider>
-   ) : null
-}
- 
-</>
-  )
+    )
+  }
+
+  else if (isFocused) {
+    return (
+        <AuthContext.Provider value={{authData, authUserId, signIn, signUp, signOut}}>
+        {/* Commented out for testing purposes to final signup form */}
+        {/* Need to check for authData on rendering, because authData needs to be passed into tokenService in order to decode the token and grab the authUserId needed */}
+        <AuthStack />
+        {/* <AuthStack/> */}
+        {/* Guests are shown in Browse after new registration, no party means displaying that guest has no party on the Guestlist Screen */}
+    </AuthContext.Provider>
+    )
+  }
   
 };
 

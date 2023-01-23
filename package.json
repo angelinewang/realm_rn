@@ -92,7 +92,8 @@
     "reactstrap": "^9.1.5",
     "tailwindcss": "^3.2.4",
     "tailwindcss-react-native": "^1.7.10",
-    "expo-build-properties": "~0.4.1"
+    "expo-build-properties": "~0.4.1",
+    "expo-updates": "~0.15.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

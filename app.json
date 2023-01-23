@@ -12,7 +12,8 @@
       "resizeMode": "contain"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/a7edb0ed-e973-4ad7-8f55-90b953505514"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -31,8 +32,8 @@
       "bundleIdentifier": "com.realmpartyapp.realm"
     },
     "notification": {
-        "icon": "./src/assets/images/icon.png",
-        "color": "#2abbff"
+      "icon": "./src/assets/images/icon.png",
+      "color": "#2abbff"
     },
     "plugins": [
       [
@@ -54,6 +55,14 @@
       "eas": {
         "projectId": "a7edb0ed-e973-4ad7-8f55-90b953505514"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "android": {
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     }
   }
 }
