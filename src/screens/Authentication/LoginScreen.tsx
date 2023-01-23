@@ -1,4 +1,4 @@
-import { View, Text, Button, DatePickerIOSBase } from "react-native";
+import { View, Text, Button, StyleSheet, DatePickerIOSBase } from "react-native";
 import MainContainer from "../../components/MainContainer";
 import KeyboardAvoidWrapper from "../../components/KeyboardAvoidWrapper";
 import CustomTextInput from "../../components/InputText/CustomTextInput";
@@ -59,6 +59,7 @@ const LoginScreen: React.FC = () => {
     return (
         <MainContainer>
             <KeyboardAvoidWrapper>
+                <View style={styles.viewContainer}>
                 <View className="flex flex-row items-center justify-center gap-0 pt-[25%]">
                     <Text className="text-3xl text-[#EFE3C8] font-mono">Secure</Text>
                     <Text className="text-3xl text-[#EFE3C850 font-sans">App</Text>
@@ -75,6 +76,7 @@ const LoginScreen: React.FC = () => {
                         keyboardType={"email-address"}
                         placeholder="Enter your email"
                     />
+                    <Text>TESTING</Text>
                     <CustomTextInput 
                         icon={<LockClosedIcon color={"#EFE3C850"} width={35} height={35} />}
                         onChangeText={onPasswordChange}
@@ -94,9 +96,20 @@ const LoginScreen: React.FC = () => {
                         <Button onPress={() => navigation.navigate('SignUp')} title="Don't have an account yet?"/>
                     </View>
                 </View>
+                </View>
             </KeyboardAvoidWrapper>
         </MainContainer>
     );
 }
+
+
+const styles = StyleSheet.create({
+    viewContainer: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFFFFF'
+    },
+})
 
 export { LoginScreen };
