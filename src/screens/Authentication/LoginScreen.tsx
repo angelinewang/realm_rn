@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet, DatePickerIOSBase } from "react-native";
+import { TextInput, Image, View, Text, Button, StyleSheet, DatePickerIOSBase, Pressable } from "react-native";
 import MainContainer from "../../components/MainContainer";
 import KeyboardAvoidWrapper from "../../components/KeyboardAvoidWrapper";
 import CustomTextInput from "../../components/InputText/CustomTextInput";
@@ -14,6 +14,7 @@ import { createContext, useState, useContext, useEffect } from 'react';
 
 import { useAuth } from "../../contexts/Auth";
 import { authService } from "../../services/authService";
+import { getTabBarHeight } from "@react-navigation/bottom-tabs/lib/typescript/src/views/BottomTabBar";
 
 // All data passed through context
 
@@ -59,43 +60,53 @@ const LoginScreen: React.FC = () => {
     return (
         <MainContainer>
             <KeyboardAvoidWrapper>
-                <View style={styles.viewContainer}>
                 <View className="flex flex-row items-center justify-center gap-0 pt-[25%]">
-                    <Text className="text-3xl text-[#EFE3C8] font-mono">Secure</Text>
-                    <Text className="text-3xl text-[#EFE3C850 font-sans">App</Text>
+                    <Image style={styles.kclLogo} source={require('../../assets/images/kcl-login-logo.png')}/>
                 </View>
                 <View className="flex flex-1 justify-center items-center pt-[20%] px-[25px]">
-                    <Text className="text-[#EFE3C8] text-md">
-                        Enter your account credentials 
-                    </Text>
-                    <View className="h-[50px] w-full"></View>
-                    <CustomTextInput 
+     
+                    {/* <CustomTextInput 
                         icon={<AtSymbolIcon color={"#EFE3C850"} width={35} height={35} />}
                         onChangeText={onEmailChange}
                         label="Email"
                         keyboardType={"email-address"}
                         placeholder="Enter your email"
+                    /> */}
+                    <TextInput 
+                        style={styles.inputBox}
+                        onChangeText={onEmailChange}
+                        placeholder="KCL Email"
+                        keyboardType="default"
                     />
                     <Text>TESTING</Text>
-                    <CustomTextInput 
+                    <TextInput 
+                        style={styles.inputBox}
+                        onChangeText={onPasswordChange}
+                        placeholder="Password"
+                        keyboardType="default"
+                    />
+                    {/* <CustomTextInput 
                         icon={<LockClosedIcon color={"#EFE3C850"} width={35} height={35} />}
                         onChangeText={onPasswordChange}
                         label="Password"
                         IsSecureText={true}
                         keyboardType="default"
                         placeholder="* * * * * * * *"
-                    />
+                    /> */}
                     {/* Button right now signs into MainScreen no matter whether the login details are valid */}
-                    <CustomButton 
-                        buttonText="Login"
-                        buttonClassNames="w-full rounded-md p-3 bg-[#EFE3C8] flex justify-center items-center mt-5"
-                        textClassNames="text-[#4A2B29] text-[18px] font-semibold"
+                    <Pressable 
                         onPress={logIn}
-                    />
-                    <View className="flex w-full justify-end items-end pt-4">
-                        <Button onPress={() => navigation.navigate('SignUp')} title="Don't have an account yet?"/>
-                    </View>
-                </View>
+                        style={styles.loginButton}
+                    >
+                        <Text style={styles.loginButtonText}>Login</Text>
+                    </Pressable>
+                    
+                    <Pressable 
+                        onPress={() => navigation.navigate('SignUp')} 
+                        style={styles.createAccountButton}
+                    >
+                        <Text style={styles.createAccountButtonText}>Create Account</Text>
+                    </Pressable>
                 </View>
             </KeyboardAvoidWrapper>
         </MainContainer>
@@ -104,12 +115,41 @@ const LoginScreen: React.FC = () => {
 
 
 const styles = StyleSheet.create({
-    viewContainer: {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#FFFFFF'
+    kclLogo: {
+        width: '224px',
+        height: '157px'
     },
+    loginButton: {
+        width: '318px',
+        height: '63px',
+        backgroundColor: '#4abbff',
+        borderRadius: 20
+    },
+    createAccountButton: {
+        width: '318px',
+        height: '63px',
+        backgroundColor: '#ffffff',
+        borderColor: '#4abbff',
+        borderRadius: 20,
+        borderWidth: 2,
+        borderStyle: 'solid'
+    },
+    inputBox: {
+        width: '318px',
+        height: '63px',
+        borderRadius: 20,
+        color: '#1B1B22',
+        backgroundColor: '#ffffff',
+        fontSize: 18
+    },
+    loginButtonText: {
+        color: '#ffffff',
+        fontSize: 20
+    },
+    createAccountButtonText: {
+        color: '#4abbff',
+        fontSize: 20
+    }
 })
 
 export { LoginScreen };

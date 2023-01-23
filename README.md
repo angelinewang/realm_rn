@@ -227,3 +227,14 @@ Separating plugins in app.json:
 Expo documentation for build properties:
 [BuildProperties - Expo Docs](https://docs.expo.dev/versions/latest/sdk/build-properties/)
 
+### Integrate Google Analytics into React Native app
+[Google Analytics For React Native App](https://medium.com/@ayushi.nig/google-analytics-for-react-native-app-ba03140ed528)
+
+### Adding OTA Updates to EAS Build
+[Over-the-air updates from Expo are now even easier to use! - By Eric Samelson](https://blog.expo.dev/over-the-air-updates-from-expo-are-now-even-easier-to-use-376e2213fabf)
+
+### React Native TextInput docs
+https://reactnative.dev/docs/textinput
+
+### React Native Button docs
+https://reactnative.dev/docs/button
