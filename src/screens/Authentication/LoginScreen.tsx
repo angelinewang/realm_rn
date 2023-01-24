@@ -227,7 +227,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: 15
     },
     kclLogo: {
         width: 224,
@@ -270,7 +269,8 @@ const styles = StyleSheet.create({
         shadowOffset: {width: 8, height: 8},
         shadowOpacity: 0.7,
         shadowRadius: 24,
-        fontFamily: 'Mulish-Regular'
+        fontFamily: 'Mulish-Regular',
+        padding: 15
     },
     inputBoxShadow: {
         width: 318,
