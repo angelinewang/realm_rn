@@ -232,17 +232,17 @@ const styles = StyleSheet.create({
     gender: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        padding: 15
     },
     department: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        padding: 15
     },
     birthdate: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        padding: 15
     },
     keyboardAvoidBackground: {
         height: '100%',
