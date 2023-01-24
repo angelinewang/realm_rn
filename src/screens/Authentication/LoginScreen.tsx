@@ -134,7 +134,8 @@ const LoginScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
     viewContainer: {
-        height: 518
+        height: 518,
+        marginStart: 80
     },
     screenBackground: {
         backgroundColor: '#FFFFFF',
