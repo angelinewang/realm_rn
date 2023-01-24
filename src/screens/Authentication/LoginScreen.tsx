@@ -186,7 +186,10 @@ const styles = StyleSheet.create({
         borderColor: '#4abbff',
         borderRadius: 20,
         borderWidth: 2,
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     inputBox: {
         width: 318,
