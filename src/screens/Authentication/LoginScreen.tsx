@@ -82,6 +82,8 @@ const LoginScreen: React.FC = () => {
     return (
         // <MainContainer>
             <KeyboardAvoidingView style={styles.screenBackground}>
+                <View style={styles.container}>
+                <View style={styles.box}>
                 <View style={styles.viewContainer}>
                 <View style={styles.viewBox}>
                 <Image style={styles.kclLogo} source={require('../../assets/images/kcl.png')}/>
@@ -148,6 +150,8 @@ const LoginScreen: React.FC = () => {
                     </View>
                 </View>
                 </View>
+                </View>
+                </View>
             </KeyboardAvoidingView>
         // </MainContainer>
     );
@@ -155,6 +159,16 @@ const LoginScreen: React.FC = () => {
 
 
 const styles = StyleSheet.create({
+    container: {
+        height: 724
+    },
+    box: {
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
     urlText: {
         fontFamily: 'Plus-Jakarta-Sans-Regular',
         fontSize: 12,
@@ -163,7 +177,7 @@ const styles = StyleSheet.create({
     urlsBox: {
         display: 'flex',
         flexDirection: 'row',
-        justifySelf: 'flex-end',
+        alignContent: 'space-around'
     },
     viewContainer: {
         height: 518,
