@@ -1,5 +1,5 @@
-import { TextInput, KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform } from "react-native";
-import React from "react";
+import { Linking, Alert, TextInput, KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform } from "react-native";
+import React, { useCallback } from "react";
 import MainContainer from "../../components/MainContainer";
 import KeyboardAvoidWrapper from "../../components/KeyboardAvoidWrapper";
 import CustomTextInput from "../../components/InputText/CustomTextInput";
@@ -120,6 +120,28 @@ const SignUpScreen = () => {
         await signIn(_email, _password)
     }
 
+        const termsAndConditions = "https://realmpartyapp.com/terms-of-use"
+    const privacyPolicy = "https://realmpartyapp.com/privacy-policy"
+    
+    type OpenURLButtonProps = {
+        url: string;
+        children: any;
+    }
+
+    const OpenURLButton = ({url, children}:
+        OpenURLButtonProps) => {
+            const handlePress = useCallback(async () => {
+                const supported = await 
+                Linking.canOpenURL(url);
+
+                if(supported) {
+                    await Linking.openURL(url);
+                } else {
+                    Alert.alert(`Don't know how to open this URL: ${url}`);
+                } }, [url]
+            );
+            return <Pressable onPress={handlePress}>{children}</Pressable>
+        }
     // For Photo Upload, using multipart/form-data
 
     return (
@@ -152,26 +174,27 @@ const SignUpScreen = () => {
                         placeholder="KCL Email"
                     />
                     </View>
-
-                    <CustomTextInput 
-                        icon={<LockClosedIcon color={"#EFE3C850"} width={35} height={35} />}
+                    
+                    <View style={styles.inputBoxShadow}>
+                    <TextInput 
                         onChangeText={onPasswordChange}
-                        label="Password"
-                        IsSecureText={true}
+                        style={styles.inputBox}
                         keyboardType="default"
                         placeholder="Password"
                     />
+                    </View>
 
                     {/* Department Select From List Entry */}
                     <RNPickerSelect onValueChange={onDepartmentChange} items={[{label: 'Arts/Humanities', value: 1}, {label: 'Business', value: 2}, {label: 'Dentistry', value: 3}, {label: 'Engineering', value: 4}, {label: 'Law', value: 5}, {label: 'Medic/Life Sciences', value: 6}, {label: 'Natural Sciences', value: 7}, {label: 'Nursing', value: 8}, {label: 'Pysch/Neuroscience', value: 9}, {label: 'Social Science', value: 10}]} />
-
-                    <CustomTextInput 
-                        icon={<AtSymbolIcon color={"#EFE3C850"} width={35} height={35} />}
+                    
+                    <View style={styles.inputBoxShadow}>
+                    <TextInput 
+                        style={styles.inputBox}
                         onChangeText={onNameChange}
-                        label="Name"
-                        keyboardType={"name"}
+                        keyboardType="default"
                         placeholder="Name"
                     />
+                    </View>
  
                 {/* Gender Select From List Entry */}
                     <RNPickerSelect onValueChange={onGenderChange} items={[{label: 'Male', value: 1}, {label: 'Female', value: 2}, {label: 'Other', value: 3}]} />
@@ -180,22 +203,20 @@ const SignUpScreen = () => {
 
                     <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={_birthdate} onDateChange={setBirthdate}/>
 
-                    <CustomButton 
-                        buttonText="SignUp"
-                        buttonClassNames="w-full rounded-md p-3 bg-[#EFE3C8] flex justify-center items-center mt-5"
-                        textClassNames="text-[#4A2B29] text-[18px] font-semibold"
+                    <Pressable 
+                        style={styles.createAccountButton}
                         onPress={signUpAndLogIn}
-                    />
+                    >
+                        <Text style={styles.createAccountButtonText}>Create Account</Text>
+                    </Pressable>
+
                     </View>
 
                 </Formik>
-                    <View className="flex w-full justify-end items-end pt-4">
-                        <Pressable onPress={() => navigation.navigate('Login')}>
-                            <Text className="text-center text-gray-500 text-sm">
-                                Already have an account? 
-                            </Text>
-                        </Pressable>
-                    </View>
+                </View>
+                <View style={styles.urlsBox}>
+                    <OpenURLButton url={termsAndConditions}><Text style={styles.urlText}>Terms & Conditions</Text></OpenURLButton>
+                    <OpenURLButton url={privacyPolicy}><Text style={styles.urlText}>Privacy Policy</Text></OpenURLButton>
                 </View>
             </KeyboardAvoidingView>
     );
@@ -244,6 +265,30 @@ const styles = StyleSheet.create({
         shadowOffset: {width: -8, height: -8},
         shadowOpacity: 1,
         shadowRadius: 24
+    },
+    createAccountButton: {
+        width: 318,
+        height: 63,
+        backgroundColor: '#4abbff',
+        borderRadius: 20,
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+       createAccountButtonText: {
+        color: '#ffffff',
+        fontSize: 20,
+        fontFamily: 'Plus-Jakarta-Sans-Bold'
+    },
+        urlsBox: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around'
     },
  })
 
