@@ -160,7 +160,7 @@ const LoginScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 724
+        height: 644
     },
     box: {
         height: '100%',
