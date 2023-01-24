@@ -226,7 +226,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        padding: 15
     },
     kclLogo: {
         width: 224,
