@@ -149,12 +149,12 @@ const SignUpScreen = () => {
 
     return (
         <SafeAreaView style={styles.screenBackground}>
-            <KeyboardAvoidingView style={styles.keyboardAvoidBackground}>
-                <View style={styles.loginSentence}>
+            <View style={styles.loginSentence}>
                     <Text style={styles.staticLogin}>Already have an account? </Text>
                     <Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.dynamicLogin}>Log In</Text></Pressable>
-                </View>
+            </View>
                 
+            <KeyboardAvoidingView style={styles.keyboardAvoidBackground}>
                 <Formik style={styles.allContainer} initialValues={{_email: '', _password: '', _department: '', _name: "", _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
                 <View style={styles.allBox}>
                     <Pressable onPress={pickImage}>
