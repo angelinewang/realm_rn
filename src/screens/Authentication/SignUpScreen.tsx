@@ -230,9 +230,6 @@ const SignUpScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    urlsContainer: {
-        alignSelf: 'flex-end'
-    },
     gender: {
         width: 318,
         height: 63,
