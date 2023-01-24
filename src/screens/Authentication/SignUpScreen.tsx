@@ -230,16 +230,22 @@ const SignUpScreen = () => {
 
 const styles = StyleSheet.create({
     gender: {
+        width: 318,
+        height: 63,
         display: 'flex',
         flexDirection: 'column',
         padding: 15
     },
     department: {
+        width: 318,
+        height: 63,
         display: 'flex',
         flexDirection: 'column',
         padding: 15
     },
     birthdate: {
+        width: 318,
+        height: 63,
         display: 'flex',
         flexDirection: 'column',
         padding: 15
