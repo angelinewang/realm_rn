@@ -186,7 +186,7 @@ const SignUpScreen = () => {
 
                     {/* Department Select From List Entry */}
                 <View style={styles.department}>
-                    <Text>Department</Text>
+                    <Text style={styles.labelText}>Department</Text>
                     <RNPickerSelect onValueChange={onDepartmentChange} items={[{label: 'Arts/Humanities', value: 1}, {label: 'Business', value: 2}, {label: 'Dentistry', value: 3}, {label: 'Engineering', value: 4}, {label: 'Law', value: 5}, {label: 'Medic/Life Sciences', value: 6}, {label: 'Natural Sciences', value: 7}, {label: 'Nursing', value: 8}, {label: 'Pysch/Neuroscience', value: 9}, {label: 'Social Science', value: 10}]} />
                 </View>
                     
@@ -201,13 +201,13 @@ const SignUpScreen = () => {
  
                 {/* Gender Select From List Entry */}
                 <View style={styles.gender}>
-                    <Text>Gender</Text>
+                    <Text style={styles.labelText}>Gender</Text>
                     <RNPickerSelect onValueChange={onGenderChange} items={[{label: 'Male', value: 1}, {label: 'Female', value: 2}, {label: 'Other', value: 3}]} />
                 </View>
 
                 {/* Birthdate Date Entry */}
                 <View style={styles.birthdate}>
-                    <Text>Birthdate</Text>
+                    <Text style={styles.labelText}>Birthdate</Text>
                     <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={_birthdate} onDateChange={setBirthdate}/>
                 </View>
                     <Pressable 
@@ -282,6 +282,11 @@ const styles = StyleSheet.create({
             fontSize: 16,
             color: '#8D8DA5'
         }, 
+    labelText: {
+        color: '#1B1B22',
+        fontSize: 18,
+        fontFamily: 'Mulish-Regular'
+    },
     inputBox: {
         width: 318,
         height: 63,
