@@ -205,7 +205,8 @@ const styles = StyleSheet.create({
             height: '100%',
         },  
         loginSentence: {
-            display: 'flex'
+            display: 'flex',
+            flexDirection: 'row'
         },
         staticLogin: {
             fontFamily: 'Open-Sans-Light',
