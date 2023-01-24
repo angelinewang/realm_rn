@@ -25,7 +25,8 @@ import { useFonts } from 'expo-font';
 
 const LoginScreen: React.FC = () => {
     const [fontsLoaded] = useFonts({
-        'Plus-Jakarta-Sans': require('../../assets/fonts/PlusJakartaSans-Regular.ttf')
+        'Plus-Jakarta-Sans-Regular': require('../../assets/fonts/PlusJakartaSans-Regular.ttf'),
+        'Plus-Jakarta-Sans-Bold': require('../../assets/fonts/PlusJakartaSans-Bold.ttf')
     })
     const [error, setError] = useState();
 
@@ -162,12 +163,12 @@ const styles = StyleSheet.create({
     loginButtonText: {
         color: '#ffffff',
         fontSize: 20,
-        fontFamily: 'Plus-Jakarta-Sans',
-        fontWeight: 'bold'
+        fontFamily: 'Plus-Jakarta-Sans-Bold'
     },
     createAccountButtonText: {
         color: '#4abbff',
-        fontSize: 20
+        fontSize: 20,
+        fontFamily: 'Plus-Jakarta-Sans-Bold'
     }
 })
 
