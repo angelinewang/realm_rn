@@ -248,7 +248,8 @@ const styles = StyleSheet.create({
         loginSentence: {
             display: 'flex',
             flexDirection: 'row',
-            alignSelf: 'center'
+            alignSelf: 'center',
+            flex: 1
         },
         staticLogin: {
             fontFamily: 'Open-Sans-Light',
