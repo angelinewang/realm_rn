@@ -350,7 +350,8 @@ const styles = StyleSheet.create({
     urlText: {
         fontFamily: 'Plus-Jakarta-Sans-Regular',
         fontSize: 12,
-        color: '#8D8DA5'
+        color: '#8D8DA5',
+        flex: -1
     },
  })
 
