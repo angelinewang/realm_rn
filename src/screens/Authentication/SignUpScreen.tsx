@@ -151,12 +151,12 @@ const SignUpScreen = () => {
                     <Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.dynamicLogin}>Log In</Text></Pressable>
                 </View>
             
-                <View className="flex flex-1 justify-center items-center pt-[20%] px-[25px]">
-                    <View className="h-[50px] w-full"></View>
+        
 
                 <Formik initialValues={{_email: '', _password: '', _department: '', _name: "", _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
                     
-                    <View>
+                    <View style={styles.allContainer}>
+                        <View style={styles.allBox}>
                         <Pressable onPress={pickImage}>
                             {
                                 image && <Image source={{uri: image}} style={{width: 200, height: 200}}/> 
@@ -211,18 +211,30 @@ const SignUpScreen = () => {
                     </Pressable>
 
                     </View>
+                    </View>
 
                 </Formik>
-                </View>
+              
                 <View style={styles.urlsBox}>
                     <OpenURLButton url={termsAndConditions}><Text style={styles.urlText}>Terms & Conditions</Text></OpenURLButton>
                     <OpenURLButton url={privacyPolicy}><Text style={styles.urlText}>Privacy Policy</Text></OpenURLButton>
                 </View>
+
             </KeyboardAvoidingView>
     );
 };
 
 const styles = StyleSheet.create({
+        allContainer: {
+            height: 400
+        },
+        allBox: {
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'space-between'       
+        },
         screenBackground: {
             backgroundColor: '#FFFFFF',
             height: '100%',
