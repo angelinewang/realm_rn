@@ -149,7 +149,7 @@ const SignUpScreen = () => {
 
     return (
         <SafeAreaView style={styles.screenBackground}>
-            <KeyboardAvoidingView style={styles.keyboardAvoidBackground}>
+            <ScrollView style={styles.keyboardAvoidBackground}>
                 <View style={styles.loginSentence}>
                     <Text style={styles.staticLogin}>Already have an account? </Text>
                     <Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.dynamicLogin}>Log In</Text></Pressable>
@@ -218,7 +218,7 @@ const SignUpScreen = () => {
                     </Pressable>
                     </View>
                 </Formik>
-              </KeyboardAvoidingView>
+              </ScrollView>
                 <View style={styles.urlsBox}>
                     <OpenURLButton url={termsAndConditions}><Text style={styles.urlText}>Terms & Conditions</Text></OpenURLButton>
                     <OpenURLButton url={privacyPolicy}><Text style={styles.urlText}>Privacy Policy</Text></OpenURLButton>
