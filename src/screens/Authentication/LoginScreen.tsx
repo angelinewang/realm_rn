@@ -62,7 +62,7 @@ const LoginScreen: React.FC = () => {
 // #1 Make login Function work
 
     return (
-        <MainContainer>
+        // <MainContainer>
             <KeyboardAvoidWrapper>
                 <View style={styles.screenBackground} className="flex flex-1 justify-center items-center">
                 <Image style={styles.kclLogo} source={require('../../assets/images/kcl.png')}/>
@@ -125,7 +125,7 @@ const LoginScreen: React.FC = () => {
                     </View>
                 </View>
             </KeyboardAvoidWrapper>
-        </MainContainer>
+        // </MainContainer>
     );
 }
 
