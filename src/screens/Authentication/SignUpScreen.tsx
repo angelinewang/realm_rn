@@ -1,4 +1,4 @@
-import { Linking, Alert, TextInput, KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform } from "react-native";
+import { Linking, Alert, TextInput, KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform, Dimensions } from "react-native";
 import React, { useCallback } from "react";
 import MainContainer from "../../components/MainContainer";
 import KeyboardAvoidWrapper from "../../components/KeyboardAvoidWrapper";
@@ -23,6 +23,8 @@ import { useAuth } from "../../contexts/Auth";
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const SignUpScreen = () => {
+
+    const {height} = Dimensions.get('window')
 
      const [fontsLoaded] = useFonts({
         'Mulish-Regular': require('../../assets/fonts/Mulish-Regular.ttf'),
@@ -145,14 +147,12 @@ const SignUpScreen = () => {
     // For Photo Upload, using multipart/form-data
 
     return (
+            <ScrollView>
             <KeyboardAvoidingView style={styles.screenBackground}>
                 <View style={styles.loginSentence}>
                     <Text style={styles.staticLogin}>Already have an account? </Text>
                     <Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.dynamicLogin}>Log In</Text></Pressable>
                 </View>
-            
-        
-
                 <Formik style={styles.allContainer} initialValues={{_email: '', _password: '', _department: '', _name: "", _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
                         <View style={styles.allBox}>
                         <Pressable onPress={pickImage}>
@@ -218,6 +218,7 @@ const SignUpScreen = () => {
                 </View>
 
             </KeyboardAvoidingView>
+            </ScrollView>
     );
 };
 
