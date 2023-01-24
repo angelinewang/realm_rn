@@ -341,7 +341,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Plus-Jakarta-Sans-Bold'
     },
     urlsBox: {
-        width: '100%',
+        width: 100,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
