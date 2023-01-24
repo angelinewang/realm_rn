@@ -25,7 +25,7 @@ import { useFonts } from 'expo-font';
 
 const LoginScreen: React.FC = () => {
     const [fontsLoaded] = useFonts({
-        'Plus-Jakarta-Sans-Regular': require('../../assets/fonts/PlusJakartaSans-Regular.ttf'),
+        'Mulish-Regular': require('../../assets/fonts/Mulish-Regular.ttf'),
         'Plus-Jakarta-Sans-Bold': require('../../assets/fonts/PlusJakartaSans-Bold.ttf')
     })
     const [error, setError] = useState();
@@ -102,7 +102,7 @@ const LoginScreen: React.FC = () => {
                         onPress={logIn}
                         style={styles.loginButton}
                     >
-                        <Text style={styles.loginButtonText}>Login</Text>
+                        <Text style={styles.loginButtonText}>Log In</Text>
                     </Pressable>
                     
                     <Pressable 
@@ -128,7 +128,11 @@ const styles = StyleSheet.create({
         width: 318,
         height: 63,
         backgroundColor: '#4abbff',
-        borderRadius: 20
+        borderRadius: 20,
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.25,
+        shadowRadius: 4
     },
     createAccountButton: {
         width: 318,
@@ -149,7 +153,8 @@ const styles = StyleSheet.create({
         shadowColor: '#EAEAEAB2',
         shadowOffset: {width: 8, height: 8},
         shadowOpacity: 0.7,
-        shadowRadius: 24
+        shadowRadius: 24,
+        fontFamily: 'Mulish-Regular'
     },
     inputBoxShadow: {
         width: 318,
