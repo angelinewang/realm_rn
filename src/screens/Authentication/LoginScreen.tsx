@@ -73,6 +73,8 @@ const LoginScreen: React.FC = () => {
                         keyboardType={"email-address"}
                         placeholder="Enter your email"
                     /> */}
+                    <View style={styles.allContainer}>
+                    <View style={styles.allBox}>
                     <View style={styles.inputBoxesContainer}>
                     <View style={styles.inputBoxes}>
                     <View style={styles.inputBoxShadow}>
@@ -119,6 +121,8 @@ const LoginScreen: React.FC = () => {
                     </Pressable>
                     </View>
                     </View>
+                    </View>
+                    </View>
                 </View>
             </KeyboardAvoidWrapper>
         </MainContainer>
@@ -127,8 +131,18 @@ const LoginScreen: React.FC = () => {
 
 
 const styles = StyleSheet.create({
+    allContainer: {
+        height: 326
+    },
+    allBox: {
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
     buttonsContainer: {
-        height: 63
+        height: 143
     },
     buttonsBox: {
         height: '100%',
