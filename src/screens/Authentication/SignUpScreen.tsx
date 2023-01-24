@@ -147,7 +147,7 @@ const SignUpScreen = () => {
     // For Photo Upload, using multipart/form-data
 
     return (
-            <ScrollView>
+            <ScrollView style={styles.scrollView}>
             <KeyboardAvoidingView style={styles.screenBackground}>
                 <View style={styles.loginSentence}>
                     <Text style={styles.staticLogin}>Already have an account? </Text>
@@ -223,6 +223,9 @@ const SignUpScreen = () => {
 };
 
 const styles = StyleSheet.create({
+        scrollView: {
+            height: '100%'
+        },
         allContainer: {
             height: 545
         },
