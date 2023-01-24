@@ -200,9 +200,10 @@ const SignUpScreen = () => {
                     <RNPickerSelect onValueChange={onGenderChange} items={[{label: 'Male', value: 1}, {label: 'Female', value: 2}, {label: 'Other', value: 3}]} />
 
                 {/* Birthdate Date Entry */}
-
+                <View style={styles.birthdate}>
+                    <Text>Birthdate</Text>
                     <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={_birthdate} onDateChange={setBirthdate}/>
-
+                </View>
                     <Pressable 
                         style={styles.createAccountButton}
                         onPress={signUpAndLogIn}
@@ -222,6 +223,10 @@ const SignUpScreen = () => {
 };
 
 const styles = StyleSheet.create({
+    birthdate: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
     keyboardAvoidBackground: {
         height: '100%',
         display: 'flex',
@@ -249,7 +254,6 @@ const styles = StyleSheet.create({
             display: 'flex',
             flexDirection: 'row',
             alignSelf: 'center',
-            flex: 1
         },
         staticLogin: {
             fontFamily: 'Open-Sans-Light',
