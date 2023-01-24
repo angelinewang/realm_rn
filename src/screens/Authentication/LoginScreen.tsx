@@ -60,7 +60,7 @@ const LoginScreen: React.FC = () => {
     return (
         <MainContainer>
             <KeyboardAvoidWrapper>
-                <Image style={styles.kclLogo} source={require('../../assets/images/kcl-login-logo.png')}/>
+                <Image style={styles.kclLogo} source={require('../../assets/images/kcl.png')}/>
         
                 <View className="flex flex-1 justify-center items-center pt-[20%] px-[25px]">
      
@@ -115,8 +115,8 @@ const LoginScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
     kclLogo: {
-        width: '224px',
-        height: '157px'
+        width: 224,
+        height: 157
     },
     loginButton: {
         width: '318px',
