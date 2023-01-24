@@ -231,15 +231,18 @@ const SignUpScreen = () => {
 const styles = StyleSheet.create({
     gender: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        alignItems: 'center'
     },
     department: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        alignItems: 'center'
     },
     birthdate: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        alignItems: 'center'
     },
     keyboardAvoidBackground: {
         height: '100%',
