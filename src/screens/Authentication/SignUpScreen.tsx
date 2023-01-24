@@ -223,8 +223,8 @@ const SignUpScreen = () => {
 
 const styles = StyleSheet.create({
     allContainer: {
-            height: 500
-        },
+            height: 475
+    },
         allBox: {
             height: '100%',
             display: 'flex',
