@@ -3,7 +3,7 @@ import { IProps } from "../../auth-app";
 
 const MainContainer: React.FC<IProps> = ({ children }) => {
     return (
-        <SafeAreaView className="flex-1 p-[20px] bg-[#FFFFFF]">
+        <SafeAreaView>
             {children}
         </SafeAreaView>
     )
