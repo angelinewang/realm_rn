@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             justifyContent: 'space-between'       
         },
         screenBackground: {
