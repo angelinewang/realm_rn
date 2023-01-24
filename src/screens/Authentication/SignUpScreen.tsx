@@ -218,13 +218,12 @@ const SignUpScreen = () => {
                     </Pressable>
                     </View>
                 </Formik>
-              </SafeAreaView>
                 <View style={styles.urlsBox}>
                     <OpenURLButton url={termsAndConditions}><Text style={styles.urlText}>Terms & Conditions</Text></OpenURLButton>
                     <OpenURLButton url={privacyPolicy}><Text style={styles.urlText}>Privacy Policy</Text></OpenURLButton>
                 </View>
+                </SafeAreaView>
             </ScrollView>
-            
     );
 };
 
@@ -342,7 +341,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontFamily: 'Plus-Jakarta-Sans-Bold'
     },
-        urlsBox: {
+    urlsBox: {
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
