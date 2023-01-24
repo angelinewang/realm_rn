@@ -65,7 +65,7 @@ const LoginScreen: React.FC = () => {
         // <MainContainer>
             <KeyboardAvoidingView style={styles.screenBackground}>
                 <View style={styles.viewContainer}>
-                <View className="flex flex-1 justify-center items-space-between">
+                <View style={styles.viewBox}>
                 <Image style={styles.kclLogo} source={require('../../assets/images/kcl.png')}/>
                     {/* <CustomTextInput 
                         icon={<AtSymbolIcon color={"#EFE3C850"} width={35} height={35} />}
@@ -135,7 +135,14 @@ const LoginScreen: React.FC = () => {
 const styles = StyleSheet.create({
     viewContainer: {
         height: 518,
-        marginStart: 80
+        marginTop: 80
+    },
+    viewBox: {
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
     screenBackground: {
         backgroundColor: '#FFFFFF',
