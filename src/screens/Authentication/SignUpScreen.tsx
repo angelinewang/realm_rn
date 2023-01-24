@@ -266,7 +266,6 @@ const styles = StyleSheet.create({
     },
     allContainer: {
         height: '75%',
-        flex: 8
     },
         allBox: {
             height: '100%',
@@ -286,7 +285,6 @@ const styles = StyleSheet.create({
             flexDirection: 'row',
             alignSelf: 'center',
             justifyContent: 'flex-start',
-            flex: 1
         },
         staticLogin: {
             fontFamily: 'Open-Sans-Light',
