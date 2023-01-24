@@ -130,18 +130,23 @@ const SignUpScreen = () => {
                 </View>
             
                 <View className="flex flex-1 justify-center items-center pt-[20%] px-[25px]">
-                    <Text className="text-[#EFE3C8] text-md">
-                        Enter your account details to register 
-                    </Text>
                     <View className="h-[50px] w-full"></View>
 
                 <Formik initialValues={{_email: '', _password: '', _department: '', _name: "", _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
                     
                     <View>
-                        <Button title="Pick an image from camera roll" onPress={pickImage}/>
+                        <Pressable onPress={pickImage}>
+                            {
+                                                            image && <Image source={{uri: image}} style={{width: 200, height: 200}}/> ? <Image source={{uri: image}} style={{width: 200, height: 200}}/> :
+                                                                <Image source={require('../../assets/images/photo-upload.png')}/>
+
+                            }
+                            
+                            </Pressable>
+{/* 
                         {
                             image && <Image source={{uri: image}} style={{width: 200, height: 200}}/>
-                        }
+                        } */}
 
                     <CustomTextInput 
                         icon={<AtSymbolIcon color={"#EFE3C850"} width={35} height={35} />}
