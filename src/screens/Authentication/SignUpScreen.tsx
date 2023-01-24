@@ -149,7 +149,7 @@ const SignUpScreen = () => {
 
     return (
         <SafeAreaView style={styles.screenBackground}>
-            <KeyboardAvoidingView>
+            <KeyboardAvoidingView style={styles.keyboardAvoidBackground}>
                 <View style={styles.loginSentence}>
                     <Text style={styles.staticLogin}>Already have an account? </Text>
                     <Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.dynamicLogin}>Log In</Text></Pressable>
@@ -222,6 +222,12 @@ const SignUpScreen = () => {
 };
 
 const styles = StyleSheet.create({
+    keyboardAvoidBackground: {
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start'
+    },
     allContainer: {
             height: '75%'
     },
@@ -229,7 +235,7 @@ const styles = StyleSheet.create({
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'flex-start',
+            alignItems: 'center',
             justifyContent: 'space-between'       
         },
         screenBackground: {
