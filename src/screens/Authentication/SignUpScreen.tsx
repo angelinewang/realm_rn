@@ -233,23 +233,22 @@ const styles = StyleSheet.create({
         width: 318,
         height: 63,
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         padding: 15
     },
     department: {
         width: 318,
         height: 63,
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         padding: 15
     },
     birthdate: {
         width: 318,
         height: 63,
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         padding: 15,
-        justifyContent: 'flex-start'
     },
     keyboardAvoidBackground: {
         height: '100%',
