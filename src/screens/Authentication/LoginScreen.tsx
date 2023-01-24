@@ -60,10 +60,11 @@ const LoginScreen: React.FC = () => {
     return (
         <MainContainer>
             <KeyboardAvoidWrapper>
-                <Image style={styles.kclLogo} source={require('../../assets/images/kcl.png')}/>
+ 
         
                 <View className="flex flex-1 justify-center items-center pt-[20%] px-[25px]">
-     
+                    
+                <Image style={styles.kclLogo} source={require('../../assets/images/kcl.png')}/>
                     {/* <CustomTextInput 
                         icon={<AtSymbolIcon color={"#EFE3C850"} width={35} height={35} />}
                         onChangeText={onEmailChange}
@@ -116,7 +117,8 @@ const LoginScreen: React.FC = () => {
 const styles = StyleSheet.create({
     kclLogo: {
         width: 224,
-        height: 157
+        height: 157, 
+        alignSelf: 'center'
     },
     loginButton: {
         width: 318,
