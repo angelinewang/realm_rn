@@ -21,6 +21,7 @@ import { SignUpScreenNavigationProp } from '../../navigation/types';
 import { useAuth } from "../../contexts/Auth";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const SignUpScreen = () => {
 
@@ -147,23 +148,22 @@ const SignUpScreen = () => {
     // For Photo Upload, using multipart/form-data
 
     return (
-            
             <KeyboardAvoidingView style={styles.screenBackground}>
-                <ScrollView style={styles.scrollView}>
                 <View style={styles.loginSentence}>
                     <Text style={styles.staticLogin}>Already have an account? </Text>
                     <Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.dynamicLogin}>Log In</Text></Pressable>
                 </View>
+                
                 <Formik style={styles.allContainer} initialValues={{_email: '', _password: '', _department: '', _name: "", _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
-                        <View style={styles.allBox}>
-                        <Pressable onPress={pickImage}>
-                            {
-                                image && <Image source={{uri: image}} style={{width: 200, height: 200}}/> 
-                                ? <Image source={{uri: image}} style={{width: 200, height: 200}}/> 
-                                : <Image source={require('../../assets/images/photo-upload.png')}/>
+                <View style={styles.allBox}>
+                    <Pressable onPress={pickImage}>
+                        {
+                            image && <Image source={{uri: image}} style={{width: 200, height: 200}}/> 
+                            ? <Image source={{uri: image}} style={{width: 200, height: 200}}/> 
+                            : <Image source={require('../../assets/images/photo-upload.png')}/>
 
-                            }
-                        </Pressable>
+                        }
+                    </Pressable>
 
                     <View style={styles.inputBoxShadow}>
                     <TextInput
@@ -217,16 +217,12 @@ const SignUpScreen = () => {
                     <OpenURLButton url={termsAndConditions}><Text style={styles.urlText}>Terms & Conditions</Text></OpenURLButton>
                     <OpenURLButton url={privacyPolicy}><Text style={styles.urlText}>Privacy Policy</Text></OpenURLButton>
                 </View>
-            </ScrollView>
             </KeyboardAvoidingView>
     );
 };
 
 const styles = StyleSheet.create({
-        scrollView: {
-            height: '100%'
-        },
-        allContainer: {
+    allContainer: {
             height: 545
         },
         allBox: {
@@ -302,6 +298,11 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around'
+    },
+    urlText: {
+        fontFamily: 'Plus-Jakarta-Sans-Regular',
+        fontSize: 12,
+        color: '#8D8DA5'
     },
  })
 
