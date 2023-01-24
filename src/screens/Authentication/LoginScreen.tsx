@@ -16,6 +16,7 @@ import { useAuth } from "../../contexts/Auth";
 import { authService } from "../../services/authService";
 import { getTabBarHeight } from "@react-navigation/bottom-tabs/lib/typescript/src/views/BottomTabBar";
 
+import { useFonts } from 'expo-font';
 // All data passed through context
 
 
@@ -23,7 +24,9 @@ import { getTabBarHeight } from "@react-navigation/bottom-tabs/lib/typescript/sr
 //and a empty object
 
 const LoginScreen: React.FC = () => {
-
+    const [fontsLoaded] = useFonts({
+        'Plus-Jakarta-Sans': require('../../assets/fonts/PlusJakartaSans-Regular.ttf')
+    })
     const [error, setError] = useState();
 
     const {signIn} = useAuth()
@@ -158,7 +161,9 @@ const styles = StyleSheet.create({
     },
     loginButtonText: {
         color: '#ffffff',
-        fontSize: 20
+        fontSize: 20,
+        fontFamily: 'Plus-Jakarta-Sans',
+        fontWeight: 'bold'
     },
     createAccountButtonText: {
         color: '#4abbff',
