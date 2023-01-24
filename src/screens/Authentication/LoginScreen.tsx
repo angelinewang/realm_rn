@@ -77,7 +77,7 @@ const LoginScreen: React.FC = () => {
                         placeholder="KCL Email"
                         keyboardType="default"
                     />
-                    <Text>TESTING</Text>
+             
                     <TextInput 
                         style={styles.inputBox}
                         onChangeText={onPasswordChange}
@@ -119,14 +119,14 @@ const styles = StyleSheet.create({
         height: 157
     },
     loginButton: {
-        width: '318px',
-        height: '63px',
+        width: 318,
+        height: 63,
         backgroundColor: '#4abbff',
         borderRadius: 20
     },
     createAccountButton: {
-        width: '318px',
-        height: '63px',
+        width: 318,
+        height: 63,
         backgroundColor: '#ffffff',
         borderColor: '#4abbff',
         borderRadius: 20,
@@ -134,8 +134,8 @@ const styles = StyleSheet.create({
         borderStyle: 'solid'
     },
     inputBox: {
-        width: '318px',
-        height: '63px',
+        width: 318,
+        height: 63,
         borderRadius: 20,
         color: '#1B1B22',
         backgroundColor: '#ffffff',
