@@ -345,13 +345,13 @@ const styles = StyleSheet.create({
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        flex: -1
     },
     urlText: {
         fontFamily: 'Plus-Jakarta-Sans-Regular',
         fontSize: 12,
         color: '#8D8DA5',
-        flex: -1
     },
  })
 
