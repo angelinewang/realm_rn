@@ -73,6 +73,7 @@ const LoginScreen: React.FC = () => {
                         keyboardType={"email-address"}
                         placeholder="Enter your email"
                     /> */}
+                    <View style={styles.inputBoxesContainer}>
                     <View style={styles.inputBoxes}>
                     <View style={styles.inputBoxShadow}>
                     <TextInput 
@@ -89,6 +90,7 @@ const LoginScreen: React.FC = () => {
                         placeholder="Password"
                         keyboardType="default"
                     />
+                    </View>
                     </View>
                     </View>
                     {/* <CustomTextInput 
@@ -121,11 +123,15 @@ const LoginScreen: React.FC = () => {
 
 
 const styles = StyleSheet.create({
+    inputBoxesContainer: {
+        height: 148
+    },
     inputBoxes: {
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-around'
+        justifyContent: 'space-between'
     },
     kclLogo: {
         width: 224,
