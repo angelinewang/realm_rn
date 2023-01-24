@@ -174,10 +174,14 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#8D8DA5'
     },
+    urlsContainer: {
+        width: '100vw'
+    },
     urlsBox: {
+        width: '100%',
         display: 'flex',
         flexDirection: 'row',
-        alignContent: 'space-around'
+        justifyContent: 'space-around'
     },
     viewContainer: {
         height: 518,
