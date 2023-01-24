@@ -125,7 +125,7 @@ const SignUpScreen = () => {
     return (
             <KeyboardAvoidingView style={styles.screenBackground}>
                 <View style={styles.loginSentence}>
-                    <Text style={styles.staticLogin}>Already have an account?</Text>
+                    <Text style={styles.staticLogin}>Already have an account? </Text>
                     <Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.dynamicLogin}>Log In</Text></Pressable>
                 </View>
             
@@ -203,10 +203,12 @@ const styles = StyleSheet.create({
         screenBackground: {
             backgroundColor: '#FFFFFF',
             height: '100%',
+            display: 'flex'
         },  
         loginSentence: {
             display: 'flex',
-            flexDirection: 'row'
+            flexDirection: 'row',
+            alignSelf: 'center'
         },
         staticLogin: {
             fontFamily: 'Open-Sans-Light',
