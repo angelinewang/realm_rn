@@ -60,10 +60,7 @@ const LoginScreen: React.FC = () => {
     return (
         <MainContainer>
             <KeyboardAvoidWrapper>
- 
-        
                 <View className="flex flex-1 justify-center items-center pt-[20%] px-[25px]">
-                    
                 <Image style={styles.kclLogo} source={require('../../assets/images/kcl.png')}/>
                     {/* <CustomTextInput 
                         icon={<AtSymbolIcon color={"#EFE3C850"} width={35} height={35} />}
@@ -72,19 +69,22 @@ const LoginScreen: React.FC = () => {
                         keyboardType={"email-address"}
                         placeholder="Enter your email"
                     /> */}
+                    <View style={styles.inputBoxShadow}>
                     <TextInput 
                         style={styles.inputBox}
                         onChangeText={onEmailChange}
                         placeholder="KCL Email"
                         keyboardType="default"
                     />
-             
+                    </View>
+                    <View style={styles.inputBoxShadow}>
                     <TextInput 
                         style={styles.inputBox}
                         onChangeText={onPasswordChange}
                         placeholder="Password"
                         keyboardType="default"
                     />
+                    </View>
                     {/* <CustomTextInput 
                         icon={<LockClosedIcon color={"#EFE3C850"} width={35} height={35} />}
                         onChangeText={onPasswordChange}
@@ -141,7 +141,20 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         color: '#1B1B22',
         backgroundColor: '#ffffff',
-        fontSize: 18
+        fontSize: 18,
+        shadowColor: '#EAEAEAB2',
+        shadowOffset: {width: 8, height: 8},
+        shadowOpacity: 0.7,
+        shadowRadius: 24
+    },
+    inputBoxShadow: {
+        width: 318,
+        height: 63,
+        borderRadius: 20,
+        shadowColor: '#F7F7F8',
+        shadowOffset: {width: -8, height: -8},
+        shadowOpacity: 1,
+        shadowRadius: 24
     },
     loginButtonText: {
         color: '#ffffff',
