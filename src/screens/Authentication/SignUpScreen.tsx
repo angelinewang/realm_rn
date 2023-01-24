@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform } from "react-native";
+import { TextInput, KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform } from "react-native";
 import React from "react";
 import MainContainer from "../../components/MainContainer";
 import KeyboardAvoidWrapper from "../../components/KeyboardAvoidWrapper";
@@ -137,24 +137,21 @@ const SignUpScreen = () => {
                     <View>
                         <Pressable onPress={pickImage}>
                             {
-                                                            image && <Image source={{uri: image}} style={{width: 200, height: 200}}/> ? <Image source={{uri: image}} style={{width: 200, height: 200}}/> :
-                                                                <Image source={require('../../assets/images/photo-upload.png')}/>
+                                image && <Image source={{uri: image}} style={{width: 200, height: 200}}/> 
+                                ? <Image source={{uri: image}} style={{width: 200, height: 200}}/> 
+                                : <Image source={require('../../assets/images/photo-upload.png')}/>
 
                             }
-                            
-                            </Pressable>
-{/* 
-                        {
-                            image && <Image source={{uri: image}} style={{width: 200, height: 200}}/>
-                        } */}
+                        </Pressable>
 
-                    <CustomTextInput 
-                        icon={<AtSymbolIcon color={"#EFE3C850"} width={35} height={35} />}
+                    <View style={styles.inputBoxShadow}>
+                    <TextInput
                         onChangeText={onEmailChange}
-                        label="Email"
+                        style={styles.inputBox}
                         keyboardType={"email-address"}
                         placeholder="KCL Email"
                     />
+                    </View>
 
                     <CustomTextInput 
                         icon={<LockClosedIcon color={"#EFE3C850"} width={35} height={35} />}
@@ -224,7 +221,30 @@ const styles = StyleSheet.create({
             fontFamily: 'Open-Sans-Bold',
             fontSize: 16,
             color: '#8D8DA5'
-        }
+        }, 
+        inputBox: {
+        width: 318,
+        height: 63,
+        borderRadius: 20,
+        color: '#1B1B22',
+        backgroundColor: '#ffffff',
+        fontSize: 18,
+        shadowColor: '#EAEAEAB2',
+        shadowOffset: {width: 8, height: 8},
+        shadowOpacity: 0.7,
+        shadowRadius: 24,
+        fontFamily: 'Mulish-Regular',
+        padding: 15
+    },
+    inputBoxShadow: {
+        width: 318,
+        height: 63,
+        borderRadius: 20,
+        shadowColor: '#F7F7F8',
+        shadowOffset: {width: -8, height: -8},
+        shadowOpacity: 1,
+        shadowRadius: 24
+    },
  })
 
 export default SignUpScreen;
