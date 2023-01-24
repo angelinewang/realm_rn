@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Pressable, Image, Button, Platform } from "react-native";
+import { KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform } from "react-native";
 import React from "react";
 import MainContainer from "../../components/MainContainer";
 import KeyboardAvoidWrapper from "../../components/KeyboardAvoidWrapper";
@@ -9,6 +9,8 @@ import { Formik, useFormik } from 'formik';
 import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
 
 import * as ImagePicker from 'expo-image-picker';
+
+import { useFonts } from 'expo-font';
 
 import { AtSymbolIcon, LockClosedIcon } from "react-native-heroicons/solid";
 import CustomButton from "../../components/Buttons/CustomButton";
@@ -22,6 +24,12 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 const SignUpScreen = () => {
 
+     const [fontsLoaded] = useFonts({
+        'Mulish-Regular': require('../../assets/fonts/Mulish-Regular.ttf'),
+        'Plus-Jakarta-Sans-Bold': require('../../assets/fonts/PlusJakartaSans-Bold.ttf'),
+        'Open-Sans-Light': require('../../assets/fonts/OpenSans-Light.ttf'),
+        'Open-Sans-Bold': require('../../assets/fonts/OpenSans-Bold.ttf')
+    })
     const [image, setImage] = React.useState(null);
 
     const pickImage = async () => {
@@ -115,12 +123,12 @@ const SignUpScreen = () => {
     // For Photo Upload, using multipart/form-data
 
     return (
-        <MainContainer>
-            <KeyboardAvoidWrapper>
-                <View className="flex flex-row items-center justify-center gap-0 pt-[25%]">
-                    <Text className="text-3xl text-[#EFE3C8] font-mono">Secure</Text>
-                    <Text className="text-3xl text-[#EFE3C850 font-sans">App</Text>
+            <KeyboardAvoidingView style={styles.screenBackground}>
+                <View style={styles.loginSentence}>
+                    <Text style={styles.staticLogin}>Already have an account?</Text>
+                    <Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.dynamicLogin}>Log In</Text></Pressable>
                 </View>
+            
                 <View className="flex flex-1 justify-center items-center pt-[20%] px-[25px]">
                     <Text className="text-[#EFE3C8] text-md">
                         Enter your account details to register 
@@ -187,9 +195,26 @@ const SignUpScreen = () => {
                         </Pressable>
                     </View>
                 </View>
-            </KeyboardAvoidWrapper>
-        </MainContainer>
+            </KeyboardAvoidingView>
     );
 };
+
+const styles = StyleSheet.create({
+        screenBackground: {
+            backgroundColor: '#FFFFFF',
+            height: '100%',
+        },  
+        loginSentence: {
+            display: 'flex'
+        },
+        staticLogin: {
+            fontFamily: 'Open-Sans-Light',
+            fontSize: 16
+        },
+        dynamicLogin: {
+            fontFamily: 'Open-Sans-Bold',
+            fontSize: 16
+        }
+ })
 
 export default SignUpScreen;
