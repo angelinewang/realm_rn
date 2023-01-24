@@ -158,8 +158,7 @@ const styles = StyleSheet.create({
     urlsBox: {
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'space-between',
-        justifyContent: 'center'
+        justifyContent: 'space-between',
     },
     viewContainer: {
         height: 518,
