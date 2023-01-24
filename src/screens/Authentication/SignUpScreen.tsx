@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
         margin: 0
     },
     allContainer: {
-        height: '125%'
+        height: '75%'
     },
         allBox: {
             height: '100%',
@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
         },
         screenBackground: {
             backgroundColor: '#FFFFFF',
-            height: '100%',
+            height: 100,
             display: 'flex',
             justifyContent: 'flex-start'
         },  
