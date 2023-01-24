@@ -226,7 +226,9 @@ const styles = StyleSheet.create({
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        padding: 0,
+        margin: 0
     },
     allContainer: {
             height: '75%'
