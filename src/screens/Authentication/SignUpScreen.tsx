@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
             backgroundColor: '#FFFFFF',
             height: '100%',
             display: 'flex',
-            alignItems: 'flex-start'
+            justifyContent: 'flex-start'
         },  
         loginSentence: {
             display: 'flex',
