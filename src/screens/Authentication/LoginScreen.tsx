@@ -24,7 +24,7 @@ const LoginScreen: React.FC = () => {
     
     type OpenURLButtonProps = {
         url: string;
-        children: string;
+        children: any;
     }
 
     const OpenURLButton = ({url, children}:
@@ -39,7 +39,7 @@ const LoginScreen: React.FC = () => {
                     Alert.alert(`Don't know how to open this URL: ${url}`);
                 } }, [url]
             );
-            return <Button title={children} onPress={handlePress} />
+            return <Pressable onPress={handlePress}>{children}</Pressable>
         }
 
     const [fontsLoaded] = useFonts({
@@ -143,8 +143,8 @@ const LoginScreen: React.FC = () => {
                     </View>
                     </View>
                     <View style={styles.urlsBox}>
-                    <OpenURLButton url={termsAndConditions}>Terms & Conditions</OpenURLButton>
-                    <OpenURLButton url={privacyPolicy}>Privacy Policy</OpenURLButton>
+                    <OpenURLButton url={termsAndConditions}><Text style={styles.urlText}>Terms & Conditions</Text></OpenURLButton>
+                    <OpenURLButton url={privacyPolicy}><Text style={styles.urlText}>Privacy Policy</Text></OpenURLButton>
                     </View>
                 </View>
                 </View>
@@ -155,6 +155,11 @@ const LoginScreen: React.FC = () => {
 
 
 const styles = StyleSheet.create({
+    urlText: {
+        fontFamily: 'Plus-Jakarta-Sans-Regular',
+        fontSize: 12,
+        color: '#8D8DA5'
+    },
     urlsBox: {
         display: 'flex',
         flexDirection: 'row',
