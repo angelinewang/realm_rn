@@ -212,11 +212,13 @@ const styles = StyleSheet.create({
         },
         staticLogin: {
             fontFamily: 'Open-Sans-Light',
-            fontSize: 16
+            fontSize: 16,
+            color: '#8D8DA5'
         },
         dynamicLogin: {
             fontFamily: 'Open-Sans-Bold',
-            fontSize: 16
+            fontSize: 16,
+            color: '#8D8DA5'
         }
  })
 
