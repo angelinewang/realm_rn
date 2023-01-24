@@ -156,6 +156,7 @@ const SignUpScreen = () => {
                 </View>
                 
                 <Formik style={styles.allContainer} initialValues={{_email: '', _password: '', _department: '', _name: "", _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
+                <View style={styles.allContainer}>
                 <View style={styles.allBox}>
                     <Pressable onPress={pickImage}>
                         {
@@ -211,7 +212,7 @@ const SignUpScreen = () => {
                     </Pressable>
 
                     </View>
-
+                    </View>
                 </Formik>
               </KeyboardAvoidingView>
                 <View style={styles.urlsBox}>
