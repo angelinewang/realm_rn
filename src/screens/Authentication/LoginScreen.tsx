@@ -1,17 +1,12 @@
-import {KeyboardAvoidingView, TextInput, Image, View, Text, Button, StyleSheet, DatePickerIOSBase, Pressable } from "react-native";
-import MainContainer from "../../components/MainContainer";
-import KeyboardAvoidWrapper from "../../components/KeyboardAvoidWrapper";
-import CustomTextInput from "../../components/InputText/CustomTextInput";
+import {Alert, Linking, KeyboardAvoidingView, TextInput, Image, View, Text, Button, StyleSheet, DatePickerIOSBase, Pressable } from "react-native";
 
 import { useNavigation } from '@react-navigation/native';
 
 import { LoginScreenNavigationProp } from '../../navigation/types';
 
-import { AtSymbolIcon, LockClosedIcon, WindowIcon } from "react-native-heroicons/solid";
-import CustomButton from "../../components/Buttons/CustomButton";
-
 import { createContext, useState, useContext, useEffect } from 'react';
 
+import React, { useCallback } from 'react';
 import { useAuth } from "../../contexts/Auth";
 import { authService } from "../../services/authService";
 import { getTabBarHeight } from "@react-navigation/bottom-tabs/lib/typescript/src/views/BottomTabBar";
@@ -24,6 +19,29 @@ import { useFonts } from 'expo-font';
 //and a empty object
 
 const LoginScreen: React.FC = () => {
+    const termsAndConditions = "https://realmpartyapp.com/terms-of-use"
+    const privacyPolicy = "https://realmpartyapp.com/privacy-policy"
+    
+    type OpenURLButtonProps = {
+        url: string;
+        children: string;
+    }
+
+    const OpenURLButton = ({url, children}:
+        OpenURLButtonProps) => {
+            const handlePress = useCallback(async () => {
+                const supported = await 
+                Linking.canOpenURL(url);
+
+                if(supported) {
+                    await Linking.openURL(url);
+                } else {
+                    Alert.alert(`Don't know how to open this URL: ${url}`);
+                } }, [url]
+            );
+            return <Button title={children} onPress={handlePress} />
+        }
+
     const [fontsLoaded] = useFonts({
         'Mulish-Regular': require('../../assets/fonts/Mulish-Regular.ttf'),
         'Plus-Jakarta-Sans-Bold': require('../../assets/fonts/PlusJakartaSans-Bold.ttf')
@@ -124,6 +142,10 @@ const LoginScreen: React.FC = () => {
                     </View>
                     </View>
                     </View>
+                    <View style={styles.urlsBox}>
+                    <OpenURLButton url={termsAndConditions}>Terms & Conditions</OpenURLButton>
+                    <OpenURLButton url={privacyPolicy}>Privacy Policy</OpenURLButton>
+                    </View>
                 </View>
                 </View>
             </KeyboardAvoidingView>
@@ -133,6 +155,12 @@ const LoginScreen: React.FC = () => {
 
 
 const styles = StyleSheet.create({
+    urlsBox: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'space-between',
+        justifyContent: 'center'
+    },
     viewContainer: {
         height: 518,
         marginTop: 80
