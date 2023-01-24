@@ -248,7 +248,8 @@ const styles = StyleSheet.create({
         height: 63,
         display: 'flex',
         flexDirection: 'column',
-        padding: 15
+        padding: 15,
+        justifyContent: 'flex-start'
     },
     keyboardAvoidBackground: {
         height: '100%',
