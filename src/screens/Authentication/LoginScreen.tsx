@@ -102,6 +102,8 @@ const LoginScreen: React.FC = () => {
                         placeholder="* * * * * * * *"
                     /> */}
                     {/* Button right now signs into MainScreen no matter whether the login details are valid */}
+                    <View style={styles.buttonsContainer}>
+                    <View style={styles.buttonsBox}>
                     <Pressable 
                         onPress={logIn}
                         style={styles.loginButton}
@@ -115,6 +117,8 @@ const LoginScreen: React.FC = () => {
                     >
                         <Text style={styles.createAccountButtonText}>Create Account</Text>
                     </Pressable>
+                    </View>
+                    </View>
                 </View>
             </KeyboardAvoidWrapper>
         </MainContainer>
@@ -123,6 +127,16 @@ const LoginScreen: React.FC = () => {
 
 
 const styles = StyleSheet.create({
+    buttonsContainer: {
+        height: 63
+    },
+    buttonsBox: {
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
     inputBoxesContainer: {
         height: 148
     },
