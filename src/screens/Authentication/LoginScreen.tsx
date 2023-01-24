@@ -133,8 +133,8 @@ const LoginScreen: React.FC = () => {
 const styles = StyleSheet.create({
     screenBackground: {
         backgroundColor: '#FFFFFF',
-        height: '100%',
-        width: '100%'
+        height: '100vh',
+        width: '100vw'
     },  
     allContainer: {
         height: 326
