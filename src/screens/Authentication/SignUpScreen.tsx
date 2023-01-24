@@ -265,10 +265,10 @@ const styles = StyleSheet.create({
         margin: 0
     },
     allContainer: {
-        height: 75
+        height: '75%'
     },
         allBox: {
-            height: 100,
+            height: '100%',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Plus-Jakarta-Sans-Bold'
     },
         urlsBox: {
-        width: 100,
+        width: '100%',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around'
