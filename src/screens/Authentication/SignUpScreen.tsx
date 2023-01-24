@@ -156,7 +156,6 @@ const SignUpScreen = () => {
                 </View>
                 
                 <Formik style={styles.allContainer} initialValues={{_email: '', _password: '', _department: '', _name: "", _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
-                <View style={styles.allContainer}>
                 <View style={styles.allBox}>
                     <Pressable onPress={pickImage}>
                         {
@@ -210,8 +209,6 @@ const SignUpScreen = () => {
                     >
                         <Text style={styles.createAccountButtonText}>Create Account</Text>
                     </Pressable>
-
-                    </View>
                     </View>
                 </Formik>
               </KeyboardAvoidingView>
@@ -226,7 +223,7 @@ const SignUpScreen = () => {
 
 const styles = StyleSheet.create({
     allContainer: {
-            height: 400
+            height: '75%'
     },
         allBox: {
             height: '100%',
