@@ -284,6 +284,7 @@ const styles = StyleSheet.create({
             display: 'flex',
             flexDirection: 'row',
             alignSelf: 'center',
+            justifyContent: 'flex-start'
         },
         staticLogin: {
             fontFamily: 'Open-Sans-Light',
