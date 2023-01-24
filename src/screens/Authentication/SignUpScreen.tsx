@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
         margin: 0
     },
     allContainer: {
-            height: '100%'
+        height: '125%'
     },
         allBox: {
             height: '100%',
