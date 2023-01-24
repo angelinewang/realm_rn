@@ -1,4 +1,4 @@
-import { TextInput, Image, View, Text, Button, StyleSheet, DatePickerIOSBase, Pressable } from "react-native";
+import {KeyboardAvoidingView, TextInput, Image, View, Text, Button, StyleSheet, DatePickerIOSBase, Pressable } from "react-native";
 import MainContainer from "../../components/MainContainer";
 import KeyboardAvoidWrapper from "../../components/KeyboardAvoidWrapper";
 import CustomTextInput from "../../components/InputText/CustomTextInput";
@@ -63,8 +63,8 @@ const LoginScreen: React.FC = () => {
 
     return (
         // <MainContainer>
-            <KeyboardAvoidWrapper>
-                <View style={styles.screenBackground} className="flex flex-1 justify-center items-center">
+            <KeyboardAvoidingView style={styles.screenBackground}>
+                <View className="flex flex-1 justify-center items-center">
                 <Image style={styles.kclLogo} source={require('../../assets/images/kcl.png')}/>
                     {/* <CustomTextInput 
                         icon={<AtSymbolIcon color={"#EFE3C850"} width={35} height={35} />}
@@ -124,7 +124,7 @@ const LoginScreen: React.FC = () => {
                     </View>
                     </View>
                 </View>
-            </KeyboardAvoidWrapper>
+            </KeyboardAvoidingView>
         // </MainContainer>
     );
 }
@@ -133,8 +133,7 @@ const LoginScreen: React.FC = () => {
 const styles = StyleSheet.create({
     screenBackground: {
         backgroundColor: '#FFFFFF',
-        height: '100vh',
-        width: '100vw'
+        height: '100%',
     },  
     allContainer: {
         height: 326
