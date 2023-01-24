@@ -234,14 +234,18 @@ const styles = StyleSheet.create({
         height: 63,
         display: 'flex',
         flexDirection: 'row',
-        padding: 15
+        padding: 15,
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
     department: {
         width: 318,
         height: 63,
         display: 'flex',
         flexDirection: 'row',
-        padding: 15
+        padding: 15,
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
     birthdate: {
         width: 318,
@@ -249,6 +253,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         padding: 15,
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
     keyboardAvoidBackground: {
         height: '100%',
