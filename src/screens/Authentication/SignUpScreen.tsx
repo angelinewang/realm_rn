@@ -185,7 +185,10 @@ const SignUpScreen = () => {
                     </View>
 
                     {/* Department Select From List Entry */}
+                <View style={styles.department}>
+                    <Text>Department</Text>
                     <RNPickerSelect onValueChange={onDepartmentChange} items={[{label: 'Arts/Humanities', value: 1}, {label: 'Business', value: 2}, {label: 'Dentistry', value: 3}, {label: 'Engineering', value: 4}, {label: 'Law', value: 5}, {label: 'Medic/Life Sciences', value: 6}, {label: 'Natural Sciences', value: 7}, {label: 'Nursing', value: 8}, {label: 'Pysch/Neuroscience', value: 9}, {label: 'Social Science', value: 10}]} />
+                </View>
                     
                     <View style={styles.inputBoxShadow}>
                     <TextInput 
@@ -197,7 +200,10 @@ const SignUpScreen = () => {
                     </View>
  
                 {/* Gender Select From List Entry */}
+                <View style={styles.gender}>
+                    <Text>Gender</Text>
                     <RNPickerSelect onValueChange={onGenderChange} items={[{label: 'Male', value: 1}, {label: 'Female', value: 2}, {label: 'Other', value: 3}]} />
+                </View>
 
                 {/* Birthdate Date Entry */}
                 <View style={styles.birthdate}>
@@ -223,6 +229,14 @@ const SignUpScreen = () => {
 };
 
 const styles = StyleSheet.create({
+    gender: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    department: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
     birthdate: {
         display: 'flex',
         flexDirection: 'column'
