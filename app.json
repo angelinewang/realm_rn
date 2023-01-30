@@ -22,7 +22,8 @@
       "ios"
     ],
     "ios": {
-      "buildNumber": "13",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "buildNumber": "14",
       "icon": "./src/assets/images/icon.png",
       "infoPlist": {
         "NSAppTransportSecurity": {

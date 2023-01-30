@@ -238,3 +238,6 @@ https://reactnative.dev/docs/textinput
 
 ### React Native Button docs
 https://reactnative.dev/docs/button
+
+### Adding Google Analytics 
+https://firebase.google.com/docs/analytics/get-started?technology=ios&platform=web
