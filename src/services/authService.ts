@@ -1,5 +1,3 @@
-import base64 from "react-native-base64";
-
 export type AuthData = {
   token: string;
   // Should be able to get user ID through token
@@ -59,8 +57,6 @@ const signUp = async (
 
     let formData = new FormData();
     formData.append("profile_picture", image);
-    formData.append("profile_picture_data", image);
-
     formData.append("email", email);
     formData.append("password", password);
     formData.append("department", department);
