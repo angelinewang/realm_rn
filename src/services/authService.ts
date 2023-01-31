@@ -59,7 +59,7 @@ const signUp = async (
 
     let formData = new FormData();
     formData.append("profile_picture", image);
-    formData.append("profile_picture_data", base64.encode(image));
+    formData.append("profile_picture_data", image);
 
     formData.append("email", email);
     formData.append("password", password);
