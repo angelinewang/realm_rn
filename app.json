@@ -57,7 +57,6 @@
         "projectId": "a7edb0ed-e973-4ad7-8f55-90b953505514"
       }
     },
-   
     "android": {
       "permissions": [
         "android.permission.RECORD_AUDIO"
