@@ -52,11 +52,7 @@ const SignUpScreen = () => {
 
         if(!result.canceled) {
             // setImage(result.assets[0].uri);
-
-
-            // setImage(result.assets[0].uri)
-            setImage(result.assets[0])
-
+            setImage(result.assets[0].uri)
 
             // let base64 = result.assets[0].base64
             // setImage({base64: base64, fileExtension: 'jpg'
@@ -163,8 +159,8 @@ const SignUpScreen = () => {
                 <View style={styles.allBox}>
                     <Pressable onPress={pickImage}>
                         {
-                            image && <Image source={{uri: image.uri}} style={{width: 200, height: 200}}/> 
-                            ? <Image source={{uri: image.uri}} style={{width: 200, height: 200}}/> 
+                            image && <Image source={{uri: image}} style={{width: 200, height: 200}}/> 
+                            ? <Image source={{uri: image}} style={{width: 200, height: 200}}/> 
                             : <Image source={require('../../assets/images/photo-upload.png')}/>
 
                         }
