@@ -57,7 +57,7 @@ const SignUpScreen = () => {
 
             setImage(result.assets[0].uri)
             // setImage(result.assets[0].uri)
-            setFileImage(result.assets[0].base64)
+            setFileImage(result.assets[0])
 
             // **Get rid of 500 server error when only sending email and password 
             // DONE 
