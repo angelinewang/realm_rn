@@ -33,7 +33,14 @@ const SignUpScreen = () => {
         'Open-Sans-Light': require('../../assets/fonts/OpenSans-Light.ttf'),
         'Open-Sans-Bold': require('../../assets/fonts/OpenSans-Bold.ttf')
     })
-    const [image, setImage] = React.useState(null);
+
+    const [localUri, setLocalUri] = React.useState(null)
+
+    const [filename, setFilename] = React.useState(null)
+
+    const [type, setType] = React.useState(null)
+    
+    const [image, setImage] = React.useState({uri: localUri, name: filename, type});
 
     const pickImage = async () => {
         // No permissions request needed to launch image library 
@@ -52,7 +59,15 @@ const SignUpScreen = () => {
 
         if(!result.canceled) {
             // setImage(result.assets[0].uri);
-            setImage(result.assets[0].uri)
+            
+            setLocalUri(result.assets[0].uri)
+            setFilename(localUri.split('/').pop())
+
+            let match = /\.(\w+)$/.exec(filename)
+            setType(match ? `image/${match[1]}` : `image`)
+
+            setImage({uri: localUri, name: filename, type})
+            // setImage(result.assets[0].uri)
 
             // let base64 = result.assets[0].base64
             // setImage({base64: base64, fileExtension: 'jpg'
@@ -159,8 +174,8 @@ const SignUpScreen = () => {
                 <View style={styles.allBox}>
                     <Pressable onPress={pickImage}>
                         {
-                            image && <Image source={{uri: image}} style={{width: 200, height: 200}}/> 
-                            ? <Image source={{uri: image}} style={{width: 200, height: 200}}/> 
+                            image && <Image source={{uri: image.uri}} style={{width: 200, height: 200}}/> 
+                            ? <Image source={{uri: image.uri}} style={{width: 200, height: 200}}/> 
                             : <Image source={require('../../assets/images/photo-upload.png')}/>
 
                         }

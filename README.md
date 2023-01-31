@@ -241,3 +241,6 @@ https://reactnative.dev/docs/button
 
 ### Adding Google Analytics 
 https://firebase.google.com/docs/analytics/get-started?technology=ios&platform=web
+
+### Set Image 
+https://stackoverflow.com/questions/42521679/how-can-i-upload-a-photo-with-expo
