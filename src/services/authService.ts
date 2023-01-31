@@ -56,7 +56,11 @@ const signUp = async (
     console.log(birthdate);
 
     let formData = new FormData();
-    formData.append("profile_picture", image);
+    formData.append("profile_picture", {
+      uri: image.uri,
+      filename: image.name,
+      type: image.type,
+    });
     formData.append("email", email);
     formData.append("password", password);
     formData.append("department", department);
