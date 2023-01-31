@@ -49,6 +49,7 @@ const signUp = async (
     // The raw file is not supported by Django
 
     console.log(image);
+    console.log(fileImage);
     console.log(email);
     console.log(password);
     console.log(department);

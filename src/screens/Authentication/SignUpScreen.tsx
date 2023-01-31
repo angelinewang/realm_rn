@@ -51,6 +51,7 @@ const SignUpScreen = () => {
         })
 
         console.log('image', result.assets[0]);
+        console.log('image', result.assets[0].base64);
 
         if(!result.canceled) {
             // setImage(result.assets[0].uri);
