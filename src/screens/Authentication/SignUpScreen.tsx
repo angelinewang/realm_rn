@@ -64,6 +64,8 @@ const SignUpScreen = () => {
 
             // **Get rid of crashing when press Create Account button
 
+            // DONE, when stopped trying to grab properties from file uploaded that did not exist
+
             // 0. Figure out where react native console logs are 
 
             // 1. Print result.assets[0] to see all the properties
