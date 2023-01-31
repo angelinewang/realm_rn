@@ -55,6 +55,13 @@ const SignUpScreen = () => {
             // setImage(result.assets[0].uri);
             setImage(result.assets[0].uri)
             setFileImage(result.assets[0])
+            // **Get rid of 500 server error when only sending email and password 
+            // DONE 
+
+            // **Get rid of crashing when press Create Account button
+            
+            // 0. Figure out where react native console logs are 
+
             // 1. Print result.assets[0] to see all the properties
 
             // 2. Check if there are all the properties needed from the stackoverflow instructions 
