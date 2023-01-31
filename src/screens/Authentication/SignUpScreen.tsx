@@ -45,7 +45,7 @@ const SignUpScreen = () => {
             allowsEditing: true, 
             aspect: [4, 3],
             quality: 1,
-            base64: true, 
+            // base64: true, 
             // allowsEditing: false, 
             // aspect: [4, 3],
         })
@@ -55,7 +55,7 @@ const SignUpScreen = () => {
         if(!result.canceled) {
             // setImage(result.assets[0].uri);
             setImage(result.assets[0].uri)
-            setFileImage(result.assets[0].base64)
+            setFileImage(result.assets[0])
             // **Get rid of 500 server error when only sending email and password 
             // DONE 
 
