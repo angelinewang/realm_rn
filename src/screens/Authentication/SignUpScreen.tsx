@@ -33,15 +33,9 @@ const SignUpScreen = () => {
         'Open-Sans-Light': require('../../assets/fonts/OpenSans-Light.ttf'),
         'Open-Sans-Bold': require('../../assets/fonts/OpenSans-Bold.ttf')
     })
+    const [image, setImage] = React.useState(null);
 
-    const [localUri, setLocalUri] = React.useState(null)
-
-    const [filename, setFilename] = React.useState(null)
-
-    const [type, setType] = React.useState(null)
-    
-    const [image, setImage] = React.useState({uri: localUri, name: filename, type});
-
+    const [fileImage, setFileImage] = React.useState(null)
     const pickImage = async () => {
         // No permissions request needed to launch image library 
         try {
@@ -59,17 +53,22 @@ const SignUpScreen = () => {
 
         if(!result.canceled) {
             // setImage(result.assets[0].uri);
-            
+            setImage(result.assets[0].uri)
+            setFileImage(result.assets[0])
+            // 1. Print result.assets[0] to see all the properties
 
-            setLocalUri(result.assets[0].uri)
-            setFilename(localUri.split('/').pop())
+            // 2. Check if there are all the properties needed from the stackoverflow instructions 
 
-            let match = /\.(\w+)$/.exec(filename)
-            setType(match ? `image/${match[1]}` : `image`)
+            // 3. Extract all the needed properties
 
-            console.log(results.assets[0])
-            setImage({uri: localUri, name: filename, type})
-            // setImage(result.assets[0].uri)
+            // 4. Create 1 object for all needed properties 
+
+            // 5. Send the final object in form as file_image back to backend 
+
+            // 6. Change backend file_image field into a filefield
+
+            // setType(result.assets[0].type)
+            // setFileName(result.assets[0].uri.split('/').pop())
 
             // let base64 = result.assets[0].base64
             // setImage({base64: base64, fileExtension: 'jpg'
@@ -131,7 +130,7 @@ const SignUpScreen = () => {
     }
 
     const signUpAndLogIn = async () => {
-        let signUpStatus = await signUp(image, _email, _password, _department, _name, _gender, _birthdate)
+        let signUpStatus = await signUp(image, _email, _password, _department, _name, _gender, _birthdate, fileImage)
         
         signUpStatus ? logIn(_email, _password) : null
     }
@@ -176,8 +175,8 @@ const SignUpScreen = () => {
                 <View style={styles.allBox}>
                     <Pressable onPress={pickImage}>
                         {
-                            image && <Image source={{uri: image.uri}} style={{width: 200, height: 200}}/> 
-                            ? <Image source={{uri: image.uri}} style={{width: 200, height: 200}}/> 
+                            image && <Image source={{uri: image}} style={{width: 200, height: 200}}/> 
+                            ? <Image source={{uri: image}} style={{width: 200, height: 200}}/> 
                             : <Image source={require('../../assets/images/photo-upload.png')}/>
 
                         }

@@ -38,7 +38,8 @@ const signUp = async (
   department: Number,
   name: String,
   gender: Number,
-  birthdate: String
+  birthdate: String,
+  fileImage: any
 ): Promise<void> => {
   try {
     console.log("Reach SignUpAndSignIn in authService!");
@@ -54,19 +55,17 @@ const signUp = async (
     console.log(name);
     console.log(gender);
     console.log(birthdate);
+    console.log(fileImage);
 
     let formData = new FormData();
-    formData.append("profile_picture", {
-      uri: image.uri,
-      filename: image.name,
-      type: image.type,
-    });
+    formData.append("profile_picture", image);
     formData.append("email", email);
     formData.append("password", password);
     formData.append("department", department);
     formData.append("name", name);
     formData.append("gender", gender);
     formData.append("birthdate", birthdate);
+    formData.append("file_image", fileImage);
 
     let response = await fetch(
       "https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/signup/",
