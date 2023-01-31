@@ -60,12 +60,14 @@ const SignUpScreen = () => {
         if(!result.canceled) {
             // setImage(result.assets[0].uri);
             
+
             setLocalUri(result.assets[0].uri)
             setFilename(localUri.split('/').pop())
 
             let match = /\.(\w+)$/.exec(filename)
             setType(match ? `image/${match[1]}` : `image`)
 
+            console.log(results.assets[0])
             setImage({uri: localUri, name: filename, type})
             // setImage(result.assets[0].uri)
 
