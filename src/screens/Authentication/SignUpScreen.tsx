@@ -88,8 +88,8 @@ const SignUpScreen = () => {
             // setImage(result.assets[0].uri)
 
             setImage(result.assets[0].uri)
-            const uploadURL = await uploadImageAsync();
-            console.log(uploadURL)
+            // const uploadURL = await uploadImageAsync();
+            // console.log(uploadURL)
             // Commented out for Firestore
             // setImage(result.assets[0].uri)
             // setFileImage(result.assets[0])
@@ -180,7 +180,8 @@ const SignUpScreen = () => {
     const signUpAndLogIn = async () => {
         let signUpStatus = await signUp(image, _email, _password, _department, _name, _gender, _birthdate, fileImage)
         
-        signUpStatus ? logIn(_email, _password) : null
+        let uploadedImage = await uploadImageAsync()
+        signUpStatus && uploadedImage ? logIn(_email, _password) : null
     }
 
     const logIn = async () => {
@@ -267,7 +268,7 @@ const SignUpScreen = () => {
         Alert.alert(
             'Photo uploaded..!!'
         );
-        setImage(null)
+        // setImage(null)
     }
 
     return (
