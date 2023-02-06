@@ -31,7 +31,7 @@ const firebaseConfig = {
     apiKey: "AIzaSyAxCmJwm2tIvHEiUnMy1c9AH3T85zgNQgQ",
     authDomain: "realm-rn-dj.firebaseapp.com",
     databaseURL: "https://realm-rn-dj.firebaseio.com",
-    storageBucket: "realm-rn-dj.appspot.com",
+    storageBucket: "gs://realm-rn-dj.appspot.com",
     messagingSenderId: "169578510116",
 };
 
@@ -77,8 +77,8 @@ const SignUpScreen = () => {
             // aspect: [4, 3],
         })
 
-        console.log('image', result.assets[0]);
-        console.log('image', result.assets[0].base64);
+        console.log('image', result.assets[0].uri);
+        // console.log('image', result.assets[0].base64);
 
         if(!result.canceled) {
             // setImage(result.assets[0].uri);

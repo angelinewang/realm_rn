@@ -7,6 +7,15 @@ Frontend Languages:
 Configuration Details:
 - JWT Authentication done in backend and passed to frontend
 
+Image Storage:
+- Firestore
+
+APIs:
+- Cloud Run 
+
+Database:
+- Cloud SQL Instance Postgres
+
 UI Design Wireframes:
 (Link to Figma File)[https://www.figma.com/file/bc5WIssEdffCkTHu3JEA5i/Project-4--SEI?node-id=7%3A607&t=DXFglhqtHf0Qn2rS-1]
 
@@ -244,3 +253,7 @@ https://firebase.google.com/docs/analytics/get-started?technology=ios&platform=w
 
 ### Set Image 
 https://stackoverflow.com/questions/42521679/how-can-i-upload-a-photo-with-expo
+
+### Images are stored in Firestore
+Documentation:
+https://github.com/expo/examples/blob/master/with-firebase-storage-upload/App.js
