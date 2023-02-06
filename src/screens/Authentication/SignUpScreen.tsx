@@ -19,7 +19,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { SignUpScreenNavigationProp } from '../../navigation/types';
 import { useAuth } from "../../contexts/Auth";
-// import * as firebase from "firebase";
+import * as firebase from "firebase";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -27,7 +27,7 @@ import { getApps, initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import * as Clipboard from "expo-clipboard";
 import uuid from "uuid";
-import { firebase, firebaseConfig } from '../../../firebaseConfig';
+import { firebaseConfig } from '../../../firebaseConfig';
 
 // const firebaseConfig = {
 //     apiKey: "AIzaSyAxCmJwm2tIvHEiUnMy1c9AH3T85zgNQgQ",
@@ -38,9 +38,8 @@ import { firebase, firebaseConfig } from '../../../firebaseConfig';
 // };
 
 // Prevent editing of this file with fast refresh leading to reinitialization of app on every refresh
-if (!getApps().length) {
-    initializeApp(firebaseConfig);
-}
+
+initializeApp(firebaseConfig);
 
 // Firebase sets some timers for a long period, which will trigger some warnings 
 // This turns that off 
@@ -259,15 +258,15 @@ const SignUpScreen = () => {
 
         console.log("Reached upload image sync")
         
-        const storage = getStorage()
-        const filename = image.substring(image.lastIndexOf('/')+1);
+        const storage = getStorage();
 
-        const ref = ref(storage, filename)
+        const filename = image.substring(image.lastIndexOf('/')+1);
+        const reference = ref(storage, filename);
 
         const img = await fetch(image)
         const bytes = await img.blob();
                 
-        await uploadBytes(ref, bytes)
+        await uploadBytes(reference, bytes)
         try {
             await ref;
         } catch (e) {
