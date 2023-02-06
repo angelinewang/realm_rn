@@ -266,7 +266,7 @@ const SignUpScreen = () => {
         const img = await fetch(image)
         const bytes = await img.blob();
                 
-        await uploadBytes(reference, bytes)
+        // await uploadBytes(reference, bytes)
         try {
             await uploadBytes(reference, bytes);
         } catch (e) {
