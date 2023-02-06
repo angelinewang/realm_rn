@@ -178,9 +178,10 @@ const SignUpScreen = () => {
     }
 
     const signUpAndLogIn = async () => {
-        let signUpStatus = await signUp(image, _email, _password, _department, _name, _gender, _birthdate, fileImage)
+        let signUpStatus = await signUp(image, _email, _password, _department, _name, _gender, _birthdate)
         
         let uploadedImage = await uploadImageAsync()
+        
         signUpStatus && uploadedImage ? logIn(_email, _password) : null
     }
 
@@ -255,9 +256,11 @@ const SignUpScreen = () => {
     // }
 
     const uploadImageAsync = async () => {
+
+        console.log("Reached upload image sync")
         const response = await fetch(image)
         const blob = await response.blob();
-        const filename = image.substring(image.lastindexOf('/')+1);
+        const filename = image.substring(image.lastIndexOf('/')+1);
         var ref = firebase.storage().ref().child(filename).put(blob);
 
         try {

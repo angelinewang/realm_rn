@@ -38,8 +38,7 @@ const signUp = async (
   department: Number,
   name: String,
   gender: Number,
-  birthdate: String,
-  fileImage: any
+  birthdate: String
 ): Promise<void> => {
   try {
     console.log("Reach SignUpAndSignIn in authService!");
@@ -49,14 +48,12 @@ const signUp = async (
     // The raw file is not supported by Django
 
     console.log(image);
-    console.log(fileImage);
     console.log(email);
     console.log(password);
     console.log(department);
     console.log(name);
     console.log(gender);
     console.log(birthdate);
-    console.log(fileImage);
 
     let formData = new FormData();
     formData.append("profile_picture", image);
@@ -66,7 +63,6 @@ const signUp = async (
     formData.append("name", name);
     formData.append("gender", gender);
     formData.append("birthdate", birthdate);
-    formData.append("file_image", fileImage);
 
     let response = await fetch(
       "https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/signup/",
