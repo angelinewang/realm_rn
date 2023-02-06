@@ -1,4 +1,4 @@
-import { Linking, Alert, TextInput, KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform, Dimensions } from "react-native";
+import { LogBox, Linking, Alert, TextInput, KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform, Dimensions } from "react-native";
 import React, { useCallback } from "react";
 import MainContainer from "../../components/MainContainer";
 import KeyboardAvoidWrapper from "../../components/KeyboardAvoidWrapper";
@@ -22,8 +22,35 @@ import { useAuth } from "../../contexts/Auth";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView } from "react-native-safe-area-context";
+import { getApps, initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import * as Clipboard from "expo-clipboard";
+import uuid from "uuid";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAxCmJwm2tIvHEiUnMy1c9AH3T85zgNQgQ",
+    authDomain: "realm-rn-dj.firebaseapp.com",
+    databaseURL: "https://realm-rn-dj.firebaseio.com",
+    storageBucket: "realm-rn-dj.appspot.com",
+    messagingSenderId: "169578510116",
+};
+
+// Prevent editing of this file with fast refresh leading to reinitialization of app on every refresh
+if (!getApps().length) {
+    initializeApp(firebaseConfig);
+}
+
+// Firebase sets some timers for a long period, which will trigger some warnings 
+// This turns that off 
+LogBox.ignoreLogs([`Setting a timer for a longer period`]);
+
+
 
 const SignUpScreen = () => {
+    // const [state, setState] = React.useState({
+    //     image: null,
+    //     uploading: false,
+    // })
 
     const {height} = Dimensions.get('window')
 
@@ -56,9 +83,13 @@ const SignUpScreen = () => {
         if(!result.canceled) {
             // setImage(result.assets[0].uri);
 
-            setImage(result.assets[0].uri)
             // setImage(result.assets[0].uri)
-            setFileImage(result.assets[0])
+
+            const uploadURL = await uploadImageAsync(result.assets[0].uri);
+            setImage(uploadURL)
+            // Commented out for Firestore
+            // setImage(result.assets[0].uri)
+            // setFileImage(result.assets[0])
 
             // **Get rid of 500 server error when only sending email and password 
             // DONE 
@@ -95,7 +126,7 @@ const SignUpScreen = () => {
         }
     } catch(error) {
         console.error
-    }
+    } 
     }
 
     const navigation = useNavigation<SignUpScreenNavigationProp>();
@@ -176,6 +207,32 @@ const SignUpScreen = () => {
             return <Pressable onPress={handlePress}>{children}</Pressable>
         }
     // For Photo Upload, using multipart/form-data
+
+
+    // Upload image to Firestore
+    async function uploadImageAsync(uri) {
+        const blob = await new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                resolve(xhr.response);
+            };
+            xhr.onerror = function (e) {
+                console.log(e);
+                reject(new TypeError("Network request failed"));
+            };
+            xhr.responseType = "blob";
+            xhr.open("GET", uri, true);
+            xhr.send(null);
+        });
+
+        const fileRef = ref(getStorage(), uuid.v4());
+        const result = await uploadBytes(fileRef, blob);
+
+        // Finished with the blob, close and release it
+        blob.close();
+
+        return await getDownloadURL(fileRef);
+    }
 
     return (
         <ScrollView style={styles.screenBackground}>
