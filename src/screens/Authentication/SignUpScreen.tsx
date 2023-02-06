@@ -257,7 +257,8 @@ const SignUpScreen = () => {
     const uploadImageAsync = async () => {
 
         console.log("Reached upload image sync")
-        
+    
+        try {
         const storage = getStorage();
 
         const filename = image.substring(image.lastIndexOf('/')+1);
@@ -267,15 +268,13 @@ const SignUpScreen = () => {
         const bytes = await img.blob();
                 
         await uploadBytes(reference, bytes)
-        // try {
-        //     await uploadBytes(reference, bytes);
-        // } catch (e) {
-        //     console.log(e);
-        // }
-        // Alert.alert(
-        //     'Photo uploaded..!!'
-        // );
-        // setImage(null)
+        } catch (e) {
+            console.log(e);
+        }
+        Alert.alert(
+            'Photo uploaded..!!'
+        );
+        setImage(null)
     }
 
     return (
