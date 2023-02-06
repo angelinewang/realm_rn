@@ -31,7 +31,7 @@ const firebaseConfig = {
     apiKey: "AIzaSyAxCmJwm2tIvHEiUnMy1c9AH3T85zgNQgQ",
     authDomain: "realm-rn-dj.firebaseapp.com",
     databaseURL: "https://realm-rn-dj.firebaseio.com",
-    storageBucket: "gs://realm-rn-dj.appspot.com",
+    storageBucket: "realm-rn-dj.appspot.com",
     messagingSenderId: "169578510116",
 };
 
@@ -211,9 +211,17 @@ const SignUpScreen = () => {
 
     // Upload image to Firestore
     async function uploadImageAsync(uri) {
+
+        console.log(uri)
+        console.log("Reached uploadImageAsync")
         const blob = await new Promise((resolve, reject) => {
+            
+            console.log("Reached blob function")
+
             const xhr = new XMLHttpRequest();
             xhr.onload = function () {
+
+                console.log("Reached onload")
                 resolve(xhr.response);
             };
             xhr.onerror = function (e) {
