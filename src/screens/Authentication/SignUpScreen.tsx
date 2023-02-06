@@ -19,6 +19,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { SignUpScreenNavigationProp } from '../../navigation/types';
 import { useAuth } from "../../contexts/Auth";
+// import * as firebase from "firebase";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -26,14 +27,15 @@ import { getApps, initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import * as Clipboard from "expo-clipboard";
 import uuid from "uuid";
+import { firebase } from '../../../config';
 
-const firebaseConfig = {
-    apiKey: "AIzaSyAxCmJwm2tIvHEiUnMy1c9AH3T85zgNQgQ",
-    authDomain: "realm-rn-dj.firebaseapp.com",
-    databaseURL: "https://realm-rn-dj.firebaseio.com",
-    storageBucket: "realm-rn-dj.appspot.com",
-    messagingSenderId: "169578510116",
-};
+// const firebaseConfig = {
+//     apiKey: "AIzaSyAxCmJwm2tIvHEiUnMy1c9AH3T85zgNQgQ",
+//     authDomain: "realm-rn-dj.firebaseapp.com",
+//     databaseURL: "https://realm-rn-dj.firebaseio.com",
+//     storageBucket: "realm-rn-dj.appspot.com",
+//     messagingSenderId: "169578510116",
+// };
 
 // Prevent editing of this file with fast refresh leading to reinitialization of app on every refresh
 if (!getApps().length) {
@@ -62,7 +64,7 @@ const SignUpScreen = () => {
     })
     const [image, setImage] = React.useState(null);
 
-    const [fileImage, setFileImage] = React.useState(null);
+    // const [fileImage, setFileImage] = React.useState(null);
 
     const pickImage = async () => {
         // No permissions request needed to launch image library 
@@ -72,7 +74,7 @@ const SignUpScreen = () => {
             allowsEditing: true, 
             aspect: [4, 3],
             quality: 1,
-            base64: true, 
+            // base64: true, 
             // allowsEditing: false, 
             // aspect: [4, 3],
         })
@@ -85,8 +87,9 @@ const SignUpScreen = () => {
 
             // setImage(result.assets[0].uri)
 
-            const uploadURL = await uploadImageAsync(result.assets[0].uri);
-            setImage(uploadURL)
+            setImage(result.assets[0].uri)
+            const uploadURL = await uploadImageAsync();
+            console.log(uploadURL)
             // Commented out for Firestore
             // setImage(result.assets[0].uri)
             // setFileImage(result.assets[0])
@@ -210,36 +213,61 @@ const SignUpScreen = () => {
 
 
     // Upload image to Firestore
-    async function uploadImageAsync(uri) {
+    // async function uploadImageAsync() {
 
-        console.log(uri)
-        console.log("Reached uploadImageAsync")
-        const blob = await new Promise((resolve, reject) => {
+    //     // console.log(uri)
+    //     // console.log("Reached uploadImageAsync")
+
+    //     // const response = await fetch(uri);
+    //     // const blob = await response.blob();
+
+    //     // var reference = ref(getStorage(), "my-image");
+    //     // return reference.put(blob)
+
+
+    //     // const blob = await new Promise((resolve, reject) => {
             
-            console.log("Reached blob function")
+    //     //     console.log("Reached blob function")
 
-            const xhr = new XMLHttpRequest();
-            xhr.onload = function () {
+    //     //     const xhr = new XMLHttpRequest();
+    //     //     xhr.onload = function () {
 
-                console.log("Reached onload")
-                resolve(xhr.response);
-            };
-            xhr.onerror = function (e) {
-                console.log(e);
-                reject(new TypeError("Network request failed"));
-            };
-            xhr.responseType = "blob";
-            xhr.open("GET", uri, true);
-            xhr.send(null);
-        });
+    //     //         console.log("Reached onload")
+    //     //         resolve(xhr.response);
+    //     //     };
+    //     //     xhr.onerror = function (e) {
+    //     //         console.log(e);
+    //     //         reject(new TypeError("Network request failed"));
+    //     //     };
+    //     //     xhr.responseType = "blob";
+    //     //     xhr.open("GET", uri, true);
+    //     //     xhr.send(null);
+    //     // });
 
-        const fileRef = ref(getStorage(), uuid.v4());
-        const result = await uploadBytes(fileRef, blob);
+    //     // const fileRef = ref(getStorage(), uuid.v4());
+    //     // const result = await uploadBytes(fileRef, blob);
 
-        // Finished with the blob, close and release it
-        blob.close();
+    //     // // Finished with the blob, close and release it
+    //     // blob.close();
 
-        return await getDownloadURL(fileRef);
+    //     // return await getDownloadURL(fileRef);
+    // }
+
+    const uploadImageAsync = async () => {
+        const response = await fetch(image)
+        const blob = await response.blob();
+        const filename = image.substring(image.lastindexOf('/')+1);
+        var ref = firebase.storage().ref().child(filename).put(blob);
+
+        try {
+            await ref;
+        } catch (e) {
+            console.log(e);
+        }
+        Alert.alert(
+            'Photo uploaded..!!'
+        );
+        setImage(null)
     }
 
     return (
