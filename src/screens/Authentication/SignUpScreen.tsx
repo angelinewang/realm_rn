@@ -87,6 +87,16 @@ const SignUpScreen = () => {
             // setImage(result.assets[0].uri)
 
             setImage(result.assets[0].uri)
+
+            const storage = getStorage();
+
+            const filename = result.assets[0].uri.substring(result.assets[0].uri.lastIndexOf('/')+1);
+            const reference = ref(storage, filename);
+
+            const img = await fetch(result.assets[0].uri)
+            const bytes = await img.blob();
+                    
+            await uploadBytes(reference, bytes)
             // const uploadURL = await uploadImageAsync();
             // console.log(uploadURL)
             // Commented out for Firestore
