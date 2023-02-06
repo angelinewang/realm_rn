@@ -268,7 +268,7 @@ const SignUpScreen = () => {
                 
         await uploadBytes(reference, bytes)
         try {
-            await ref;
+            await uploadBytes(reference, bytes);
         } catch (e) {
             console.log(e);
         }
