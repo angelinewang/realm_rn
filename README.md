@@ -257,3 +257,7 @@ https://stackoverflow.com/questions/42521679/how-can-i-upload-a-photo-with-expo
 ### Images are stored in Firestore
 Documentation:
 https://github.com/expo/examples/blob/master/with-firebase-storage-upload/App.js
+
+  
+## Removed from app.json 
+"googleServicesFile": "./GoogleService-Info.plist",
