@@ -258,12 +258,16 @@ const SignUpScreen = () => {
     const uploadImageAsync = async () => {
 
         console.log("Reached upload image sync")
-        const response = await fetch(image)
-        const blob = await response.blob();
-        const filename = image.substring(image.lastIndexOf('/')+1);
-        var ref = firebase.storage().ref().child(filename);
         
-        await uploadBytes(ref, blob)
+        const storage = getStorage()
+        const filename = image.substring(image.lastIndexOf('/')+1);
+
+        const ref = ref(storage, filename)
+
+        const img = await fetch(image)
+        const bytes = await img.blob();
+                
+        await uploadBytes(ref, bytes)
         try {
             await ref;
         } catch (e) {
