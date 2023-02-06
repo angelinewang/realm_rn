@@ -27,7 +27,7 @@ import { getApps, initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import * as Clipboard from "expo-clipboard";
 import uuid from "uuid";
-import { firebase } from '../../../config';
+import { firebase, firebaseConfig } from '../../../firebaseConfig';
 
 // const firebaseConfig = {
 //     apiKey: "AIzaSyAxCmJwm2tIvHEiUnMy1c9AH3T85zgNQgQ",
@@ -44,7 +44,7 @@ if (!getApps().length) {
 
 // Firebase sets some timers for a long period, which will trigger some warnings 
 // This turns that off 
-LogBox.ignoreLogs([`Setting a timer for a longer period`]);
+// LogBox.ignoreLogs([`Setting a timer for a longer period`]);
 
 
 
@@ -261,8 +261,9 @@ const SignUpScreen = () => {
         const response = await fetch(image)
         const blob = await response.blob();
         const filename = image.substring(image.lastIndexOf('/')+1);
-        var ref = firebase.storage().ref().child(filename).put(blob);
-
+        var ref = firebase.storage().ref().child(filename);
+        
+        await uploadBytes(ref, blob)
         try {
             await ref;
         } catch (e) {

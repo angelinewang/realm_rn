@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>169578510116-u4prr0g9d02q9uuad8vpfs03vu39ab68.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.169578510116-u4prr0g9d02q9uuad8vpfs03vu39ab68</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAxCmJwm2tIvHEiUnMy1c9AH3T85zgNQgQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>169578510116</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.realmpartyapp.com</string>
+	<key>PROJECT_ID</key>
+	<string>realm-rn-dj</string>
+	<key>STORAGE_BUCKET</key>
+	<string>realm-rn-dj.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:169578510116:ios:0bdea852b9622ab08d25b1</string>
+</dict>
+</plist>

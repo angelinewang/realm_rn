@@ -22,7 +22,6 @@
       "ios"
     ],
     "ios": {
-      // "googleServicesFile": "./GoogleService-Info.plist",
       "buildNumber": "16",
       "icon": "./src/assets/images/icon.png",
       "infoPlist": {
@@ -61,6 +60,9 @@
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ]
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
