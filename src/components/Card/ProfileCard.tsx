@@ -91,7 +91,7 @@ const [image, setImage] = React.useState();
 const uploadImage = async () => {
     let uploadedImage = await uploadImageAsync()
 
-    uploadImage ? await sendImage() : null
+    uploadedImage ? await sendImage() : null
 };
 
 const sendImage = async () => {
