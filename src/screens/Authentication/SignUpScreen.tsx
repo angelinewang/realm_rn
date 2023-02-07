@@ -112,6 +112,7 @@ const SignUpScreen = () => {
 
         const downloadURL = await getDownloadURL(ref(storage, filename))
         
+        console.log(downloadURL)
         setImage(downloadURL)
         
         const img = await fetch(image)
@@ -125,7 +126,6 @@ const SignUpScreen = () => {
 
         setUploaded(uploadPhoto)
 
-        
         } catch (e) {
             console.log(e);
         }
