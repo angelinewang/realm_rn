@@ -79,7 +79,7 @@ const [image, setImage] = React.useState();
         console.log(uploadImage)
 
     let formData = new FormData();
-    formData.append("profile_picture", image);
+    formData.append("profile_picture", downloadURL);
 
     let response = await fetch(
       `https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/updatephoto/${authUserId}/`,
