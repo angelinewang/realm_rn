@@ -119,7 +119,7 @@ const uploadImage = async () => {
   () => {
     console.log("Reached Profile Card")
     console.log(user)
-  }, [user, image]
+  }, [user]
   )
 
   return (
