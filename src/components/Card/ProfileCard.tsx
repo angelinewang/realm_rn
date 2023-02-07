@@ -76,23 +76,7 @@ const [image, setImage] = React.useState();
         const uploadPhoto = await uploadBytes(reference, bytes)
                 
         setUploaded(uploadPhoto)
-        } catch (e) {
-            console.log(e);
-        }
-        Alert.alert(
-            `Photo uploaded..${uploaded}!!`
-        );
-    }
-
-const uploadImage = async () => {
-  try {
-    console.log("Reach uploadImage!");
-
-    console.log(image);
-
-    let uploadedImage = await uploadImageAsync()
-
-    console.log(uploadImage)
+        console.log(uploadImage)
 
     let formData = new FormData();
     formData.append("profile_picture", image);
@@ -109,6 +93,22 @@ const uploadImage = async () => {
       }
     );
     return response.json();
+        } catch (e) {
+            console.log(e);
+        }
+        Alert.alert(
+            `Photo uploaded..${uploaded}!!`
+        );
+    }
+
+const uploadImage = async () => {
+  try {
+    console.log("Reach uploadImage!");
+
+    console.log(image);
+
+    let uploadedImage = await uploadImageAsync()
+
   } catch (error) {
     console.error(error);
   }

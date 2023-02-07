@@ -68,6 +68,9 @@
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ]
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
