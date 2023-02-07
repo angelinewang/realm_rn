@@ -106,7 +106,9 @@ const SignUpScreen = () => {
 
             console.log("Reached bottom of blob function")
                     
-            // await uploadBytes(reference, bytes)
+            await uploadBytes(reference, bytes)
+
+            console.log("Bottom of uploadBytes function")
             // const uploadURL = await uploadImageAsync();
             // console.log(uploadURL)
             // Commented out for Firestore
