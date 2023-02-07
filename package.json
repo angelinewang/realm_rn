@@ -12,7 +12,9 @@
     "tslint": "tslint --project .",
     "tsc-test": "tsc --project . --noEmit",
     "jest": "jest",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "predeploy": "expo export:web",
+    "deploy-hosting": "npm run predeploy && firebase deploy --only hosting"
   },
   "jest": {
     "preset": "jest-expo",
