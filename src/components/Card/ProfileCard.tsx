@@ -71,7 +71,6 @@ const [image, setImage] = React.useState();
 
           // Sends the photo URL to db
           setImage(downloadURL)
-          setImageURL(downloadURL)
           
           const img = await fetch(image)
           const bytes = await img.blob();
@@ -84,7 +83,7 @@ const [image, setImage] = React.useState();
             console.log(e);
         }
         Alert.alert(
-            `Photo uploaded..${imageURL}!!`
+            `Photo uploaded..${image}!!`
         );
     }
 
