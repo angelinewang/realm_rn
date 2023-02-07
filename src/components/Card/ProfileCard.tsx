@@ -80,21 +80,8 @@ const [image, setImage] = React.useState();
           const uploadPhoto = await uploadBytes(reference, bytes)
                   
           setUploaded(uploadPhoto)
-        } catch (e) {
-            console.log(e);
-        }
-        Alert.alert(
-            `Photo uploaded..${uploaded}!!`
-        );
-    }
 
-const uploadImage = async () => {
-    let uploadedImage = await uploadImageAsync()
-};
-
-const sendImage = async () => {
-  try{
-  let formData = new FormData();
+          let formData = new FormData();
     formData.append("profile_picture", imageURL);
 
     let response = await fetch(
@@ -108,7 +95,35 @@ const sendImage = async () => {
         body: formData,
       }
     );
-    setImageURL(null)
+    return response.json();
+        } catch (e) {
+            console.log(e);
+        }
+        Alert.alert(
+            `Photo uploaded..${uploaded}!!`
+        );
+    }
+
+const uploadImage = async () => {
+    let uploadedImage = await uploadImageAsync()
+};
+
+const sendImage = async (imageURL) => {
+  try{
+    let formData = new FormData();
+    formData.append("profile_picture", imageURL);
+
+    let response = await fetch(
+      `https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/updatephoto/${authUserId}/`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // Accept: "multipart/form-data",
+        },
+        body: formData,
+      }
+    );
     return response.json();
   }catch (error) {
     console.error(error);
@@ -119,11 +134,7 @@ const sendImage = async () => {
   () => {
     console.log("Reached Profile Card")
     console.log(user)
-
-    if (imageURL) {
-      sendImage()
-    }
-  }, [user, image]
+  }, [user]
   )
 
   return (
