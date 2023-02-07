@@ -37,15 +37,6 @@
       "icon": "./src/assets/images/icon.png",
       "color": "#2abbff"
     },
-    "web": {
-      "apiKey": "AIzaSyCPeGd248tZfLBG-KHUwWgdQbKvrtdBZCY",
-      "authDomain": "realm-rn-dj.firebaseapp.com",
-      "projectId": "realm-rn-dj",
-      "storageBucket": "realm-rn-dj.appspot.com",
-      "messagingSenderId": "169578510116",
-      "appId": "1:169578510116:web:1d7524e1575689f68d25b1",
-      "measurementId": "G-EKHS4QFRTR"
-    },
     "plugins": [
       [
         "expo-build-properties",
@@ -65,7 +56,14 @@
     "extra": {
       "eas": {
         "projectId": "a7edb0ed-e973-4ad7-8f55-90b953505514"
-      }
+      },
+      "firebaseApiKey": "AIzaSyCPeGd248tZfLBG-KHUwWgdQbKvrtdBZCY",
+      "firebaseAuthDomain": "realm-rn-dj.firebaseapp.com",
+      "firebaseProjectId": "realm-rn-dj",
+      "firebaseStorageBucket": "realm-rn-dj.appspot.com",
+      "firebaseMessagingSenderId": "169578510116",
+      "firebaseAppId": "1:169578510116:web:1d7524e1575689f68d25b1",
+      "firebaseMeasurementId": "G-EKHS4QFRTR"
     },
     "android": {
       "permissions": [
