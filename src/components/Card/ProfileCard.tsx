@@ -129,9 +129,9 @@ const uploadImage = async () => {
 
     <View style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
       {/* Setting the uri to "image" does not work */}
-      {/* <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: image ? image : user.profile_picture}} > */}
+      <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: image ? image : user.profile_picture}} >
 
-      <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: "https://firebasestorage.googleapis.com/v0/b/realm-rn-dj.appspot.com/o/2DBF30EB-9378-4004-933E-119D99C297E8.png?alt=media&token=1a8efbcd-26da-43f4-acfc-1f682767f350"}} >
+      {/* <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: "https://firebasestorage.googleapis.com/v0/b/realm-rn-dj.appspot.com/o/2DBF30EB-9378-4004-933E-119D99C297E8.png?alt=media&token=1a8efbcd-26da-43f4-acfc-1f682767f350"}} > */}
         {/* <Pressable style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}} onPress={pickImage}> */}
       <View style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
       <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
