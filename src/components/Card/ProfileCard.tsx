@@ -91,12 +91,10 @@ const [image, setImage] = React.useState();
 const uploadImage = async () => {
     let uploadedImage = await uploadImageAsync()
 
-    if (imageURL) {
-      await sendImage()
-    }
+    let imageForm = await sendImage(image)
 };
 
-const sendImage = async () => {
+const sendImage = async (image) => {
   try{
     let formData = new FormData();
     formData.append("profile_picture", image);
