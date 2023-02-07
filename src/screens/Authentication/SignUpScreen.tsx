@@ -276,7 +276,7 @@ const SignUpScreen = () => {
     //     // return await getDownloadURL(fileRef);
     // }
 
-    const [uploaded, setUploaded] = React.useState(null)
+    const [uploaded, setUploaded] = React.useState("none")
 
     const uploadImageAsync = async () => {
 
@@ -298,7 +298,7 @@ const SignUpScreen = () => {
             console.log(e);
         }
         Alert.alert(
-            `Photo uploaded..!!${uploaded}`
+            `Photo uploaded..${uploaded}!!`
         );
         setImage(null)
     }
