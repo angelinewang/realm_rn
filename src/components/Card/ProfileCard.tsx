@@ -78,21 +78,6 @@ const [image, setImage] = React.useState();
         setUploaded(uploadPhoto)
         console.log(uploadImage)
 
-    let formData = new FormData();
-    formData.append("profile_picture", downloadURL);
-
-    let response = await fetch(
-      `https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/updatephoto/${authUserId}/`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "multipart/form-data",
-          // Accept: "multipart/form-data",
-        },
-        body: formData,
-      }
-    );
-    return response.json();
         } catch (e) {
             console.log(e);
         }
@@ -109,11 +94,35 @@ const uploadImage = async () => {
 
     let uploadedImage = await uploadImageAsync()
 
+    let uploadStatus = await sendImage()
+
   } catch (error) {
     console.error(error);
   }
 };
 
+
+const sendImage = async () => {
+  try{
+  let formData = new FormData();
+    formData.append("profile_picture", image);
+
+    let response = await fetch(
+      `https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/updatephoto/${authUserId}/`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // Accept: "multipart/form-data",
+        },
+        body: formData,
+      }
+    );
+    return response.json();
+  }catch (error) {
+    console.error(error);
+  }
+}
 
   React.useEffect(
   () => {
