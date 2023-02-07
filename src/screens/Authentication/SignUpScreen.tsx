@@ -96,8 +96,9 @@ const SignUpScreen = () => {
 
             console.log("Reached bottom of file naming function")
 
-            // const reference = ref(storage, filename);
+            const reference = ref(storage, filename);
 
+            console.log("Reached bottom of reference function")
             // const img = await fetch(result.assets[0].uri)
             // const bytes = await img.blob();
                     
