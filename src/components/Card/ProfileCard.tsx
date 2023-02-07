@@ -125,7 +125,9 @@ const uploadImage = async () => {
 
     <View style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
       {/* Setting the uri to "image" does not work */}
-      <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: image ? image : user.profile_picture}} >
+      {/* <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: image ? image : user.profile_picture}} > */}
+
+      <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: "gs://realm-rn-dj.appspot.com/2DBF30EB-9378-4004-933E-119D99C297E8.png"}} >
         {/* <Pressable style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}} onPress={pickImage}> */}
       <View style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
       <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
