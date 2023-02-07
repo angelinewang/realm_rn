@@ -110,7 +110,8 @@ const SignUpScreen = () => {
         const filename = image.substring(image.lastIndexOf('/')+1);
         const reference = ref(storage, filename);
 
-        const downloadURL = await getDownloadURL(reference)
+        const downloadURL = await getDownloadURL(ref(storage, filename))
+        
         setImage(downloadURL)
         
         const img = await fetch(image)
@@ -118,7 +119,13 @@ const SignUpScreen = () => {
 
         const uploadPhoto = await uploadBytes(reference, bytes)
                 
+        // 1. Grab download URL 
+        // 2. Set image to download URL
+        // 3. Send download URL image through form data
+
         setUploaded(uploadPhoto)
+
+        
         } catch (e) {
             console.log(e);
         }
@@ -129,10 +136,10 @@ const SignUpScreen = () => {
     }
 
     const signUpAndLogIn = async () => {
-        let signUpStatus = await signUp(image, _email, _password, _department, _name, _gender, _birthdate)
-        
         let uploadedImage = await uploadImageAsync()
-        
+
+        let signUpStatus = await signUp(image, _email, _password, _department, _name, _gender, _birthdate)
+                
         signUpStatus && uploadedImage ? logIn(_email, _password) : null
     }
 
