@@ -15,7 +15,7 @@ import { useAuth } from "../../contexts/Auth";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { initializeApp } from "firebase/app";
-import { getStorage, ref, uploadBytes} from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import { v4 as uuid } from "uuid";
 import { firebaseConfig } from '../../../firebaseConfig';
 
@@ -110,6 +110,9 @@ const SignUpScreen = () => {
         const filename = image.substring(image.lastIndexOf('/')+1);
         const reference = ref(storage, filename);
 
+        const downloadURL = await getDownloadURL(reference)
+        setImage(downloadURL)
+        
         const img = await fetch(image)
         const bytes = await img.blob();
 

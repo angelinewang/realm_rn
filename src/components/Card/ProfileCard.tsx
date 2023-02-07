@@ -4,7 +4,7 @@ import Loading from "../Loading";
 import { useIsFocused } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { useAuth } from "../../contexts/Auth";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { firebaseConfig } from '../../../firebaseConfig';
 import { initializeApp } from "firebase/app";
 
