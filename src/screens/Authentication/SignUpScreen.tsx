@@ -125,7 +125,7 @@ const SignUpScreen = () => {
         Alert.alert(
             `Photo uploaded..${uploaded}!!`
         );
-        setImage(null)
+        // setImage(null)
     }
 
     const signUpAndLogIn = async () => {
