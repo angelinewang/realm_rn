@@ -19,15 +19,16 @@ import { useNavigation } from '@react-navigation/native';
 
 import { SignUpScreenNavigationProp } from '../../navigation/types';
 import { useAuth } from "../../contexts/Auth";
-import * as firebase from "firebase";
+import firebase from "firebase/app";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getApps, initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import * as Clipboard from "expo-clipboard";
-import uuid from "uuid";
+import { v4 as uuid } from "uuid";
 import { firebaseConfig } from '../../../firebaseConfig';
+import * as ImageManipulator from "expo-image-manipulator";
 
 // const firebaseConfig = {
 //     apiKey: "AIzaSyAxCmJwm2tIvHEiUnMy1c9AH3T85zgNQgQ",
@@ -65,6 +66,35 @@ const SignUpScreen = () => {
 
     // const [fileImage, setFileImage] = React.useState(null);
 
+
+    function getStorageRef(childPath: string = "/") {
+        return firebase.storage().ref().child(childPath);
+    }
+
+    // Compress Image into smaller version
+
+    async function getCompressedImageUrl(imageUrl: string) {
+    const { uri } = await ImageManipulator.manipulateAsync(
+        imageUrl,
+        [ { resize: { height: 800 } } ],
+        {
+        compress: 0.7, format: ImageManipulator.SaveFormat.JPEG,
+        },
+    );
+
+    return uri;
+    }
+
+    async function storeProfilePicture(picURI: string, uid: string) {
+        const uri = await getCompressedImageUrl(picURI);
+        const resp = await fetch(uri);
+        const blob = await resp.blob();
+        const imageId = uuid();
+        const ref = getStorageRef(`images/profile/${uid}/${imageId}`);
+        await ref.put(blob);
+        const url: string = await ref.getDownloadURL();
+        return url;
+    }
 
     async function uploadImage(uri) {
         const blob = await new Promise((resolve, reject) => {
@@ -112,6 +142,8 @@ const SignUpScreen = () => {
             // setImage(result.assets[0].uri)
 
             setImage(result.assets[0].uri)
+
+            storeProfilePicture(result.assets[0].uri, uuid)
         
             uploadImage(result.assets[0].uri)
 
