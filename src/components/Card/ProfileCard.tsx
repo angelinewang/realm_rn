@@ -91,7 +91,9 @@ const [image, setImage] = React.useState();
 const uploadImage = async () => {
     let uploadedImage = await uploadImageAsync()
 
-    uploadedImage ? await sendImage() : null
+    if (imageURL) {
+      await sendImage()
+    }
 };
 
 const sendImage = async () => {
@@ -120,7 +122,7 @@ const sendImage = async () => {
   () => {
     console.log("Reached Profile Card")
     console.log(user)
-  }, [user]
+  }, [user, image]
   )
 
   return (
