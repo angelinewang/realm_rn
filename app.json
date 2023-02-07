@@ -23,7 +23,7 @@
     ],
     "ios": {
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "20",
+      "buildNumber": "21",
       "icon": "./src/assets/images/icon.png",
       "infoPlist": {
         "NSAppTransportSecurity": {
@@ -60,11 +60,9 @@
       "firebaseMessagingSenderId": "169578510116",
       "firebaseAppId": "1:169578510116:web:1d7524e1575689f68d25b1",
       "firebaseMeasurementId": "G-EKHS4QFRTR",
-      
       "eas": {
         "projectId": "a7edb0ed-e973-4ad7-8f55-90b953505514"
       }
-      
     },
     "android": {
       "permissions": [

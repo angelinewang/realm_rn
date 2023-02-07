@@ -68,7 +68,7 @@ const SignUpScreen = () => {
 
 
     function getStorageRef(childPath: string = "/") {
-        return firebase.storage().ref().child(childPath);
+        return ref(getStorage(), childPath);
     }
 
     // Compress Image into smaller version
@@ -91,8 +91,8 @@ const SignUpScreen = () => {
         const blob = await resp.blob();
         const imageId = uuid();
         const ref = getStorageRef(`images/profile/${uid}/${imageId}`);
-        await ref.put(blob);
-        const url: string = await ref.getDownloadURL();
+        await uploadBytes(ref, blob);
+        const url: string = await getDownloadURL(ref);
         return url;
     }
 
