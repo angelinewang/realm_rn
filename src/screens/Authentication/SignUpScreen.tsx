@@ -143,7 +143,7 @@ const SignUpScreen = () => {
 
             setImage(result.assets[0].uri)
 
-            storeProfilePicture(result.assets[0].uri, uuid)
+            storeProfilePicture(result.assets[0].uri, "image")
         
             uploadImage(result.assets[0].uri)
 
