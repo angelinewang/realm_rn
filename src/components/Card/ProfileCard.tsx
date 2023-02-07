@@ -87,18 +87,18 @@ const [image, setImage] = React.useState();
     }
 
 const uploadImage = async () => {
-  try {
-    console.log("Reach uploadImage!");
+  // try {
+  //   console.log("Reach uploadImage!");
 
-    console.log(image);
+  //   console.log(image);
 
     let uploadedImage = await uploadImageAsync()
 
     let uploadStatus = await sendImage()
 
-  } catch (error) {
-    console.error(error);
-  }
+  // } catch (error) {
+  //   console.error(error);
+  // }
 };
 
 
