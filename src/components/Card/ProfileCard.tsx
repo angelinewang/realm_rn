@@ -52,7 +52,7 @@ const [image, setImage] = React.useState();
     }
     }
 
-
+    const [imageURL, setImageURL] = React.useState()
     const [uploaded, setUploaded] = React.useState("none")
 
     const uploadImageAsync = async () => {
@@ -68,16 +68,18 @@ const [image, setImage] = React.useState();
           const downloadURL = await getDownloadURL(ref(storage, filename))
           
           console.log(downloadURL)
+
+          // Sends the photo URL to db
           setImage(downloadURL)
+          setImageURL(downloadURL)
           
           const img = await fetch(image)
           const bytes = await img.blob();
 
+          // Uploads the photo to Firestore
           const uploadPhoto = await uploadBytes(reference, bytes)
                   
           setUploaded(uploadPhoto)
-
-          let uploadStatus = await sendImage()
         } catch (e) {
             console.log(e);
         }
@@ -88,12 +90,13 @@ const [image, setImage] = React.useState();
 
 const uploadImage = async () => {
     let uploadedImage = await uploadImageAsync()
+    let uploadStatus = await sendImage()
 };
 
 const sendImage = async () => {
   try{
   let formData = new FormData();
-    formData.append("profile_picture", image);
+    formData.append("profile_picture", imageURL);
 
     let response = await fetch(
       `https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/updatephoto/${authUserId}/`,
