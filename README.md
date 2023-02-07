@@ -261,3 +261,11 @@ https://github.com/expo/examples/blob/master/with-firebase-storage-upload/App.js
   
 ## Removed from app.json 
 "googleServicesFile": "./GoogleService-Info.plist",
+
+## Firebase Hosting w/ Expo 
+To enable Firestore
+https://docs.expo.dev/distribution/publishing-websites/
+--> Bottom of the webpage instructions 
+
+Project Console: https://console.firebase.google.com/project/realm-rn-dj/overview
+Hosting URL: https://realm-rn-dj.web.app

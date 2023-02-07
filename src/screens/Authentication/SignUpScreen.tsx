@@ -65,6 +65,31 @@ const SignUpScreen = () => {
 
     // const [fileImage, setFileImage] = React.useState(null);
 
+
+            async function uploadImageAsync(uri) {
+            const blob = await new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+            resolve(xhr.response);
+            };
+            xhr.onerror = function (e) {
+            console.log(e);
+            reject(new TypeError("Network request failed"));
+            };
+            xhr.responseType = "blob";
+            xhr.open("GET", uri, true);
+            xhr.send(null);
+            });
+
+            const fileRef = ref(getStorage(), uuid.v4());
+            const result = await uploadBytes(fileRef, blob);
+
+            // We're done with the blob, close and release it
+            blob.close();
+
+            return await getDownloadURL(fileRef);
+        }
+        
     const pickImage = async () => {
         // No permissions request needed to launch image library 
         try {
@@ -81,34 +106,39 @@ const SignUpScreen = () => {
         console.log('image', result.assets[0].uri);
         // console.log('image', result.assets[0].base64);
 
+
+
+
         if(!result.canceled) {
             // setImage(result.assets[0].uri);
 
             // setImage(result.assets[0].uri)
 
             setImage(result.assets[0].uri)
+        
+            uploadImageAsync(result.assets[0].uri)
 
-            const storage = getStorage();
+            // const storage = getStorage();
 
-            console.log("Reached bottom of storage function")
+            // console.log("Reached bottom of storage function")
 
-            const filename = result.assets[0].uri.substring(result.assets[0].uri.lastIndexOf('/')+1);
+            // const filename = result.assets[0].uri.substring(result.assets[0].uri.lastIndexOf('/')+1);
 
-            console.log("Reached bottom of file naming function")
+            // console.log("Reached bottom of file naming function")
 
-            const reference = ref(storage, filename);
+            // const reference = ref(storage, filename);
 
-            console.log("Reached bottom of reference function")
-            const img = await fetch(result.assets[0].uri)
+            // console.log("Reached bottom of reference function")
+            // const img = await fetch(result.assets[0].uri)
             
-            console.log("Reached bottom of img function")
-            const bytes = await img.blob();
+            // console.log("Reached bottom of img function")
+            // const bytes = await img.blob();
 
-            console.log("Reached bottom of blob function")
+            // console.log("Reached bottom of blob function")
                     
-            await uploadBytes(reference, bytes)
+            // await uploadBytes(reference, bytes)
 
-            console.log("Bottom of uploadBytes function")
+            // console.log("Bottom of uploadBytes function")
             // const uploadURL = await uploadImageAsync();
             // console.log(uploadURL)
             // Commented out for Firestore

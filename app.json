@@ -19,12 +19,12 @@
       "**/*"
     ],
     "platforms": [
-      "ios", 
+      "ios",
       "web"
     ],
     "ios": {
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "19",
+      "buildNumber": "20",
       "icon": "./src/assets/images/icon.png",
       "infoPlist": {
         "NSAppTransportSecurity": {
