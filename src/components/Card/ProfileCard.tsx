@@ -90,7 +90,6 @@ const [image, setImage] = React.useState();
 
 const uploadImage = async () => {
     let uploadedImage = await uploadImageAsync()
-    let uploadStatus = await sendImage()
 };
 
 const sendImage = async () => {
@@ -109,6 +108,7 @@ const sendImage = async () => {
         body: formData,
       }
     );
+    setImageURL(null)
     return response.json();
   }catch (error) {
     console.error(error);
@@ -119,7 +119,11 @@ const sendImage = async () => {
   () => {
     console.log("Reached Profile Card")
     console.log(user)
-  }, [user]
+
+    if (imageURL) {
+      sendImage()
+    }
+  }, [user, image]
   )
 
   return (
