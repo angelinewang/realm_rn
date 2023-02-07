@@ -120,10 +120,6 @@ const SignUpScreen = () => {
 
         const uploadPhoto = await uploadBytes(reference, bytes)
                 
-        // 1. Grab download URL 
-        // 2. Set image to download URL
-        // 3. Send download URL image through form data
-
         setUploaded(uploadPhoto)
 
         } catch (e) {

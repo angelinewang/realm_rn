@@ -65,6 +65,11 @@ const [image, setImage] = React.useState();
         const filename = image.substring(image.lastIndexOf('/')+1);
         const reference = ref(storage, filename);
 
+        const downloadURL = await getDownloadURL(ref(storage, filename))
+        
+        console.log(downloadURL)
+        setImage(downloadURL)
+
         const img = await fetch(image)
         const bytes = await img.blob();
 
@@ -77,7 +82,6 @@ const [image, setImage] = React.useState();
         Alert.alert(
             `Photo uploaded..${uploaded}!!`
         );
-        setImage(null)
     }
 
 const uploadImage = async () => {
