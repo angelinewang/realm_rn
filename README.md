@@ -269,3 +269,18 @@ https://docs.expo.dev/distribution/publishing-websites/
 
 Project Console: https://console.firebase.google.com/project/realm-rn-dj/overview
 Hosting URL: https://realm-rn-dj.web.app
+
+## Retrieving image from Firestore 
+https://www.youtube.com/watch?v=VszNUlCO0ic
+
+## Solution to Firestore Storage problem 
+Set in Rules for Storage 
+
+write: if true;
+
+Found solution in this video:
+https://www.youtube.com/watch?v=3Qf31s1AqKc
+
+## Next: Retrieve the image for display
+
+

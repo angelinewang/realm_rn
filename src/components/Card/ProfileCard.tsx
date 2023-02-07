@@ -1,11 +1,16 @@
-import { View, Text, ImageBackground, Button } from "react-native";
+import { View, Alert, Text, ImageBackground, Button } from "react-native";
 import React from "react";
 import Loading from "../Loading";
 import { useIsFocused } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { useAuth } from "../../contexts/Auth";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { firebaseConfig } from '../../../firebaseConfig';
+import { initializeApp } from "firebase/app";
 
 // Card used to display each individual Guest Profile on the Browse and Guestlist Screens
+
+initializeApp(firebaseConfig);
 
 const ProfileCard = ({user}) => {
 
@@ -47,11 +52,43 @@ const [image, setImage] = React.useState();
     }
     }
 
+
+    const [uploaded, setUploaded] = React.useState("none")
+
+    const uploadImageAsync = async () => {
+
+        console.log("Reached upload image sync")
+    
+        try {
+        const storage = getStorage();
+
+        const filename = image.substring(image.lastIndexOf('/')+1);
+        const reference = ref(storage, filename);
+
+        const img = await fetch(image)
+        const bytes = await img.blob();
+
+        const uploadPhoto = await uploadBytes(reference, bytes)
+                
+        setUploaded(uploadPhoto)
+        } catch (e) {
+            console.log(e);
+        }
+        Alert.alert(
+            `Photo uploaded..${uploaded}!!`
+        );
+        setImage(null)
+    }
+
 const uploadImage = async () => {
   try {
     console.log("Reach uploadImage!");
 
     console.log(image);
+
+    let uploadedImage = await uploadImageAsync()
+
+    console.log(uploadImage)
 
     let formData = new FormData();
     formData.append("profile_picture", image);

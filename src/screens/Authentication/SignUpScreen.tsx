@@ -1,59 +1,27 @@
-import { LogBox, Linking, Alert, TextInput, KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform, Dimensions } from "react-native";
+import { Linking, Alert, TextInput, KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform, Dimensions } from "react-native";
 import React, { useCallback } from "react";
-import MainContainer from "../../components/MainContainer";
-import KeyboardAvoidWrapper from "../../components/KeyboardAvoidWrapper";
-import CustomTextInput from "../../components/InputText/CustomTextInput";
-import {launchImageLibrary} from 'react-native-image-picker';
 import RNPickerSelect from 'react-native-picker-select';
 import { Formik, useFormik } from 'formik';
-import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
 
 import * as ImagePicker from 'expo-image-picker';
 
 import { useFonts } from 'expo-font';
 
-import { AtSymbolIcon, LockClosedIcon } from "react-native-heroicons/solid";
-import CustomButton from "../../components/Buttons/CustomButton";
-
 import { useNavigation } from '@react-navigation/native';
 
 import { SignUpScreenNavigationProp } from '../../navigation/types';
 import { useAuth } from "../../contexts/Auth";
-import firebase from "firebase/app";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getApps, initializeApp } from "firebase/app";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import * as Clipboard from "expo-clipboard";
+import { initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytes} from "firebase/storage";
 import { v4 as uuid } from "uuid";
 import { firebaseConfig } from '../../../firebaseConfig';
-import * as ImageManipulator from "expo-image-manipulator";
-
-// const firebaseConfig = {
-//     apiKey: "AIzaSyAxCmJwm2tIvHEiUnMy1c9AH3T85zgNQgQ",
-//     authDomain: "realm-rn-dj.firebaseapp.com",
-//     databaseURL: "https://realm-rn-dj.firebaseio.com",
-//     storageBucket: "realm-rn-dj.appspot.com",
-//     messagingSenderId: "169578510116",
-// };
-
-// Prevent editing of this file with fast refresh leading to reinitialization of app on every refresh
 
 initializeApp(firebaseConfig);
 
-// Firebase sets some timers for a long period, which will trigger some warnings 
-// This turns that off 
-// LogBox.ignoreLogs([`Setting a timer for a longer period`]);
-
-
-
 const SignUpScreen = () => {
-    // const [state, setState] = React.useState({
-    //     image: null,
-    //     uploading: false,
-    // })
-
     const {height} = Dimensions.get('window')
 
      const [fontsLoaded] = useFonts({
@@ -62,63 +30,8 @@ const SignUpScreen = () => {
         'Open-Sans-Light': require('../../assets/fonts/OpenSans-Light.ttf'),
         'Open-Sans-Bold': require('../../assets/fonts/OpenSans-Bold.ttf')
     })
+
     const [image, setImage] = React.useState(null);
-
-    // const [fileImage, setFileImage] = React.useState(null);
-
-
-    function getStorageRef(childPath: string = "/") {
-        return ref(getStorage(), childPath);
-    }
-
-    // Compress Image into smaller version
-
-    async function getCompressedImageUrl(imageUrl: string) {
-    const { uri } = await ImageManipulator.manipulateAsync(
-        imageUrl,
-        [ { resize: { height: 800 } } ],
-        {
-        compress: 0.7, format: ImageManipulator.SaveFormat.JPEG,
-        },
-    );
-
-    return uri;
-    }
-
-    async function storeProfilePicture(picURI: string, uid: string) {
-        const uri = await getCompressedImageUrl(picURI);
-        const resp = await fetch(uri);
-        const blob = await resp.blob();
-        const imageId = uuid();
-        const ref = getStorageRef(`images/profile/${uid}/${imageId}`);
-        await uploadBytes(ref, blob);
-        const url: string = await getDownloadURL(ref);
-        return url;
-    }
-
-    async function uploadImage(uri) {
-        const blob = await new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.onload = function () {
-        resolve(xhr.response);
-        };
-        xhr.onerror = function (e) {
-        console.log(e);
-        reject(new TypeError("Network request failed"));
-        };
-        xhr.responseType = "blob";
-        xhr.open("GET", uri, true);
-        xhr.send(null);
-        });
-
-        const fileRef = ref(getStorage(), uuid.v4());
-        const result = await uploadBytes(fileRef, blob);
-
-        // We're done with the blob, close and release it
-        blob.close();
-
-        return await getDownloadURL(fileRef);
-    }
 
     const pickImage = async () => {
         // No permissions request needed to launch image library 
@@ -128,86 +41,12 @@ const SignUpScreen = () => {
             allowsEditing: true, 
             aspect: [4, 3],
             quality: 1,
-            // base64: true, 
-            // allowsEditing: false, 
-            // aspect: [4, 3],
         })
 
         console.log('image', result.assets[0].uri);
-        // console.log('image', result.assets[0].base64);
 
         if(!result.canceled) {
-            // setImage(result.assets[0].uri);
-
-            // setImage(result.assets[0].uri)
-
-            storeProfilePicture(result.assets[0].uri, "image")
-
-
             setImage(result.assets[0].uri)
-
-        
-            uploadImage(result.assets[0].uri)
-
-            // const storage = getStorage();
-
-            // console.log("Reached bottom of storage function")
-
-            // const filename = result.assets[0].uri.substring(result.assets[0].uri.lastIndexOf('/')+1);
-
-            // console.log("Reached bottom of file naming function")
-
-            // const reference = ref(storage, filename);
-
-            // console.log("Reached bottom of reference function")
-            // const img = await fetch(result.assets[0].uri)
-            
-            // console.log("Reached bottom of img function")
-            // const bytes = await img.blob();
-
-            // console.log("Reached bottom of blob function")
-                    
-            // await uploadBytes(reference, bytes)
-
-            // console.log("Bottom of uploadBytes function")
-            // const uploadURL = await uploadImageAsync();
-            // console.log(uploadURL)
-            // Commented out for Firestore
-            // setImage(result.assets[0].uri)
-            // setFileImage(result.assets[0])
-
-            // **Get rid of 500 server error when only sending email and password 
-            // DONE 
-
-            // **Get rid of crashing when press Create Account button
-
-            // DONE, when stopped trying to grab properties from file uploaded that did not exist
-
-            // 0. Figure out where react native console logs are 
-
-            // 1. Print result.assets[0] to see all the properties
-
-            // 2. Check if there are all the properties needed from the stackoverflow instructions 
-
-            // 3. Extract all the needed properties
-
-            // 4. Create 1 object for all needed properties 
-
-            // 5. Send the final object in form as file_image back to backend 
-
-            // 6. Change backend file_image field into a filefield
-
-            // setType(result.assets[0].type)
-            // setFileName(result.assets[0].uri.split('/').pop())
-
-            // let base64 = result.assets[0].base64
-            // setImage({base64: base64, fileExtension: 'jpg'
-                
-            // })
-
-            // 1. Add File Extension to Image
-
-            // set
         }
     } catch(error) {
         console.error
@@ -228,7 +67,7 @@ const SignUpScreen = () => {
     // Add other necessary fields later 
     // Right now, just POST and get these fields
 
-        React.useEffect(() => {
+    React.useEffect(() => {
 
     }, [_email, _password, _name, _department, _gender, _birthdate])
 
@@ -259,84 +98,6 @@ const SignUpScreen = () => {
         console.log(_gender); 
     }
 
-    const signUpAndLogIn = async () => {
-        let signUpStatus = await signUp(image, _email, _password, _department, _name, _gender, _birthdate)
-        
-        let uploadedImage = await uploadImageAsync()
-        
-        signUpStatus && uploadedImage ? logIn(_email, _password) : null
-    }
-
-    const logIn = async () => {
-        await signIn(_email, _password)
-    }
-
-        const termsAndConditions = "https://realmpartyapp.com/terms-of-use"
-    const privacyPolicy = "https://realmpartyapp.com/privacy-policy"
-    
-    type OpenURLButtonProps = {
-        url: string;
-        children: any;
-    }
-
-    const OpenURLButton = ({url, children}:
-        OpenURLButtonProps) => {
-            const handlePress = useCallback(async () => {
-                const supported = await 
-                Linking.canOpenURL(url);
-
-                if(supported) {
-                    await Linking.openURL(url);
-                } else {
-                    Alert.alert(`Don't know how to open this URL: ${url}`);
-                } }, [url]
-            );
-            return <Pressable onPress={handlePress}>{children}</Pressable>
-        }
-    // For Photo Upload, using multipart/form-data
-
-
-    // Upload image to Firestore
-    // async function uploadImageAsync() {
-
-    //     // console.log(uri)
-    //     // console.log("Reached uploadImageAsync")
-
-    //     // const response = await fetch(uri);
-    //     // const blob = await response.blob();
-
-    //     // var reference = ref(getStorage(), "my-image");
-    //     // return reference.put(blob)
-
-
-    //     // const blob = await new Promise((resolve, reject) => {
-            
-    //     //     console.log("Reached blob function")
-
-    //     //     const xhr = new XMLHttpRequest();
-    //     //     xhr.onload = function () {
-
-    //     //         console.log("Reached onload")
-    //     //         resolve(xhr.response);
-    //     //     };
-    //     //     xhr.onerror = function (e) {
-    //     //         console.log(e);
-    //     //         reject(new TypeError("Network request failed"));
-    //     //     };
-    //     //     xhr.responseType = "blob";
-    //     //     xhr.open("GET", uri, true);
-    //     //     xhr.send(null);
-    //     // });
-
-    //     // const fileRef = ref(getStorage(), uuid.v4());
-    //     // const result = await uploadBytes(fileRef, blob);
-
-    //     // // Finished with the blob, close and release it
-    //     // blob.close();
-
-    //     // return await getDownloadURL(fileRef);
-    // }
-
     const [uploaded, setUploaded] = React.useState("none")
 
     const uploadImageAsync = async () => {
@@ -361,8 +122,43 @@ const SignUpScreen = () => {
         Alert.alert(
             `Photo uploaded..${uploaded}!!`
         );
-        // setImage(null)
+        setImage(null)
     }
+
+    const signUpAndLogIn = async () => {
+        let signUpStatus = await signUp(image, _email, _password, _department, _name, _gender, _birthdate)
+        
+        let uploadedImage = await uploadImageAsync()
+        
+        signUpStatus && uploadedImage ? logIn(_email, _password) : null
+    }
+
+    const logIn = async () => {
+        await signIn(_email, _password)
+    }
+
+    const termsAndConditions = "https://realmpartyapp.com/terms-of-use"
+    const privacyPolicy = "https://realmpartyapp.com/privacy-policy"
+    
+    type OpenURLButtonProps = {
+        url: string;
+        children: any;
+    }
+
+    const OpenURLButton = ({url, children}:
+        OpenURLButtonProps) => {
+            const handlePress = useCallback(async () => {
+                const supported = await 
+                Linking.canOpenURL(url);
+
+                if(supported) {
+                    await Linking.openURL(url);
+                } else {
+                    Alert.alert(`Don't know how to open this URL: ${url}`);
+                } }, [url]
+            );
+            return <Pressable onPress={handlePress}>{children}</Pressable>
+        }
 
     return (
         <ScrollView style={styles.screenBackground}>
