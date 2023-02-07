@@ -91,13 +91,13 @@ const [image, setImage] = React.useState();
 const uploadImage = async () => {
     let uploadedImage = await uploadImageAsync()
 
-    let imageForm = await sendImage(image)
+    let imageForm = await sendImage(imageURL)
 };
 
-const sendImage = async (image) => {
+const sendImage = async (imageURL) => {
   try{
     let formData = new FormData();
-    formData.append("profile_picture", image);
+    formData.append("profile_picture", imageURL);
 
     let response = await fetch(
       `https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/updatephoto/${authUserId}/`,
