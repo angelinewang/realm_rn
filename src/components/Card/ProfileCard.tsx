@@ -60,24 +60,24 @@ const [image, setImage] = React.useState();
         console.log("Reached upload image sync")
     
         try {
-        const storage = getStorage();
+          const storage = getStorage();
 
-        const filename = image.substring(image.lastIndexOf('/')+1);
-        const reference = ref(storage, filename);
+          const filename = image.substring(image.lastIndexOf('/')+1);
+          const reference = ref(storage, filename);
 
-        const downloadURL = await getDownloadURL(ref(storage, filename))
-        
-        console.log(downloadURL)
-        setImage(downloadURL)
+          const downloadURL = await getDownloadURL(ref(storage, filename))
+          
+          console.log(downloadURL)
+          setImage(downloadURL)
+          
+          const img = await fetch(image)
+          const bytes = await img.blob();
 
-        const img = await fetch(image)
-        const bytes = await img.blob();
+          const uploadPhoto = await uploadBytes(reference, bytes)
+                  
+          setUploaded(uploadPhoto)
 
-        const uploadPhoto = await uploadBytes(reference, bytes)
-                
-        setUploaded(uploadPhoto)
-        console.log(uploadImage)
-
+          let uploadStatus = await sendImage()
         } catch (e) {
             console.log(e);
         }
@@ -87,20 +87,8 @@ const [image, setImage] = React.useState();
     }
 
 const uploadImage = async () => {
-  // try {
-  //   console.log("Reach uploadImage!");
-
-  //   console.log(image);
-
     let uploadedImage = await uploadImageAsync()
-
-    let uploadStatus = await sendImage()
-
-  // } catch (error) {
-  //   console.error(error);
-  // }
 };
-
 
 const sendImage = async () => {
   try{
