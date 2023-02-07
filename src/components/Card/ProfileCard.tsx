@@ -80,22 +80,6 @@ const [image, setImage] = React.useState();
           const uploadPhoto = await uploadBytes(reference, bytes)
                   
           setUploaded(uploadPhoto)
-
-          let formData = new FormData();
-    formData.append("profile_picture", downloadURL);
-
-    let response = await fetch(
-      `https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/updatephoto/${authUserId}/`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "multipart/form-data",
-          // Accept: "multipart/form-data",
-        },
-        body: formData,
-      }
-    );
-    return response.json();
         } catch (e) {
             console.log(e);
         }
@@ -106,12 +90,14 @@ const [image, setImage] = React.useState();
 
 const uploadImage = async () => {
     let uploadedImage = await uploadImageAsync()
+
+    uploadImage ? await sendImage() : null
 };
 
-const sendImage = async (imageURL) => {
+const sendImage = async () => {
   try{
     let formData = new FormData();
-    formData.append("profile_picture", imageURL);
+    formData.append("profile_picture", image);
 
     let response = await fetch(
       `https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/updatephoto/${authUserId}/`,
