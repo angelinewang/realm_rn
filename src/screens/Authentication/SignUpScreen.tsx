@@ -276,6 +276,8 @@ const SignUpScreen = () => {
     //     // return await getDownloadURL(fileRef);
     // }
 
+    const [uploaded, setUploaded] = React.useState(null)
+
     const uploadImageAsync = async () => {
 
         console.log("Reached upload image sync")
@@ -288,13 +290,15 @@ const SignUpScreen = () => {
 
         const img = await fetch(image)
         const bytes = await img.blob();
+
+        const uploadPhoto = await uploadBytes(reference, bytes)
                 
-        await uploadBytes(reference, bytes)
+        setUploaded(uploadPhoto)
         } catch (e) {
             console.log(e);
         }
         Alert.alert(
-            'Photo uploaded..!!'
+            `Photo uploaded..!!${uploaded}`
         );
         setImage(null)
     }
