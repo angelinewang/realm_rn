@@ -84,7 +84,7 @@ const [image, setImage] = React.useState();
             console.log(e);
         }
         Alert.alert(
-            `Photo uploaded..${uploaded}!!`
+            `Photo uploaded..${imageURL}!!`
         );
     }
 
