@@ -90,13 +90,15 @@ const SignUpScreen = () => {
 
             const storage = getStorage();
 
-            const filename = result.assets[0].uri.substring(result.assets[0].uri.lastIndexOf('/')+1);
-            const reference = ref(storage, filename);
+            console.log("Reached bottom of storage function")
 
-            const img = await fetch(result.assets[0].uri)
-            const bytes = await img.blob();
+            // const filename = result.assets[0].uri.substring(result.assets[0].uri.lastIndexOf('/')+1);
+            // const reference = ref(storage, filename);
+
+            // const img = await fetch(result.assets[0].uri)
+            // const bytes = await img.blob();
                     
-            await uploadBytes(reference, bytes)
+            // await uploadBytes(reference, bytes)
             // const uploadURL = await uploadImageAsync();
             // console.log(uploadURL)
             // Commented out for Firestore
