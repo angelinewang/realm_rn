@@ -92,7 +92,10 @@ const SignUpScreen = () => {
 
             console.log("Reached bottom of storage function")
 
-            // const filename = result.assets[0].uri.substring(result.assets[0].uri.lastIndexOf('/')+1);
+            const filename = result.assets[0].uri.substring(result.assets[0].uri.lastIndexOf('/')+1);
+
+            console.log("Reached bottom of file naming function")
+
             // const reference = ref(storage, filename);
 
             // const img = await fetch(result.assets[0].uri)
