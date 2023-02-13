@@ -1,4 +1,4 @@
-import { View, Button } from 'react-native';
+import { View, Button, Alert } from 'react-native';
 import React from 'react';
 
 import ProfileCard from '../../components/Card/ProfileCard';
@@ -6,6 +6,10 @@ import Loading from '../../components/Loading';
 
 import {useAuth} from '../../contexts/Auth'
  import { useIsFocused } from '@react-navigation/native';
+
+ import { useNavigation } from '@react-navigation/native';
+
+import { SignUpScreenNavigationProp } from '../../navigation/types';
 
 const ViewScreen = () => {
   const [loading, setLoading] = React.useState(Boolean)
@@ -46,21 +50,24 @@ const ViewScreen = () => {
         
     }
 
+    // Return to Log In screen
+    // const navigation = useNavigation<SignUpScreenNavigationProp>();
+
     const deleteAccount = async () => {
       try {
         console.log("Reached deleteAccount!");
-
         let response = await fetch(
           `https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/delete/${authUserId}`,
           {
             method: "DELETE"
           }
         );
-        // Sends the response with auth token back to Auth Context as Object
-        return response.json();
       } catch (error) {
         console.error(error);
       }
+      Alert.alert(
+            `Account Deleted! Sign Out to go back to Log In screen`
+      );
     }
 
     // Must pass UserId/Arguments into async
