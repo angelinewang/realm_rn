@@ -46,6 +46,23 @@ const ViewScreen = () => {
         
     }
 
+    const deleteAccount = async () => {
+      try {
+        console.log("Reached deleteAccount!");
+
+        let response = await fetch(
+          `https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/delete/${authUserId}`,
+          {
+            method: "DELETE"
+          }
+        );
+        // Sends the response with auth token back to Auth Context as Object
+        return response.json();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
     // Must pass UserId/Arguments into async
   const getUser = async (authUserId) => {
       try {
@@ -53,9 +70,10 @@ const ViewScreen = () => {
         let json = await response.json();
         setUser(json)
         console.log(json)
-          if (user) {
-    setLoading(false)
-  }
+
+        if (user) {
+          setLoading(false)
+        }
       }
       catch (error) {
           console.error(error);
@@ -69,6 +87,7 @@ const ViewScreen = () => {
     <View style={{ flex: 1, paddingTop: 12, paddingHorizontal: 10 }}>
     <ProfileCard user={user}/>
     <Button title="Log Out" onPress={logOut}/>
+    <Button title="Delete Account" onPress={deleteAccount}/>
     </View>)
      : <Loading/>) : null
 }
