@@ -23,7 +23,7 @@
     ],
     "ios": {
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "21",
+      "buildNumber": "22",
       "icon": "./src/assets/images/icon.png",
       "infoPlist": {
         "NSAppTransportSecurity": {
@@ -68,9 +68,6 @@
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ]
-    },
-    "runtimeVersion": {
-      "policy": "appVersion"
     }
   }
 }

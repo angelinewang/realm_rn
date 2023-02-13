@@ -147,8 +147,10 @@ const sendImage = async (imageURL) => {
         </View>
         </View>
         {/* </Pressable> */}
-        <Button title="Pick an image from camera roll" onPress={pickImage}/>
-        <Button title="Update Profile Photo" onPress={uploadImage}/>
+
+        {/* Disable update Profile Picture Option for now */}
+        {/* <Button title="Pick an image from camera roll" onPress={pickImage}/>
+        <Button title="Update Profile Photo" onPress={uploadImage}/> */}
         </ImageBackground>
     </View>
   

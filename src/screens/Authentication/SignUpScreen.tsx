@@ -126,7 +126,7 @@ const SignUpScreen = () => {
             console.log(e);
         }
         Alert.alert(
-            `Photo uploaded..${uploaded}!!`
+            `Account created! Go back to Log In`
         );
         // setImage(null)
     }
