@@ -58,8 +58,8 @@ const SignUpScreen = () => {
     const [_password, setPassword] = React.useState<String | null>(null);
 
     const [_name, setName] = React.useState<String | null>(null);
-    const [_department, setDepartment] = React.useState<Number | null>();
-    const [_gender, setGender] = React.useState<Number | null>();
+    const [_department, setDepartment] = React.useState<Number | null>(0);
+    const [_gender, setGender] = React.useState<Number | null>(0);
 
     // Changed Data Type in Database for Birthdate into timestamp/DateTime in order to accept a Timestamp value entry
     const [_birthdate, setBirthdate] = React.useState(new Date());
@@ -225,10 +225,10 @@ const SignUpScreen = () => {
                 </View>
 
                 {/* Birthdate Date Entry */}
-                <View style={styles.birthdate}>
+                {/* <View style={styles.birthdate}>
                     <Text style={styles.labelText}>Birthdate</Text>
                     <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={_birthdate} onDateChange={setBirthdate}/>
-                </View>
+                </View> */}
                     <Pressable 
                         style={styles.createAccountButton}
                         onPress={signUpAndLogIn}
