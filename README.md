@@ -284,3 +284,7 @@ https://www.youtube.com/watch?v=3Qf31s1AqKc
 ## Next: Retrieve the image for display
 
 
+## Update NPM Package 
+1. Change the version number of the package inside package.json
+2. Delete node_modules and package-lock.json 
+3. `npm install` in the terminal to reinstall with the new versions
