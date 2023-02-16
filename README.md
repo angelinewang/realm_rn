@@ -292,3 +292,8 @@ https://www.youtube.com/watch?v=3Qf31s1AqKc
 ### Reproduce pod install issues locally 
 `expo prebuild`
 Go to the `ios` directory
+
+### Firebase packages
+expo-firebase-core && expo-firebase-analytics
+are incompatible to be had in the same node modules folder as react-native-firebase
+--> Will cause issue when installing pod in eas build
