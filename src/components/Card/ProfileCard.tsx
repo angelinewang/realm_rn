@@ -14,11 +14,11 @@ initializeApp(firebaseConfig);
 
 const ProfileCard = ({user}) => {
 
-  const {authUserId} = useAuth()
+const {authUserId} = useAuth()
 
 const isFocused = useIsFocused()
 const [image, setImage] = React.useState();
-const [age, setAge] = React.useState();
+const [age, setAge] = React.useState<Number | undefined>(0)
 const [department, setDepartment] = React.useState('');
 
     const pickImage = async () => {
@@ -56,6 +56,7 @@ const [department, setDepartment] = React.useState('');
 
     const [imageURL, setImageURL] = React.useState()
     const [uploaded, setUploaded] = React.useState("none")
+
 
     const uploadImageAsync = async () => {
 
@@ -122,6 +123,19 @@ const sendImage = async (imageURL) => {
     console.log("Reached Profile Card")
     console.log(user)
     
+    const date = user?.birthdate?.slice(0, 10);
+    const dob = new Date(date);
+
+    const month_diff = Date.now() - dob.getTime()
+
+    const age_dt = new Date(month_diff);
+
+    const year = age_dt.getUTCFullYear();
+
+    const finalAge = Math.abs(year - 1970)
+
+    setAge(finalAge)
+
     switch(user.department) {
       case 0:
         setDepartment('No Department')
@@ -178,7 +192,7 @@ const sendImage = async (imageURL) => {
         {user.name ? user.name : "no name"}
         </Text>
         <Text style={{ fontSize: 18, color: 'white'}}>
-        { user.birthdate ? `${user.birthdate} ` : "no birthdate"}
+        { age ? `${age} ` : "No Birthdate"}
         {/* Convert Deparment NUM to STRING */}
         { department ? department : "No Department"}
         </Text>
