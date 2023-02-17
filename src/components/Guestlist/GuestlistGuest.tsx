@@ -10,6 +10,8 @@ const GuestlistGuest = ({item, setGuest, guest}) => {
 
   const [loading, setLoading] = React.useState(true)
 
+  const [department, setDepartment] = React.useState("")
+
   React.useEffect(() => {
     // "item" is the guest_id being passed from GuestlistInvite
     getGuest(item)
@@ -24,6 +26,42 @@ const GuestlistGuest = ({item, setGuest, guest}) => {
     console.log(json)
       if (guest) {
         setLoading(false)
+          
+        switch(guest?.department) {
+        case 0:
+          setDepartment('No Department')
+          break;
+        case 1: 
+          setDepartment('Arts/Humanities')
+          break;
+        case 2:
+          setDepartment('Business')
+          break;
+        case 3:
+          setDepartment('Dentistry')
+          break;
+        case 4:
+          setDepartment('Engineering')
+          break;
+        case 5:
+          setDepartment('Law')
+          break;
+        case 6:
+          setDepartment('Medic/Life Sciences')
+          break;
+        case 7:
+          setDepartment('Natural Sciences')
+          break;
+        case 8:
+          setDepartment('Nursing')
+          break;
+        case 9: 
+          setDepartment('Psych/Neuroscience')
+          break;
+        case 10: 
+          setDepartment('Social Sciences')
+          break;
+    }
   }
     }
     catch (error) {
@@ -40,7 +78,7 @@ const GuestlistGuest = ({item, setGuest, guest}) => {
                 <Text style={{ fontSize: 18, color: 'white'}}>
                 { guest.birthdate ? `${guest.birthdate} ` : "no birthdate"}
                 {/* Convert Deparment NUM to STRING */}
-                { guest.department ? guest.department : "no department"}
+                { department ? department : "No Department"}
               </Text>
             </>
 

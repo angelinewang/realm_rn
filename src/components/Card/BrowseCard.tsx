@@ -178,7 +178,7 @@ guest ? (
             <Text style={{ fontSize: 18, color: 'white'}}>
               { guest.birthdate ? `${guest.birthdate} ` : "no birthdate"}
               {/* Convert Deparment NUM to STRING */}
-              { department ? department : "no department"}
+              { department ? department : "No Department"}
             </Text>
           </View>
         </View>

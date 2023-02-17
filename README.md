@@ -297,3 +297,7 @@ Go to the `ios` directory
 expo-firebase-core && expo-firebase-analytics
 are incompatible to be had in the same node modules folder as react-native-firebase
 --> Will cause issue when installing pod in eas build
+
+Both Invited and Confirmed Screen use the same HostCard
+BrowseScreen uses BrowseCard
+While GuestlistScreen uses GuestlistGuest
