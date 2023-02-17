@@ -16,6 +16,8 @@ const [loading, setLoading] = React.useState(true)
 
 const [partyId, setPartyId] = React.useState()
 
+const [department, setDepartment] = React.useState("")
+
 React.useEffect(() => {
     console.log(`Item is ${item}`)
     console.log(item)
@@ -23,6 +25,7 @@ React.useEffect(() => {
     console.log("GUEST ID: (on BrowseCard)")
     console.log(guestId)
     getGuest(item)
+    
   }, [item, loading, authUserId, userRole]
 )
 
@@ -36,8 +39,44 @@ const getGuest = async (item) => {
     console.log(json)
     if (guest) {
       setLoading(false)
+    
+    // After receiving guest information, convert department integer into string
+    switch(guest?.department) {
+      case 0:
+        setDepartment('No Department')
+        break;
+      case 1: 
+        setDepartment('Arts/Humanities')
+        break;
+      case 2:
+        setDepartment('Business')
+        break;
+      case 3:
+        setDepartment('Dentistry')
+        break;
+      case 4:
+        setDepartment('Engineering')
+        break;
+      case 5:
+        setDepartment('Law')
+        break;
+      case 6:
+        setDepartment('Medic/Life Sciences')
+        break;
+      case 7:
+        setDepartment('Natural Sciences')
+        break;
+      case 8:
+        setDepartment('Nursing')
+        break;
+      case 9: 
+        setDepartment('Psych/Neuroscience')
+        break;
+      case 10: 
+        setDepartment('Social Sciences')
+        break;
     }
-  }
+  }}
   catch (error) {
     console.error(error);
   }
@@ -139,7 +178,7 @@ guest ? (
             <Text style={{ fontSize: 18, color: 'white'}}>
               { guest.birthdate ? `${guest.birthdate} ` : "no birthdate"}
               {/* Convert Deparment NUM to STRING */}
-              { guest.department ? guest.department : "no department"}
+              { department ? department : "no department"}
             </Text>
           </View>
         </View>
