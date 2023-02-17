@@ -17,6 +17,8 @@ const [loading, setLoading] = React.useState(true)
 const [partyId, setPartyId] = React.useState()
 
 const [department, setDepartment] = React.useState("")
+const [age, setAge] = React.useState<Number | undefined>(0)
+
 
 React.useEffect(() => {
     console.log(`Item is ${item}`)
@@ -39,6 +41,19 @@ const getGuest = async (item) => {
     console.log(json)
     if (guest) {
       setLoading(false)
+    
+    const date = guest?.birthdate?.slice(0, 10);
+    const dob = new Date(date);
+
+    const month_diff = Date.now() - dob.getTime()
+
+    const age_dt = new Date(month_diff);
+
+    const year = age_dt.getUTCFullYear();
+
+    const finalAge = Math.abs(year - 1970)
+
+    setAge(finalAge)
     
     // After receiving guest information, convert department integer into string
     switch(guest?.department) {
@@ -176,9 +191,9 @@ guest ? (
               {guest.name ? guest.name : "no name"}
             </Text>
             <Text style={{ fontSize: 18, color: 'white'}}>
-              { guest.birthdate ? `${guest.birthdate} ` : "no birthdate"}
+               { guest.birthdate ? `${age} ` : "No Birthdate"}
               {/* Convert Deparment NUM to STRING */}
-              { department ? department : "No Department"}
+              { guest.department ? department : "No Department"}
             </Text>
           </View>
         </View>

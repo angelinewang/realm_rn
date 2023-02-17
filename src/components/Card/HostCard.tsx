@@ -12,6 +12,8 @@ const HostCard = ({item, host, setHost}) => {
 )
 
 const [department, setDepartment] = React.useState("")
+const [age, setAge] = React.useState<Number | undefined>(0)
+
 
 const getHost = async (item) => {
   try {
@@ -19,6 +21,20 @@ const getHost = async (item) => {
   let json = await response.json();
   setHost(json)
   console.log(json)
+
+  
+    const date = host?.birthdate?.slice(0, 10);
+    const dob = new Date(date);
+
+    const month_diff = Date.now() - dob.getTime()
+
+    const age_dt = new Date(month_diff);
+
+    const year = age_dt.getUTCFullYear();
+
+    const finalAge = Math.abs(year - 1970)
+
+    setAge(finalAge)
 
   if (host) {
      switch(host?.department) {
@@ -71,9 +87,9 @@ return (
       {host.name ? host.name : "no name"}
       </Text>
       <Text style={{ fontSize: 18, color: 'white'}}>
-      { host.birthdate ? `${host.birthdate} ` : "no birthdate"}
+      { host.birthdate ? `${age} ` : "no birthdate" }
       {/* Convert Deparment NUM to STRING */}
-      {department ? department: "No Department"}
+      { host.department ? department: "No Department" }
       </Text>
   </View>
   ) : <Loading/>

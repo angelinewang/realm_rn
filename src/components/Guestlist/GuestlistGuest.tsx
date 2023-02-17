@@ -11,7 +11,7 @@ const GuestlistGuest = ({item, setGuest, guest}) => {
   const [loading, setLoading] = React.useState(true)
 
   const [department, setDepartment] = React.useState("")
-  const [age, setAge] = React.useState<Number | undefined>(undefined)
+  const [age, setAge] = React.useState<Number | undefined>(0)
 
   React.useEffect(() => {
     // "item" is the guest_id being passed from GuestlistInvite
@@ -28,18 +28,18 @@ const GuestlistGuest = ({item, setGuest, guest}) => {
       if (guest) {
         setLoading(false)
 
-        const date = guest?.birthdate.slice(0, 10);
-        const dob = new Date(date);
+    const date = guest?.birthdate?.slice(0, 10);
+    const dob = new Date(date);
 
-        const month_diff = Date.now() - dob.getTime()
+    const month_diff = Date.now() - dob.getTime()
 
-        const age_dt = new Date(month_diff);
+    const age_dt = new Date(month_diff);
 
-        const year = age_dt.getUTCFullYear();
+    const year = age_dt.getUTCFullYear();
 
-        const finalAge = Math.abs(year - 1970)
+    const finalAge = Math.abs(year - 1970)
 
-        setAge(finalAge)
+    setAge(finalAge)
           
         switch(guest?.department) {
         case 0:
@@ -90,9 +90,9 @@ const GuestlistGuest = ({item, setGuest, guest}) => {
                 {guest.name ? guest.name : "no name"}
                 </Text>
                 <Text style={{ fontSize: 18, color: 'white'}}>
-                { age ? `${age} ` : "No Birthdate"}
+                { guest.birthdate ? `${age} ` : "No Birthdate"}
                 {/* Convert Deparment NUM to STRING */}
-                { department ? department : "No Department"}
+                { guest.department ? department : "No Department"}
               </Text>
             </>
 
