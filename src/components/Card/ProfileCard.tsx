@@ -192,7 +192,7 @@ const sendImage = async (imageURL) => {
         {user.name ? user.name : "no name"}
         </Text>
         <Text style={{ fontSize: 18, color: 'white'}}>
-        { user.birthdate ? `${age} ` : "No Birthdate"}
+        { age ? `${age} ` : "No Birthdate"}
         {/* Convert Deparment NUM to STRING */}
         { user.department ? department : "No Department"}
         </Text>

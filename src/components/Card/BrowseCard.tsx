@@ -28,7 +28,7 @@ React.useEffect(() => {
     console.log(guestId)
     getGuest(item)
     
-  }, [item, loading, authUserId, userRole]
+  }, [item, loading, authUserId, userRole, age]
 )
 
 const getGuest = async (item) => {

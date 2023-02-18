@@ -104,7 +104,7 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
                         <View style={styles.Body}className="modal-body">
                         <View>
                             <TextInput
-                            placeholder="Flat Number"
+                            placeholder="Address"
                             placeholderTextColor="#1B1B22"
                             style={styles.placeholderTextStyle}
                             onChangeText={newFlat => setFlat(newFlat)}

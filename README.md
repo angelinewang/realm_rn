@@ -301,3 +301,6 @@ are incompatible to be had in the same node modules folder as react-native-fireb
 Both Invited and Confirmed Screen use the same HostCard
 BrowseScreen uses BrowseCard
 While GuestlistScreen uses GuestlistGuest
+### Age Calculation 
+Done on: ProfileCard, HostCard, GuestlistGuest and BrowseCard
+https://www.javatpoint.com/calculate-age-using-javascript
