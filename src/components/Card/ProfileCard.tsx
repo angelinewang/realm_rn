@@ -171,7 +171,7 @@ const sendImage = async (imageURL) => {
         setDepartment('Social Sciences')
         break;
     }
-  }, [user, image, age]
+  }, [user, image, age, department]
   )
 
   return (

@@ -3,17 +3,16 @@ import React from "react";
 import Loading from "../Loading";
 
 const HostCard = ({item, host, setHost}) => {  
-  // const [host, setHost] = React.useState()
+const [department, setDepartment] = React.useState("")
+const [age, setAge] = React.useState<Number | undefined>(0)
 
   React.useEffect(
   () => {
     getHost(item)
-  }, [item]
+
+    // Including age and department in the useEffect ensures that evaluated values are updated onto screen
+  }, [item, age, department]
 )
-
-const [department, setDepartment] = React.useState("")
-const [age, setAge] = React.useState<Number | undefined>(0)
-
 
 const getHost = async (item) => {
   try {

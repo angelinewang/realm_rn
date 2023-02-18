@@ -16,7 +16,7 @@ const GuestlistGuest = ({item, setGuest, guest}) => {
   React.useEffect(() => {
     // "item" is the guest_id being passed from GuestlistInvite
     getGuest(item)
-  }, [loading, item])
+  }, [loading, item, age, department])
 
   const getGuest = async (item) => {
     try {

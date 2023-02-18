@@ -21,14 +21,15 @@ const [age, setAge] = React.useState<Number | undefined>(0)
 
 
 React.useEffect(() => {
+  
     console.log(`Item is ${item}`)
     console.log(item)
     setGuestId(item.id)
     console.log("GUEST ID: (on BrowseCard)")
     console.log(guestId)
     getGuest(item)
-    
-  }, [item, loading, authUserId, userRole, age]
+  
+  }, [item, loading, authUserId, userRole, age, department]
 )
 
 const getGuest = async (item) => {
