@@ -34,6 +34,7 @@ const ConfirmPartyCard = ({item}) => {
         break;
     }
 
+    // Date and Time extracted from JSON: https://weblog.west-wind.com/posts/2014/jan/06/javascript-json-date-parsing-and-real-dates
     const dateStr = party?.first_entry;
     console.log(dateStr)
 

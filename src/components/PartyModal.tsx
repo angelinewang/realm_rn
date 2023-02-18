@@ -102,26 +102,27 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
                         </View>
                         
                         <View style={styles.Body}className="modal-body">
-                        <View>
+                        <View style={styles.inputBoxShadow}>
                             <TextInput
                             placeholder="Address"
-                            placeholderTextColor="#1B1B22"
+                            placeholderTextColor="#D1D1DB"
+                            textColor="#1B1B22"
+
                             style={styles.placeholderTextStyle}
                             onChangeText={newFlat => setFlat(newFlat)}
                             />
                         </View>
 
                         <View style={styles.dateTime} className="date-time">
-                            <View >
+                            <View>
                             <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={_dateTime} onDateTimeChange={setDateTime}/>
                             </View>
                         </View>
 
-                            <View className="radio-buttons">
-
+                        <View style={styles.radioButtons}>
                             <RadioGroup layout="row" radioButtons={vibeOptions} onPress={(value) => setValue(value)}/>
+                        </View> 
 
-                            </View> 
                         </View>
 
                         <View className="modal-footer">
@@ -143,6 +144,9 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
 }
 
 const styles = StyleSheet.create({
+    radioButtons: {
+        alignItems: 'center'
+    },
     btn: {
         color: '#D1D1DB',
         textDecorationLine: 'underline',
@@ -240,12 +244,35 @@ const styles = StyleSheet.create({
         borderColor: 'black'
     },
     placeholderTextStyle: {
-        fontSize: 16,
+        // fontSize: 16,
         fontWeight: 'bold',
-        fontFamily: 'Mulish',
+        // fontFamily: 'Mulish',
         fontStyle: 'normal',
         fontColor: '#1B1B22',
-        textAlign: "left"
+        textAlign: "left",
+        width: 273,
+        height: 63,
+        borderRadius: 20,
+        color: '#1B1B22',
+        backgroundColor: '#ffffff',
+        fontSize: 18,
+        shadowColor: '#EAEAEAB2',
+        shadowOffset: {width: 8, height: 8},
+        shadowOpacity: 0.7,
+        shadowRadius: 24,
+        fontFamily: 'Mulish-Regular',
+        padding: 15
+   
+    },
+     inputBoxShadow: {
+        width: 318,
+        height: 63,
+        borderRadius: 20,
+        shadowColor: '#F7F7F8',
+        shadowOffset: {width: -8, height: -8},
+        shadowOpacity: 1,
+        shadowRadius: 24,
+        alignItems: 'center'
     },
     Body: {
         display: 'flex',
