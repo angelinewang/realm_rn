@@ -225,10 +225,10 @@ const SignUpScreen = () => {
                 </View>
 
                 {/* Birthdate Date Entry */}
-                {/* <View style={styles.birthdate}>
+                <View style={styles.birthdate}>
                     <Text style={styles.labelText}>Birthdate</Text>
                     <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={_birthdate} onDateChange={setBirthdate}/>
-                </View> */}
+                </View>
                     <Pressable 
                         style={styles.createAccountButton}
                         onPress={signUpAndLogIn}
