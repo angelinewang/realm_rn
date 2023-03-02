@@ -95,6 +95,13 @@ const SignUpScreen = () => {
         console.log(_gender); 
     }
 
+    const handleBirthdate = (event: DateTimePickerEvent, date: Date) => {
+        const {
+            type,
+            nativeEvent : { timestamp },
+        } = event;
+    }
+
 //Create storage space in Firebase
 //, upload photo to Firebase Storage
 //, and then set the image state to the URL of the uploaded photo
@@ -228,7 +235,12 @@ const SignUpScreen = () => {
                     {/* Birthdate Date Entry */}
                     <View style={styles.birthdate}>
                         <Text style={styles.labelText}>Birthdate</Text>
-                        <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={_birthdate} onDateChange={setBirthdate}/>
+                        {/* onDateChange is deprecated, use onChange instead */}
+                        <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={_birthdate} onChange={(event, selectedDate) => {
+                            if (event.type == 'set') {
+                                setBirthdate(selectedDate)
+                            }
+                        }}/>
                     </View>
 
                     <Pressable 
@@ -247,7 +259,7 @@ const SignUpScreen = () => {
                     <OpenURLButton url={privacyPolicy}><Text style={styles.urlText}>Privacy Policy</Text></OpenURLButton>
                 </View>
                 </View>
-                
+
                 </SafeAreaView>
             </ScrollView>
     );

@@ -57,10 +57,11 @@ const signUp = async (
     console.log(gender);
     console.log(birthdate);
 
-    let day = birthdate.getDate();
-    let month = birthdate.getMonth();
-    let year = birthdate.getFullYear();
-
+    //Fixed bug where birthdate was not being sent to backend
+    //Date from signup form taken
+    //Then the date is formatted to YYYY-MM-DD
+    //https://www.freecodecamp.org/news/javascript-date-format-how-to-format-a-date-in-js/
+    //https://stackoverflow.com/questions/3605214/javascript-add-leading-zeroes-to-date
     let fullBirthdate =
       birthdate.getFullYear() +
       "-" +

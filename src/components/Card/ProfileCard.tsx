@@ -136,6 +136,8 @@ const sendImage = async (imageURL) => {
 
     setAge(finalAge)
 
+    console.log(`Auth User age is ${finalAge}`)
+
     switch(user.department) {
       case 0:
         setDepartment('No Department')
