@@ -114,19 +114,22 @@ const SignUpScreen = () => {
 
         const filename = image.substring(image.lastIndexOf('/')+1);
         const reference = ref(storage, filename);
-
-        const downloadURL = await getDownloadURL(ref(storage, filename))
-        
-        console.log(downloadURL)
-        //Ensure image field sent to backend is a URL
-        setImage(downloadURL)
         
         const img = await fetch(image)
         const bytes = await img.blob();
 
         const uploadPhoto = await uploadBytes(reference, bytes)
-                
+                        
         setUploaded(uploadPhoto)
+
+        if (uploadPhoto) {
+        const downloadURL = await getDownloadURL(reference)
+        
+        console.log(`The downloadURL is: ${downloadURL}`)
+        //Ensure image field sent to backend is a URL
+        setImage(downloadURL)
+        }
+        
 
         } catch (e) {
             console.log(e);
