@@ -13,6 +13,7 @@ import { SignUpScreenNavigationProp } from '../../navigation/types';
 import { useAuth } from "../../contexts/Auth";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
+// import DateTimePicker from 'expo'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { initializeApp } from "firebase/app";
 import { getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
@@ -22,8 +23,10 @@ import { firebaseConfig } from '../../../firebaseConfig';
 initializeApp(firebaseConfig);
 
 const SignUpScreen = () => {
-    const {height} = Dimensions.get('window')
+//Navigation to other pages
+    const navigation = useNavigation<SignUpScreenNavigationProp>();
 
+//Fonts displayed on Signup Page
      const [fontsLoaded] = useFonts({
         'Mulish-Regular': require('../../assets/fonts/Mulish-Regular.ttf'),
         'Plus-Jakarta-Sans-Bold': require('../../assets/fonts/PlusJakartaSans-Bold.ttf'),
@@ -31,10 +34,24 @@ const SignUpScreen = () => {
         'Open-Sans-Bold': require('../../assets/fonts/OpenSans-Bold.ttf')
     })
 
+//Signup Form Fields
     const [image, setImage] = React.useState(null);
+    //Waits for photo to be uploaded to Firebase Storage
+    const [uploaded, setUploaded] = React.useState("none")
+    const [_email, setEmail] = React.useState<String | null>(null);
+    const [_password, setPassword] = React.useState<String | null>(null);
+    const [_name, setName] = React.useState<String | null>(null);
+    const [_department, setDepartment] = React.useState<Number | null>(0);
+    const [_gender, setGender] = React.useState<Number | null>(0);
+    //Changed Data Type in Database for Birthdate into timestamp/DateTime in order to accept a Timestamp value entry
+    const [_birthdate, setBirthdate] = React.useState(new Date());
 
+//Sign up and Log in functions from authService
+    const {signUp, signIn} = useAuth()
+
+//After clicking on Add Image icon, launch image library and allow image selection
     const pickImage = async () => {
-        // No permissions request needed to launch image library 
+        //No permissions request needed to launch image library 
         try {
             let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -42,9 +59,7 @@ const SignUpScreen = () => {
             aspect: [4, 3],
             quality: 1,
         })
-
         console.log('image', result.assets[0].uri);
-
         if(!result.canceled) {
             setImage(result.assets[0].uri)
         }
@@ -53,53 +68,36 @@ const SignUpScreen = () => {
     } 
     }
 
-    const navigation = useNavigation<SignUpScreenNavigationProp>();
-    const [_email, setEmail] = React.useState<String | null>(null);
-    const [_password, setPassword] = React.useState<String | null>(null);
-
-    const [_name, setName] = React.useState<String | null>(null);
-    const [_department, setDepartment] = React.useState<Number | null>(0);
-    const [_gender, setGender] = React.useState<Number | null>(0);
-
-    // Changed Data Type in Database for Birthdate into timestamp/DateTime in order to accept a Timestamp value entry
-    const [_birthdate, setBirthdate] = React.useState(new Date());
-
-    // Add other necessary fields later 
-    // Right now, just POST and get these fields
-
     React.useEffect(() => {
-
+    //Rerender page if any of the below states are changed
     }, [_email, _password, _name, _department, _gender, _birthdate])
 
-    const {signUp, signIn} = useAuth()
-
+//Set signup form fields' states on change of input values
     const onEmailChange = (newEmail: String) => {
         setEmail(newEmail);
     };
     const onPasswordChange = (newPassword: String) => {
         setPassword(newPassword);
     };
-
     const onNameChange = (newName: String) => {
         setName(newName);
     }
-
-    // Passed to Backend as Number 
+    //Passed to Backend as Integer 
     const onDepartmentChange = (newDepartment: Number) => {
         setDepartment(newDepartment);
         console.log("Department Selected:");
         console.log(_department); 
     }
-
-    // Passed to Backend as Number 
+    //Passed to Backend as Integer 
     const onGenderChange = (newGender: Number) => {
         setGender(newGender);
         console.log("Gender Selected:");
         console.log(_gender); 
     }
 
-    const [uploaded, setUploaded] = React.useState("none")
-
+//Create storage space in Firebase
+//, upload photo to Firebase Storage
+//, and then set the image state to the URL of the uploaded photo
     const uploadImageAsync = async () => {
 
         console.log("Reached upload image sync")
@@ -113,6 +111,7 @@ const SignUpScreen = () => {
         const downloadURL = await getDownloadURL(ref(storage, filename))
         
         console.log(downloadURL)
+        //Ensure image field sent to backend is a URL
         setImage(downloadURL)
         
         const img = await fetch(image)
@@ -128,12 +127,13 @@ const SignUpScreen = () => {
         Alert.alert(
             `Account created! Go back to Log In`
         );
-        // setImage(null)
     }
 
+//Upload image to Firebase Storage
+//Signup user and send data to backend
+//BUG: Image not being saved to Firebase Storage in production
     const signUpAndLogIn = async () => {
         let uploadedImage = await uploadImageAsync()
-
         let signUpStatus = await signUp(image, _email, _password, _department, _name, _gender, _birthdate)
                 
         signUpStatus && uploadedImage ? logIn(_email, _password) : null
@@ -143,6 +143,7 @@ const SignUpScreen = () => {
         await signIn(_email, _password)
     }
 
+//Links at bottom of Signup Page
     const termsAndConditions = "https://realmpartyapp.com/terms-of-use"
     const privacyPolicy = "https://realmpartyapp.com/privacy-policy"
     
@@ -186,63 +187,67 @@ const SignUpScreen = () => {
                     </Pressable>
 
                     <View style={styles.inputBoxShadow}>
-                    <TextInput
-                        onChangeText={onEmailChange}
-                        style={styles.inputBox}
-                        keyboardType={"email-address"}
-                        placeholder="KCL Email"
-                    />
+                        <TextInput
+                            onChangeText={onEmailChange}
+                            style={styles.inputBox}
+                            keyboardType={"email-address"}
+                            placeholder="KCL Email"
+                        />
                     </View>
                     
                     <View style={styles.inputBoxShadow}>
-                    <TextInput 
-                        onChangeText={onPasswordChange}
-                        style={styles.inputBox}
-                        keyboardType="default"
-                        placeholder="Password"
-                    />
+                        <TextInput 
+                            onChangeText={onPasswordChange}
+                            style={styles.inputBox}
+                            keyboardType="default"
+                            placeholder="Password"
+                        />
                     </View>
 
                     {/* Department Select From List Entry */}
-                <View style={styles.department}>
-                    <Text style={styles.labelText}>Department</Text>
-                    <RNPickerSelect onValueChange={onDepartmentChange} items={[{label: 'Arts/Humanities', value: 1}, {label: 'Business', value: 2}, {label: 'Dentistry', value: 3}, {label: 'Engineering', value: 4}, {label: 'Law', value: 5}, {label: 'Medic/Life Sciences', value: 6}, {label: 'Natural Sciences', value: 7}, {label: 'Nursing', value: 8}, {label: 'Pysch/Neuroscience', value: 9}, {label: 'Social Science', value: 10}]} />
-                </View>
+                    <View style={styles.department}>
+                        <Text style={styles.labelText}>Department</Text>
+                        <RNPickerSelect onValueChange={onDepartmentChange} items={[{label: 'Arts/Humanities', value: 1}, {label: 'Business', value: 2}, {label: 'Dentistry', value: 3}, {label: 'Engineering', value: 4}, {label: 'Law', value: 5}, {label: 'Medic/Life Sciences', value: 6}, {label: 'Natural Sciences', value: 7}, {label: 'Nursing', value: 8}, {label: 'Pysch/Neuroscience', value: 9}, {label: 'Social Science', value: 10}]} />
+                    </View>
                     
                     <View style={styles.inputBoxShadow}>
-                    <TextInput 
-                        style={styles.inputBox}
-                        onChangeText={onNameChange}
-                        keyboardType="default"
-                        placeholder="Name"
-                    />
+                        <TextInput 
+                            style={styles.inputBox}
+                            onChangeText={onNameChange}
+                            keyboardType="default"
+                            placeholder="Name"
+                        />
                     </View>
- 
-                {/* Gender Select From List Entry */}
-                <View style={styles.gender}>
-                    <Text style={styles.labelText}>Gender</Text>
-                    <RNPickerSelect onValueChange={onGenderChange} items={[{label: 'Male', value: 1}, {label: 'Female', value: 2}, {label: 'Other', value: 3}]} />
-                </View>
 
-                {/* Birthdate Date Entry */}
-                <View style={styles.birthdate}>
-                    <Text style={styles.labelText}>Birthdate</Text>
-                    <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={_birthdate} onDateChange={setBirthdate}/>
-                </View>
+                    {/* Gender Select From List Entry */}
+                    <View style={styles.gender}>
+                        <Text style={styles.labelText}>Gender</Text>
+                        <RNPickerSelect onValueChange={onGenderChange} items={[{label: 'Male', value: 1}, {label: 'Female', value: 2}, {label: 'Other', value: 3}]} />
+                    </View>
+
+                    {/* Birthdate Date Entry */}
+                    <View style={styles.birthdate}>
+                        <Text style={styles.labelText}>Birthdate</Text>
+                        <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={_birthdate} onDateChange={setBirthdate}/>
+                    </View>
+
                     <Pressable 
                         style={styles.createAccountButton}
                         onPress={signUpAndLogIn}
                     >
                         <Text style={styles.createAccountButtonText}>Create Account</Text>
                     </Pressable>
-                    </View>
+
+                </View>
                 </Formik>
+
                 <View style={styles.urlsContainer}>
                 <View style={styles.urlsBox}>
                     <OpenURLButton url={termsAndConditions}><Text style={styles.urlText}>Terms & Conditions</Text></OpenURLButton>
                     <OpenURLButton url={privacyPolicy}><Text style={styles.urlText}>Privacy Policy</Text></OpenURLButton>
                 </View>
                 </View>
+                
                 </SafeAreaView>
             </ScrollView>
     );

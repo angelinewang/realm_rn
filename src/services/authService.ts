@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export type AuthData = {
   token: string;
   // Should be able to get user ID through token
@@ -38,7 +40,7 @@ const signUp = async (
   department: Number,
   name: String,
   gender: Number,
-  birthdate: String
+  birthdate: Date
 ): Promise<void> => {
   try {
     console.log("Reach SignUpAndSignIn in authService!");
@@ -55,6 +57,20 @@ const signUp = async (
     console.log(gender);
     console.log(birthdate);
 
+    let day = birthdate.getDate();
+    let month = birthdate.getMonth();
+    let year = birthdate.getFullYear();
+
+    let fullBirthdate =
+      birthdate.getFullYear() +
+      "-" +
+      ("0" + (birthdate.getMonth() + 1)).slice(-2) +
+      "-" +
+      ("0" + birthdate.getDate()).slice(-2);
+
+    console.log(fullBirthdate);
+    // const birthdateOfficial = Date(birthdate);
+
     let formData = new FormData();
     formData.append("profile_picture", image);
     formData.append("email", email);
@@ -62,7 +78,7 @@ const signUp = async (
     formData.append("department", department);
     formData.append("name", name);
     formData.append("gender", gender);
-    formData.append("birthdate", birthdate);
+    formData.append("birthdate", fullBirthdate);
 
     let response = await fetch(
       "https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/signup/",
@@ -70,30 +86,11 @@ const signUp = async (
         method: "POST",
         headers: {
           "Content-Type": "multipart/form-data",
-          // Accept: "multipart/form-data",
         },
         body: formData,
       }
     );
     return response.json();
-    // if (signUpResponse) {
-    //   let signInResponse = await fetch(
-    //     "https://541f-193-61-207-186.eu.ngrok.io/api/user/v1/login/",
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Accept: "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //       }),
-    //     }
-    //   );
-    //   return signInResponse.json();
-    // }
-    // Sends the response with auth token back to Auth Context as Object
   } catch (error) {
     console.error(error);
   }

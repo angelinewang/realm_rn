@@ -69,7 +69,8 @@
         "android.permission.RECORD_AUDIO"
       ],
       "package": "com.realmpartyapp.realm",
-      "versionCode": 3
+      "versionCode": 3,
+      "runtimeVersion": "1.0.0"
     }
   }
 }
