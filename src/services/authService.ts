@@ -40,7 +40,7 @@ const signUp = async (
   department: Number,
   name: String,
   gender: Number,
-  birthdate: Date
+  birthdate: any
 ): Promise<void> => {
   try {
     console.log("Reach SignUpAndSignIn in authService!");

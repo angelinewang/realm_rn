@@ -1,4 +1,4 @@
-import { Linking, Alert, TextInput, KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform, Dimensions } from "react-native";
+import { TouchableOpacity, Linking, Alert, TextInput, KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform, Dimensions } from "react-native";
 import React, { useCallback } from "react";
 import RNPickerSelect from 'react-native-picker-select';
 import { Formik, useFormik } from 'formik';
@@ -12,7 +12,10 @@ import { useNavigation } from '@react-navigation/native';
 import { SignUpScreenNavigationProp } from '../../navigation/types';
 import { useAuth } from "../../contexts/Auth";
 
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import moment from 'moment';
+
+// import DateTimePicker from '@react-native-community/datetimepicker';
 // import DateTimePicker from 'expo'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { initializeApp } from "firebase/app";
@@ -43,9 +46,50 @@ const SignUpScreen = () => {
     const [_name, setName] = React.useState<String | null>(null);
     const [_department, setDepartment] = React.useState<Number | null>(0);
     const [_gender, setGender] = React.useState<Number | null>(0);
-    //Changed Data Type in Database for Birthdate into timestamp/DateTime in order to accept a Timestamp value entry
-    const [_birthdate, setBirthdate] = React.useState(new Date());
+    
+    // const isNullOrWhitespace = (input: String) => {
+    //     return !input || !input.trim();
+    // }
 
+    // const {value, onChange, onBlur} = props;
+
+    const [isSelectedDate, setIsSelectedDate] = React.useState(false);
+    const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
+    const [selectedDate, setSelectedDate] = React.useState(new Date());
+    // const [hasDate, setHasDate] = React.useState(!isNullOrWhitespace('No Date Selected') ? false : true);
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    }
+
+    // const valueToString = (selectedDate: Date) => {
+    //     return moment(selectedDate).format('YYYY-MM-DD');
+    // }
+
+    const handleConfirm = (date: any) => {
+     setSelectedDate(date)  
+     setBirthdate(date)
+     setIsSelectedDate(true) 
+     hideDatePicker()
+    } 
+
+    
+    const clearDate = () => {
+        setHasDate(false);
+        onChange('');
+    }
+    //Changed Data Type in Database for Birthdate into timestamp/DateTime in order to accept a Timestamp value entry
+    const [_birthdate, setBirthdate] = React.useState(null);
+
+    //To allow for null birthdate value:
+    //1. Text is used to display the current value or "No Date Selected"
+    //2. When the user clicks the text, the date time picker is shown to let them select a date
+    //3. There is a button to click if the user wants to clear the date and go back to null
+    //https://stackoverflow.com/questions/71216463/allowing-null-value-for-react-native-datetimepicker
 //Sign up and Log in functions from authService
     const {signUp, signIn} = useAuth()
 
@@ -95,12 +139,12 @@ const SignUpScreen = () => {
         console.log(_gender); 
     }
 
-    const handleBirthdate = (event: DateTimePickerEvent, date: Date) => {
-        const {
-            type,
-            nativeEvent : { timestamp },
-        } = event;
-    }
+    // const handleBirthdate = (event: DateTimePickerEvent, date: Date) => {
+    //     const {
+    //         type,
+    //         nativeEvent : { timestamp },
+    //     } = event;
+    // }
 
 //Create storage space in Firebase
 //, upload photo to Firebase Storage
@@ -236,15 +280,51 @@ const SignUpScreen = () => {
                     </View>
 
                     {/* Birthdate Date Entry */}
-                    <View style={styles.birthdate}>
-                        <Text style={styles.labelText}>Birthdate</Text>
+                    {/* <View style={styles.birthdate}>
+                        <Text style={styles.labelText}>Birthdate</Text> */}
                         {/* onDateChange is deprecated, use onChange instead */}
-                        <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={_birthdate} onChange={(event, selectedDate) => {
+                        {/* <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={_birthdate} onChange={(event, selectedDate) => {
                             if (event.type == 'set') {
                                 setBirthdate(selectedDate)
                             }
-                        }}/>
-                    </View>
+                        }}/> */}
+                    {/* </View> */}
+
+                {/* <View style={styles.fixToText}>
+                        <Text style={styles.dateText} onPress={showDatePicker}>{hasDate ? valueToString(selectedDate) : 'No Date Selected'}</Text>
+                        <Text>   </Text>
+                        <TouchableOpacity 
+                            title="Clear"
+                            onPress={() => clearDate()}
+                            disabled={!hasDate}
+                            style={styles.button}
+                        >
+                        <Text>Clear</Text> 
+                        </TouchableOpacity>
+                </View>
+                 <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode='date'
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                    date={selectedDate}
+    
+                    />
+                </View> */}
+
+                <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 20 }}>
+                    {isSelectedDate ? selectedDate.toLocaleDateString() : 'No date selected'}
+                </Text>
+                <Button title="Select a date" onPress={showDatePicker} />
+
+                <DateTimePickerModal
+                    date={selectedDate}
+                    // value={new Date()}
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                />
 
                     <Pressable 
                         style={styles.createAccountButton}
@@ -253,7 +333,7 @@ const SignUpScreen = () => {
                         <Text style={styles.createAccountButtonText}>Create Account</Text>
                     </Pressable>
 
-                </View>
+             </View>
                 </Formik>
 
                 <View style={styles.urlsContainer}>
@@ -269,6 +349,21 @@ const SignUpScreen = () => {
 };
 
 const styles = StyleSheet.create({
+      fixToText: {
+            flexDirection: 'row'
+        },
+        button: {
+            alignItems: "center",
+            backgroundColor: "lightblue",
+            padding: 5,
+            height: 30,
+            width: 50
+        },
+        dateText:{
+            height: 30,
+            textAlignVertical: 'center'
+        }, 
+
     gender: {
         width: 318,
         height: 63,
