@@ -312,10 +312,10 @@ const SignUpScreen = () => {
                     />
                 </View> */}
 
-                <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 20 }}>
-                    {isSelectedDate ? selectedDate.toLocaleDateString() : 'No date selected'}
+                <Text style={styles.inputBox}>
+                    {isSelectedDate ? selectedDate.toLocaleDateString() : 'No Birthdate Selected'}
                 </Text>
-                <Button title="Select a date" onPress={showDatePicker} />
+                <Button title="Select Birthdate" onPress={showDatePicker} />
 
                 <DateTimePickerModal
                     date={selectedDate}
