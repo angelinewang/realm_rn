@@ -62,14 +62,19 @@ const signUp = async (
     //Then the date is formatted to YYYY-MM-DD
     //https://www.freecodecamp.org/news/javascript-date-format-how-to-format-a-date-in-js/
     //https://stackoverflow.com/questions/3605214/javascript-add-leading-zeroes-to-date
-    let fullBirthdate =
-      birthdate.getFullYear() +
-      "-" +
-      ("0" + (birthdate.getMonth() + 1)).slice(-2) +
-      "-" +
-      ("0" + birthdate.getDate()).slice(-2);
 
-    console.log(fullBirthdate);
+    if (birthdate != null) {
+      let fullBirthdate =
+        birthdate.getFullYear() +
+        "-" +
+        ("0" + (birthdate.getMonth() + 1)).slice(-2) +
+        "-" +
+        ("0" + birthdate.getDate()).slice(-2);
+
+      console.log(fullBirthdate);
+    } else {
+    }
+
     // const birthdateOfficial = Date(birthdate);
 
     let formData = new FormData();
@@ -79,7 +84,16 @@ const signUp = async (
     formData.append("department", department);
     formData.append("name", name);
     formData.append("gender", gender);
-    formData.append("birthdate", fullBirthdate);
+    formData.append(
+      "birthdate",
+      birthdate
+        ? birthdate.getFullYear() +
+            "-" +
+            ("0" + (birthdate.getMonth() + 1)).slice(-2) +
+            "-" +
+            ("0" + birthdate.getDate()).slice(-2)
+        : ""
+    );
 
     let response = await fetch(
       "https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/signup/",
