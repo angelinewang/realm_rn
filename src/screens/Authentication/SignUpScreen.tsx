@@ -111,7 +111,7 @@ const SignUpScreen = () => {
 
     React.useEffect(() => {
     //Rerender page if any of the below states are changed
-    }, [_email, _password, _name, _department, _gender, _birthdate])
+    }, [_email, _password, _name, _department, _gender, _birthdate, image])
 
 //Set signup form fields' states on change of input values
     const onEmailChange = (newEmail: String) => {
@@ -234,8 +234,8 @@ const [initialImage, setInitialImage] = React.useState(null);
                 <View style={styles.allBox}>
                     <Pressable onPress={pickImage}>
                         {
-                            image && <Image source={{uri: image}} style={{width: 200, height: 200}}/> 
-                            ? <Image source={{uri: image}} style={{width: 200, height: 200}}/> 
+                            initialImage && <Image source={{uri: initialImage}} style={{width: 200, height: 200}}/> 
+                            ? <Image source={{uri: initialImage}} style={{width: 200, height: 200}}/> 
                             : <Image source={require('../../assets/images/photo-upload.png')}/>
 
                         }

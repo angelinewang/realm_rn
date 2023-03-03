@@ -30,10 +30,7 @@
           "NSAllowArbitraryLoads": true
         }
       },
-      "bundleIdentifier": "com.realmpartyapp.realm",
-      "runtimeVersion": {
-        "policy": "appVersion"
-      }
+      "bundleIdentifier": "com.realmpartyapp.realm"
     },
     "notification": {
       "icon": "./src/assets/images/icon.png",
