@@ -102,7 +102,7 @@ const SignUpScreen = () => {
         })
         console.log('image', result.assets[0].uri);
         if(!result.canceled) {
-            setImage(result.assets[0].uri)
+            setInitialImage(result.assets[0].uri)
         }
     } catch(error) {
         console.error
@@ -146,6 +146,10 @@ const SignUpScreen = () => {
 //Create storage space in Firebase
 //, upload photo to Firebase Storage
 //, and then set the image state to the URL of the uploaded photo
+
+//Image set BEFORE downloadURL and BEFORE being sent to backend
+const [initialImage, setInitialImage] = React.useState(null);
+
     const uploadImageAsync = async () => {
 
         console.log("Reached upload image sync")
@@ -153,10 +157,10 @@ const SignUpScreen = () => {
         try {
         const storage = getStorage();
 
-        const filename = image.substring(image.lastIndexOf('/')+1);
+        const filename = initialImage.substring(initialImage.lastIndexOf('/')+1);
         const reference = ref(storage, filename);
         
-        const img = await fetch(image)
+        const img = await fetch(initialImage)
         const bytes = await img.blob();
 
         const uploadPhoto = await uploadBytes(reference, bytes)

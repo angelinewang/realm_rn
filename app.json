@@ -23,14 +23,17 @@
     ],
     "ios": {
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "32",
+      "buildNumber": "33",
       "icon": "./src/assets/images/icon.png",
       "infoPlist": {
         "NSAppTransportSecurity": {
           "NSAllowArbitraryLoads": true
         }
       },
-      "bundleIdentifier": "com.realmpartyapp.realm"
+      "bundleIdentifier": "com.realmpartyapp.realm",
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "notification": {
       "icon": "./src/assets/images/icon.png",
@@ -69,7 +72,8 @@
         "android.permission.RECORD_AUDIO"
       ],
       "package": "com.realmpartyapp.realm",
-      "versionCode": 3
+      "versionCode": 3,
+      "runtimeVersion": "1.0.0"
     }
   }
 }
