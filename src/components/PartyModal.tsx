@@ -1,12 +1,14 @@
 import {useEffect, useState} from 'react'
 import Modal from 'react-native-modal'
 import { Formik } from 'formik';
-import  DateTimePicker from '@react-native-community/datetimepicker';
+// import  DateTimePicker from '@react-native-community/datetimepicker';
 import jwt_decode from 'jwt-decode'
 import RadioGroup from 'react-native-radio-buttons-group';
 import { useAuth } from "../contexts/Auth";
 import {partyService} from '../services/partyService';
-import {StyleSheet, View, Text, Pressable, TextInput} from 'react-native';
+import {Button, StyleSheet, View, Text, Pressable, TextInput} from 'react-native';
+
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import { tokenService } from '../services/tokenService';
 // Import Modal
@@ -18,6 +20,25 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
 
     const [_flat, setFlat] = useState(" ")
     const [_dateTime, setDateTime] = useState(new Date())
+
+    const [isSelectedDate, setIsSelectedDate] = useState(false);
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    }
+
+    const handleConfirm = (date: any) => {
+     setSelectedDate(date)  
+     setDateTime(date)
+     setIsSelectedDate(true) 
+     hideDatePicker()
+    } 
 
     // authUserId only set one in Auth Context, so no need for setting function
     const {authUserId} = useAuth()
@@ -107,16 +128,30 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
                             placeholder="Address"
                             placeholderTextColor="#D1D1DB"
                             textColor="#1B1B22"
-
                             style={styles.placeholderTextStyle}
                             onChangeText={newFlat => setFlat(newFlat)}
                             />
                         </View>
 
                         <View style={styles.dateTime} className="date-time">
-                            <View>
-                            <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={_dateTime} onDateTimeChange={setDateTime}/>
+                            
+                            <View style={styles.inputBoxShadow}>
+                                <Text style={styles.dateTimeText}>
+                                    {/* Set datetime to empty string if there is no datetime selected */}
+                                    {isSelectedDate ? selectedDate.toLocaleDateString() : ''}
+                                </Text>
                             </View>
+                            
+                            <Button title="Select Date/Time" onPress={showDatePicker} />
+                            <DateTimePickerModal
+                                date={selectedDate}
+                                isVisible={isDatePickerVisible}
+                                //Mode set to datetime unlike in signup form where mode is set to only date
+                                mode="datetime"
+                                onConfirm={handleConfirm}
+                                onCancel={hideDatePicker}
+                            />
+
                         </View>
 
                         <View style={styles.radioButtons}>
@@ -144,6 +179,9 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
 }
 
 const styles = StyleSheet.create({
+    dateTimeText: {
+        color: "#1B1B22"
+    },
     radioButtons: {
         alignItems: 'center'
     },

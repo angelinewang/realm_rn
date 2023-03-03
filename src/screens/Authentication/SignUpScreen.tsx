@@ -1,4 +1,4 @@
-import { TouchableOpacity, Linking, Alert, TextInput, KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform, Dimensions } from "react-native";
+import { Linking, Alert, TextInput, KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform, Dimensions } from "react-native";
 import React, { useCallback } from "react";
 import RNPickerSelect from 'react-native-picker-select';
 import { Formik, useFormik } from 'formik';
@@ -13,10 +13,7 @@ import { SignUpScreenNavigationProp } from '../../navigation/types';
 import { useAuth } from "../../contexts/Auth";
 
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import moment from 'moment';
 
-// import DateTimePicker from '@react-native-community/datetimepicker';
-// import DateTimePicker from 'expo'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { initializeApp } from "firebase/app";
 import { getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
@@ -312,8 +309,11 @@ const SignUpScreen = () => {
                     />
                 </View> */}
 
+                {/* Birthdate Picker */}
+
                 <Text style={styles.inputBox}>
-                    {isSelectedDate ? selectedDate.toLocaleDateString() : 'No Birthdate Selected'}
+                    {/* Set birthdate field to empty string if there is none selected */}
+                    {isSelectedDate ? selectedDate.toLocaleDateString() : ''}
                 </Text>
                 <Button title="Select Birthdate" onPress={showDatePicker} />
 
