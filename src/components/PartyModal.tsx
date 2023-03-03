@@ -133,14 +133,16 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
                             />
                         </View>
 
-                        <View style={styles.dateTime} className="date-time">
-                            
-                            <View style={styles.inputBoxShadow}>
+                        {/* <View style={styles.dateTime} className="date-time"> */}
+
+                        <View style={styles.inputBoxShadow}>
+                            <View style={styles.placeholderTextStyle}>
                                 <Text style={styles.dateTimeText}>
                                     {/* Set datetime to empty string if there is no datetime selected */}
                                     {isSelectedDate ? selectedDate.toLocaleDateString() : ''}
                                 </Text>
                             </View>
+                        </View>
                             
                             <Button title="Select Date/Time" onPress={showDatePicker} />
                             <DateTimePickerModal
@@ -152,7 +154,7 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
                                 onCancel={hideDatePicker}
                             />
 
-                        </View>
+                        {/* </View> */}
 
                         <View style={styles.radioButtons}>
                             <RadioGroup layout="row" radioButtons={vibeOptions} onPress={(value) => setValue(value)}/>
@@ -180,7 +182,12 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
 
 const styles = StyleSheet.create({
     dateTimeText: {
-        color: "#1B1B22"
+        fontWeight: 'bold',
+        // fontFamily: 'Mulish',
+        fontStyle: 'normal',
+        color: '#1B1B22',
+        fontSize: 18,
+        fontFamily: 'Mulish-Regular',
     },
     radioButtons: {
         alignItems: 'center'
@@ -283,22 +290,26 @@ const styles = StyleSheet.create({
     },
     placeholderTextStyle: {
         // fontSize: 16,
-        fontWeight: 'bold',
-        // fontFamily: 'Mulish',
-        fontStyle: 'normal',
-        fontColor: '#1B1B22',
+     
         textAlign: "left",
         width: 273,
         height: 63,
         borderRadius: 20,
         color: '#1B1B22',
         backgroundColor: '#ffffff',
+
+        fontWeight: 'bold',
+        // fontFamily: 'Mulish',
+        fontStyle: 'normal',
+        fontColor: '#1B1B22',
         fontSize: 18,
+        fontFamily: 'Mulish-Regular',
+
         shadowColor: '#EAEAEAB2',
         shadowOffset: {width: 8, height: 8},
         shadowOpacity: 0.7,
         shadowRadius: 24,
-        fontFamily: 'Mulish-Regular',
+        
         padding: 15
    
     },
