@@ -1,3 +1,7 @@
+// This component was used within GuestlistInvite to display Guest information
+// But has been removed and directly added into GuestlistInvite instead
+// Because of error loading guest age and department
+
 import { View, Text } from "react-native";
 import React from "react";
 // Card used to display each individual Guest Profile on the Browse and Guestlist Screens
