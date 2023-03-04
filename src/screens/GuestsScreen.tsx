@@ -1,12 +1,10 @@
-import { Pressable, View, StyleSheet, Text, Button, TextInput } from "react-native";
+import { View, StyleSheet, Button } from "react-native";
 import {useState, useEffect} from 'react';
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import BrowseScreen from "./Guests/BrowseScreen";
 import GuestlistScreen from "./Guests/GuestlistScreen";
 import { roleService } from "../services/roleService";
 import Loading from "../components/Loading";
-
-import { tokenService } from "../services/tokenService";
 
 import { useAuth } from "../contexts/Auth";
 import PartyModal from "../components/PartyModal";
@@ -31,34 +29,30 @@ const GuestsScreen: React.FC = ({navigation}) => {
     const handleModal = () => setIsModalVisible(() => !isModalVisible);
     
     useEffect(() => {
-
         getUserRole(authUserId, setUserRole, passedLastEntry, setPassedLastEntry)
-
     }, [navigation, isModalVisible, authUserId, userRole, loadingComplete])
 
     const getUserRole = async (authUserId, setUserRole, passedLastEntry, setPassedLastEntry) => {
         try {
-
-        await roleService.getRole(authUserId, setUserRole, passedLastEntry, setPassedLastEntry)
-        console.log("User Role on GuestsScreen:")
-        console.log(userRole)
-
-        if (userRole == 0) {
-            navigation.setOptions({
-                headerRight: () => (
-                    <Button onPress={handleModal} title="Add Party"/>
-                )
-            })
-            setLoadingComplete(true)
+            await roleService.getRole(authUserId, setUserRole, passedLastEntry, setPassedLastEntry)
+            console.log("User Role on GuestsScreen:")
             console.log(userRole)
-        }
 
-        else if (userRole == 1) {
-            console.log("User Already Host: Do not display Add Party button")
-            setLoadingComplete(true)
-            console.log(userRole)
-        }
+            if (userRole == 0) {
+                navigation.setOptions({
+                    headerRight: () => (
+                        <Button onPress={handleModal} title="Add Party"/>
+                    )
+                })
+                setLoadingComplete(true)
+                console.log(userRole)
+            }
 
+            else if (userRole == 1) {
+                console.log("User Already Host: Do not display Add Party button")
+                setLoadingComplete(true)
+                console.log(userRole)
+            }
         } catch(error) {
             console.error
         }
@@ -82,9 +76,7 @@ const GuestsScreen: React.FC = ({navigation}) => {
             <PartyModal isModalVisible={isModalVisible} handleModal={handleModal} setIsModalVisible={setIsModalVisible}/>
         </View>
     ) : <Loading />
-        
     )
-
 }
 
 export default GuestsScreen;

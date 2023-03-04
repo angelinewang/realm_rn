@@ -1,23 +1,19 @@
-import {Alert, Linking, KeyboardAvoidingView, TextInput, Image, View, Text, Button, StyleSheet, DatePickerIOSBase, Pressable } from "react-native";
+import {Alert, Linking, KeyboardAvoidingView, TextInput, Image, View, Text, StyleSheet, Pressable } from "react-native";
 
 import { useNavigation } from '@react-navigation/native';
 
 import { LoginScreenNavigationProp } from '../../navigation/types';
 
-import { createContext, useState, useContext, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import React, { useCallback } from 'react';
 import { useAuth } from "../../contexts/Auth";
-import { authService } from "../../services/authService";
-import { getTabBarHeight } from "@react-navigation/bottom-tabs/lib/typescript/src/views/BottomTabBar";
 
 import { useFonts } from 'expo-font';
-// All data passed through context
-
+//All data passed through context
 
 //Create the Auth Context with the data type specified
 //and a empty object
-
 const LoginScreen: React.FC = () => {
     const termsAndConditions = "https://realmpartyapp.com/terms-of-use"
     const privacyPolicy = "https://realmpartyapp.com/privacy-policy"
@@ -77,86 +73,73 @@ const LoginScreen: React.FC = () => {
 
   }, []);
 
-// #1 Make login Function work
+    // #1 Make login Function work
 
     return (
-        // <MainContainer>
-            <KeyboardAvoidingView style={styles.screenBackground}>
-                <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.screenBackground}>
+            <View style={styles.container}>
                 <View style={styles.box}>
-                <View style={styles.viewContainer}>
-                <View style={styles.viewBox}>
-                <Image style={styles.kclLogo} source={require('../../assets/images/kcl.png')}/>
-                    {/* <CustomTextInput 
-                        icon={<AtSymbolIcon color={"#EFE3C850"} width={35} height={35} />}
-                        onChangeText={onEmailChange}
-                        label="Email"
-                        keyboardType={"email-address"}
-                        placeholder="Enter your email"
-                    /> */}
-                    <View style={styles.allContainer}>
-                    <View style={styles.allBox}>
-                    <View style={styles.inputBoxesContainer}>
-                    <View style={styles.inputBoxes}>
-                    <View style={styles.inputBoxShadow}>
-                    <TextInput 
-                        style={styles.inputBox}
-                        onChangeText={onEmailChange}
-                        placeholder="KCL Email"
-                        keyboardType="default"
-                    />
-                    </View>
-                    <View style={styles.inputBoxShadow}>
-                    <TextInput 
-                        style={styles.inputBox}
-                        onChangeText={onPasswordChange}
-                        placeholder="Password"
-                        keyboardType="default"
-                    />
-                    </View>
-                    </View>
-                    </View>
-                    {/* <CustomTextInput 
-                        icon={<LockClosedIcon color={"#EFE3C850"} width={35} height={35} />}
-                        onChangeText={onPasswordChange}
-                        label="Password"
-                        IsSecureText={true}
-                        keyboardType="default"
-                        placeholder="* * * * * * * *"
-                    /> */}
-                    {/* Button right now signs into MainScreen no matter whether the login details are valid */}
-                    <View style={styles.buttonsContainer}>
-                    <View style={styles.buttonsBox}>
-                    <Pressable 
-                        onPress={logIn}
-                        style={styles.loginButton}
-                    >
-                        <Text style={styles.loginButtonText}>Log In</Text>
-                    </Pressable>
-                    
-                    <Pressable 
-                        onPress={() => navigation.navigate('SignUp')} 
-                        style={styles.createAccountButton}
-                    >
-                        <Text style={styles.createAccountButtonText}>Create Account</Text>
-                    </Pressable>
-                    </View>
-                    </View>
-                    </View>
-                    </View>
-                    <View style={styles.urlsBox}>
-                    <OpenURLButton url={termsAndConditions}><Text style={styles.urlText}>Terms & Conditions</Text></OpenURLButton>
-                    <OpenURLButton url={privacyPolicy}><Text style={styles.urlText}>Privacy Policy</Text></OpenURLButton>
+                    <View style={styles.viewContainer}>
+                        <View style={styles.viewBox}>
+                            <Image style={styles.kclLogo} source={require('../../assets/images/kcl.png')}/>
+
+                            <View style={styles.allContainer}>
+
+                                <View style={styles.allBox}>
+                                    <View style={styles.inputBoxesContainer}>
+                                        <View style={styles.inputBoxes}>
+                                            <View style={styles.inputBoxShadow}>
+                                                <TextInput 
+                                                    style={styles.inputBox}
+                                                    onChangeText={onEmailChange}
+                                                    placeholder="KCL Email"
+                                                    keyboardType="default"
+                                                />
+                                            </View>
+                                            <View style={styles.inputBoxShadow}>
+                                                <TextInput 
+                                                    style={styles.inputBox}
+                                                    onChangeText={onPasswordChange}
+                                                    placeholder="Password"
+                                                    keyboardType="default"
+                                                />
+                                            </View>
+                                        </View>
+                                    </View>
+
+                            {/* Button right now signs into MainScreen no matter whether the login details are valid */}
+                                    <View style={styles.buttonsContainer}>
+                                        <View style={styles.buttonsBox}>
+                                            <Pressable 
+                                                onPress={logIn}
+                                                style={styles.loginButton}
+                                            >
+                                                <Text style={styles.loginButtonText}>Log In</Text>
+                                            </Pressable>
+                            
+                                            <Pressable 
+                                                onPress={() => navigation.navigate('SignUp')} 
+                                                style={styles.createAccountButton}
+                                            >
+                                                <Text style={styles.createAccountButtonText}>Create Account</Text>
+                                            </Pressable>
+                                        </View>
+                                    </View>
+
+                                </View>
+                            </View>
+
+                            <View style={styles.urlsBox}>
+                                <OpenURLButton url={termsAndConditions}><Text style={styles.urlText}>Terms & Conditions</Text></OpenURLButton>
+                                <OpenURLButton url={privacyPolicy}><Text style={styles.urlText}>Privacy Policy</Text></OpenURLButton>
+                            </View>
+                        </View>
                     </View>
                 </View>
-                </View>
-                </View>
-                </View>
-            </KeyboardAvoidingView>
-        // </MainContainer>
+            </View>
+        </KeyboardAvoidingView>
     );
 }
-
 
 const styles = StyleSheet.create({
     container: {

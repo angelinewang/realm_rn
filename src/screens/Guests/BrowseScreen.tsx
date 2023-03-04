@@ -9,22 +9,18 @@ import Loading from '../../components/Loading';
 import {roleService} from '../../services/roleService';
 
 const BrowseScreen = ({isModalVisible, setIsModalVisible}) => {
+  //Grab Auth User Id from AuthContext
+  const {authUserId} = useAuth()
+
+  const isFocused = useIsFocused()
   
+  //States
   const [createInvite, setCreateInvite] = React.useState()
   // State set after invite sent, added as props in useEffect in order to re-ender BrowseScreen after sent
   // So that the invited guest disappears
-
   const [guests, setGuests] = React.useState()
-
-  const {authUserId} = useAuth()
-
-  // const [decoded, setDecoded] = React.useState()
-
-  const isFocused = useIsFocused()
   const [loading, setLoading] = React.useState(Boolean)
-
   const [userRole, setUserRole] = React.useState()
-
   const [passedLastEntry, setPassedLastEntry] = React.useState()
 
 
@@ -58,61 +54,61 @@ const BrowseScreen = ({isModalVisible, setIsModalVisible}) => {
       }
 
       // Adding "guests" to the below parameters caused infinite rerender and infinite server calls
-  }, [loading, authUserId, userRole, isFocused, isModalVisible, createInvite])
-
-const getGuestsGuestMode = async (authUserId) => {
-  try {
-  let response = await fetch(`https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/guests/browse/${authUserId}/guestmode/`);
-  let json = await response.json();
-  setGuests(json)
-  console.log(json)
-  if (guests) {
-        setLoading(false)
-  }
-  }
-  catch (error) {
-    console.error(error);
-  }
-}
-
-const getGuestsHostMode = async (authUserId) => {
-  try {
-  let response = await fetch(`https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/guests/browse/${authUserId}/hostmode/`);
-  let json = await response.json();
-  setGuests(json)
-
-
-  console.log(`${guests[0]} is the first guest ${guests}`)
-  console.log(guests[0])
-  if (guests) {
-        setLoading(false)
-  }
-  }
-  catch (error) {
-    console.error(error);
-  }
-}
-
-
-const guestCard = ({item}) => {
-  return (
-    <BrowseCard item={item} authUserId={authUserId} userRole={userRole} setIsModalVisible={setIsModalVisible} setCreateInvite={setCreateInvite}/>
+  }, [loading, authUserId, userRole, isFocused, isModalVisible, createInvite]
   )
-};
+
+  const getGuestsGuestMode = async (authUserId) => {
+    try {
+      let response = await fetch(`https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/guests/browse/${authUserId}/guestmode/`);
+      let json = await response.json();
+      setGuests(json)
+      console.log(json)
+      if (guests) {
+            setLoading(false)
+      }
+    }
+    catch (error) {
+      console.error(error);
+    }
+  }
+
+  const getGuestsHostMode = async (authUserId) => {
+    try {
+      let response = await fetch(`https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/guests/browse/${authUserId}/hostmode/`);
+      let json = await response.json();
+      setGuests(json)
+
+      console.log(`${guests[0]} is the first guest ${guests}`)
+      console.log(guests[0])
+
+      if (guests) {
+            setLoading(false)
+      }
+    }
+    catch (error) {
+      console.error(error);
+    }
+  }
+
+  const guestCard = ({item}) => {
+    return (
+      <BrowseCard item={item} authUserId={authUserId} userRole={userRole} setIsModalVisible={setIsModalVisible} setCreateInvite={setCreateInvite}/>
+    )
+  };
 
   return (
     <> 
-{
-   isFocused ? (guests ? (
-    <SafeAreaView style={{ flex: 1, flexDirection: 'column', }}>
-    
-      <FlatList data={guests} renderItem={guestCard} keyExtractor={item => item.id}/>
+    {
+      isFocused ? ( guests ? (
+        <SafeAreaView style={{ flex: 1, flexDirection: 'column', }}>
+        
+          <FlatList data={guests} renderItem={guestCard} keyExtractor={item => item.id}/>
 
-    </SafeAreaView>
-
-      ) : <Loading/>) : null
-}
-</>
+        </SafeAreaView>
+      ) : <Loading/>
+      ) : null
+    }
+    </>
   );
 };
 

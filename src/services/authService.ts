@@ -1,5 +1,3 @@
-import { Timestamp } from "firebase/firestore";
-
 export type AuthData = {
   token: string;
   // Should be able to get user ID through token

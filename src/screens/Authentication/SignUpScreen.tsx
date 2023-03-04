@@ -131,23 +131,22 @@ const SignUpScreen = () => {
         console.log("Reached upload image sync")
 
         try {
-        //Create storage space in Firebase
-        //, upload photo to Firebase Storage
-        //, and then create variable with the URL of the uploaded photo
-        const storage = getStorage();
+            //Create storage space in Firebase
+            //, upload photo to Firebase Storage
+            //, and then create variable with the URL of the uploaded photo
+            const storage = getStorage();
 
-        const filename = initialImage.substring(initialImage.lastIndexOf('/')+1);
-        const reference = ref(storage, filename);
-    
-        const img = await fetch(initialImage)
-        const bytes = await img.blob();
-
-        const uploadPhoto = await uploadBytes(reference, bytes)
+            const filename = initialImage.substring(initialImage.lastIndexOf('/')+1);
+            const reference = ref(storage, filename);
         
-        const downloadURL = await getDownloadURL(reference)
+            const img = await fetch(initialImage)
+            const bytes = await img.blob();
 
-        const signupStatus = await signUp(downloadURL, _email, _password, _department, _name, _gender, _birthdate)
+            const uploadPhoto = await uploadBytes(reference, bytes)
+            
+            const downloadURL = await getDownloadURL(reference)
 
+            const signupStatus = await signUp(downloadURL, _email, _password, _department, _name, _gender, _birthdate)
         } catch (e) {
             console.log(e);
         }
@@ -186,7 +185,8 @@ const SignUpScreen = () => {
                 await Linking.openURL(url);
             } else {
                 Alert.alert(`Don't know how to open this URL: ${url}`);
-            } }, [url]
+            } 
+        }, [url]
         );
         return <Pressable onPress={handlePress}>{children}</Pressable>
     }

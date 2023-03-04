@@ -1,5 +1,5 @@
-import { View, Text, Pressable, StyleSheet } from "react-native";
-import React, {useEffect, useState} from 'react';
+import { View, StyleSheet } from "react-native";
+import React from 'react';
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import InvitedScreen from "./Parties/InvitedScreen";
 import ConfirmedScreen from "./Parties/ConfirmedScreen";

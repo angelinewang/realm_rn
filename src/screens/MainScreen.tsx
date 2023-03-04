@@ -5,9 +5,6 @@ import {Button} from 'react-native';
 
 import { BottomTabNavigatorParamList } from '../navigation/types';
 
-import GuestsStackNavigator from '../navigation/GuestsStack';
-import PartiesStackNavigator from '../navigation/PartiesStack';
-import ProfileStackNavigator from '../navigation/ProfileStack';
 import GuestsScreen from './GuestsScreen';
 import PartiesScreen from './PartiesScreen';
 import ProfileScreen from './ProfileScreen';

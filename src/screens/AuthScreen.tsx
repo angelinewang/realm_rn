@@ -7,10 +7,8 @@ const Stack = createStackNavigator();
 
 // This is the Authenticated Screen with a navigator that contains all the authenticated screens in the app, adding a bottom tabs bar with options
 const AuthScreen = () => {
-
-
   useEffect(() => {}, [])
-  
+
   return (
     <Stack.Navigator initialRouteName="Login" >
 
