@@ -1,3 +1,5 @@
+//Not being used
+
 import { View, Text, TextInput } from "react-native";
 import React from "react";
 import { InputProps } from "../../../auth-app";

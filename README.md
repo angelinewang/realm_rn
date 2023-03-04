@@ -308,3 +308,7 @@ https://www.javatpoint.com/calculate-age-using-javascript
 
 ### Using GitHub Copilot 
 https://docs.github.com/en/copilot/getting-started-with-github-copilot/getting-started-with-github-copilot-in-visual-studio-code
+
+### V3.0.4 QR Code Generator 
+https://www.the-qrcode-generator.com/
+[V 3.0.4 QR Code](./src/assets/qr_codes/v3.0.4qrcode.png)

@@ -6,6 +6,7 @@ import Loading from "../Loading";
 
 const ConfirmPartyCard = ({item}) => {
 
+  //States
   const [party, setParty] = React.useState()
   const [invite, setInvite] = React.useState(item)
   const [host, setHost] = React.useState()
@@ -15,9 +16,10 @@ const ConfirmPartyCard = ({item}) => {
 
   React.useEffect(
   () => {
-    
+    //On load of component, get the Party state with item containing the invite information with the associated party_id
     getParty(invite)
 
+    //Allocate the vibe of the party according to the associated integer
      if (party) {
         switch(party?.vibe) {
       case 0:
@@ -34,7 +36,8 @@ const ConfirmPartyCard = ({item}) => {
         break;
     }
 
-    // Date and Time extracted from JSON: https://weblog.west-wind.com/posts/2014/jan/06/javascript-json-date-parsing-and-real-dates
+    //Date and Time extracted from JSON: 
+    //Resource: https://weblog.west-wind.com/posts/2014/jan/06/javascript-json-date-parsing-and-real-dates
     const dateStr = party?.first_entry;
     console.log(dateStr)
 
@@ -44,56 +47,60 @@ const ConfirmPartyCard = ({item}) => {
     const partyDate = date?.slice(0, 10);
     const partyTime = date?.slice(16, 21);
 
+    //Set states for the first entry date of the party and the first entry time of the party
     setFirstEntryDate(partyDate)
     setFirstEntryTime(partyTime)
-
     }
   }, [item, host, vibe, firstEntryDate, firstEntryTime]
 )
 
 const getParty = async (invite) => {
   try {
+  //GET the party information using the Party ID attached the invite
   let response = await fetch(`https://realm-dj-34ezrkuhla-ew.a.run.app/api/invite/v1/parties/party/${invite.party_id_id}/`);
   let json = await response.json();
+
+  //Set the party state using the information from above API
   setParty(json)
+
+  //TO DO: Clean out console.logs and use debug mode instead
   console.log(json)
-  }
-  catch (error) {
+  } catch (error) {
     console.error(error);
   }
 }
 
 return (
-
   party ? ( 
+  <View style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
+    {/* Add the ternary before calling profile picture solved issue of not having the host object */}
+    <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: host?.profile_picture}}>
+      <View style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
 
-<View style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
-  {/* Add the ternary before calling profile picture solved issue of not having the host object */}
-  <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: host?.profile_picture}}>
-<View style={{ flex: 1, flexDirection: 'column', marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
+        {/* Host Information */}
+        <HostCard item={party.host_id} host={host} setHost={setHost}/>
 
-  {/* Host Information */}
-  <HostCard item={party.host_id} host={host} setHost={setHost}/>
-  {/* Party Information */}
-  <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
-    <Text style={{ fontSize: 28, color: 'white', fontWeight: 'bold'}}>
-    {party.first_entry ? `${firstEntryDate} ${firstEntryTime}` : "No First Entry"}
-    </Text>
-    <Text style={{ fontSize: 18, color: 'white'}}>
-    {party.vibe ? `${vibe} ` : "No Vibe "}
-    {/* Convert Deparment NUM to STRING */}
-    {/* Below is the user's plus-ones submission upon confirming*/}
-    {/* Plus-ones temporarily disabled since it is not possible to send plus-ones with invite acceptance yet */}
-    {/* {invite.plus_ones ? item.plus_ones: "No Plus-ones"} */}
-    </Text>
-  </View>
-  </View>
-  </ImageBackground>
-</View> 
-  ) : <Loading />
+        {/* Party Information */}
+        <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
+          <Text style={{ fontSize: 28, color: 'white', fontWeight: 'bold'}}>
+          {party.first_entry ? `${firstEntryDate} ${firstEntryTime}` : "No First Entry"}
+          </Text>
 
-)
-    
+          <Text style={{ fontSize: 18, color: 'white'}}>
+          {party.vibe ? `${vibe} ` : "No Vibe "}
+          {/* Convert Deparment NUM to STRING */}
+          {/* Below is the user's plus-ones submission upon confirming*/}
+          {/* Plus-ones temporarily disabled since it is not possible to send plus-ones with invite acceptance yet */}
+          {/* {invite.plus_ones ? item.plus_ones: "No Plus-ones"} */}
+          </Text>
+        </View>
+
+      </View>
+    </ImageBackground>
+  </View>  
+  ) 
+  : <Loading />
+);
 };
 
 export default ConfirmPartyCard;

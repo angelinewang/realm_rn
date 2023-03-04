@@ -1,3 +1,4 @@
+//Before the states have been set from GET API call, show loading component instead of actual component
 import { Text, View } from 'react-native';
 
 const Loading = () => {
