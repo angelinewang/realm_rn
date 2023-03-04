@@ -5,16 +5,10 @@ import GuestlistScreen from '../screens/Guests/GuestlistScreen';
 import BrowseScreen from '../screens/Guests/BrowseScreen';
 import { useNavigation } from '@react-navigation/native';
 import { BrowseScreenNavigationProp } from './types';
-import { GuestlistScreenNavigationProp } from './types';
-import { InvitedScreenNavigationProp } from './types';
-import { ConfirmedScreenNavigationProp } from './types';
-
-import {Text, Button} from 'react-native';
 
 const GuestsStack = createNativeStackNavigator<GuestsStackNavigatorParamList>();
 
 const GuestsStackNavigator = () => {
-
   const navigationBrowse = useNavigation<BrowseScreenNavigationProp>()
   return (
     <GuestsStack.Navigator>
