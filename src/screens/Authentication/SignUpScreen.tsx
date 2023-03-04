@@ -35,7 +35,7 @@ const SignUpScreen = () => {
     })
 
 //Signup Form Fields
-    const [image, setImage] = React.useState(null);
+    const [image, setImage] = React.useState<any>(null);
     //Waits for photo to be uploaded to Firebase Storage
     const [uploaded, setUploaded] = React.useState("none")
     const [_email, setEmail] = React.useState<String | null>(null);
@@ -82,6 +82,11 @@ const SignUpScreen = () => {
     //Changed Data Type in Database for Birthdate into timestamp/DateTime in order to accept a Timestamp value entry
     const [_birthdate, setBirthdate] = React.useState(null);
 
+    //Image set BEFORE downloadURL and BEFORE being sent to backend
+    const [initialImage, setInitialImage] = React.useState(null);
+
+    const [imageRef, setImageRef] = React.useState();
+
     //To allow for null birthdate value:
     //1. Text is used to display the current value or "No Date Selected"
     //2. When the user clicks the text, the date time picker is shown to let them select a date
@@ -102,7 +107,7 @@ const SignUpScreen = () => {
         })
         console.log('image', result.assets[0].uri);
         if(!result.canceled) {
-            setInitialImage(result.assets[0].uri)
+             setInitialImage(result.assets[0].uri)
         }
     } catch(error) {
         console.error
@@ -111,7 +116,24 @@ const SignUpScreen = () => {
 
     React.useEffect(() => {
     //Rerender page if any of the below states are changed
-    }, [_email, _password, _name, _department, _gender, _birthdate, image])
+
+    //Grab image download url and set to image if initial image has been uploaded to firebase
+    // if (uploaded) {
+    //     uploadImage()
+    // }
+    }, [_email, _password, _name, _department, _gender, _birthdate, image, initialImage, uploaded])
+
+    const uploadImage = async () => {
+        const storage = getStorage();
+        const filename = initialImage.substring(initialImage.lastIndexOf('/')+1);
+        const reference = ref(storage, filename);
+        setImageRef(reference)
+        const downloadURL = await getDownloadURL(imageRef)
+        
+        console.log(`The downloadURL is: ${downloadURL}`)
+        //Ensure image field sent to backend is a URL
+        setImage(downloadURL)
+    }
 
 //Set signup form fields' states on change of input values
     const onEmailChange = (newEmail: String) => {
@@ -147,8 +169,7 @@ const SignUpScreen = () => {
 //, upload photo to Firebase Storage
 //, and then set the image state to the URL of the uploaded photo
 
-//Image set BEFORE downloadURL and BEFORE being sent to backend
-const [initialImage, setInitialImage] = React.useState(null);
+const [downloadURLFinal, setDownloadURLFinal] = React.useState(null)
 
     const uploadImageAsync = async () => {
 
@@ -159,22 +180,15 @@ const [initialImage, setInitialImage] = React.useState(null);
 
         const filename = initialImage.substring(initialImage.lastIndexOf('/')+1);
         const reference = ref(storage, filename);
-        
+    
         const img = await fetch(initialImage)
         const bytes = await img.blob();
 
         const uploadPhoto = await uploadBytes(reference, bytes)
-                        
-        setUploaded(uploadPhoto)
-
-        if (uploadPhoto) {
+        
         const downloadURL = await getDownloadURL(reference)
-        
-        console.log(`The downloadURL is: ${downloadURL}`)
-        //Ensure image field sent to backend is a URL
-        setImage(downloadURL)
-        }
-        
+
+        const signupStatus = await signUp(downloadURL, _email, _password, _department, _name, _gender, _birthdate)
 
         } catch (e) {
             console.log(e);
@@ -182,16 +196,21 @@ const [initialImage, setInitialImage] = React.useState(null);
         Alert.alert(
             `Account created! Go back to Log In`
         );
+        
     }
 
 //Upload image to Firebase Storage
 //Signup user and send data to backend
 //BUG: Image not being saved to Firebase Storage in production
     const signUpAndLogIn = async () => {
-        let uploadedImage = await uploadImageAsync()
-        let signUpStatus = await signUp(image, _email, _password, _department, _name, _gender, _birthdate)
+        
+        // uploadedImage ? await signUp(image, _email, _password, _department, _name, _gender, _birthdate) : null
+        await uploadImageAsync()
+        Alert.alert(
+            `Account created! Go back to Log In`
+        );
                 
-        signUpStatus && uploadedImage ? logIn(_email, _password) : null
+        // signUpStatus && uploadedImage ? logIn(_email, _password) : null
     }
 
     const logIn = async () => {
