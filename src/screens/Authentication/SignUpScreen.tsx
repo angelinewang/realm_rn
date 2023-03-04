@@ -1,7 +1,7 @@
-import { Linking, Alert, TextInput, KeyboardAvoidingView, StyleSheet, View, Text, ScrollView, Pressable, Image, Button, Platform, Dimensions } from "react-native";
+import { Linking, Alert, TextInput, StyleSheet, View, Text, ScrollView, Pressable, Image, Button } from "react-native";
 import React, { useCallback } from "react";
 import RNPickerSelect from 'react-native-picker-select';
-import { Formik, useFormik } from 'formik';
+import { Formik } from 'formik';
 
 import * as ImagePicker from 'expo-image-picker';
 
@@ -17,43 +17,49 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { initializeApp } from "firebase/app";
 import { getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
-import { v4 as uuid } from "uuid";
 import { firebaseConfig } from '../../../firebaseConfig';
 
 initializeApp(firebaseConfig);
 
 const SignUpScreen = () => {
-//Navigation to other pages
+    //Navigation to other pages
     const navigation = useNavigation<SignUpScreenNavigationProp>();
 
-//Fonts displayed on Signup Page
-     const [fontsLoaded] = useFonts({
+    //Fonts displayed on Signup Page
+    const [fontsLoaded] = useFonts({
         'Mulish-Regular': require('../../assets/fonts/Mulish-Regular.ttf'),
         'Plus-Jakarta-Sans-Bold': require('../../assets/fonts/PlusJakartaSans-Bold.ttf'),
         'Open-Sans-Light': require('../../assets/fonts/OpenSans-Light.ttf'),
         'Open-Sans-Bold': require('../../assets/fonts/OpenSans-Bold.ttf')
     })
 
-//Signup Form Fields
-    const [image, setImage] = React.useState<any>(null);
-    //Waits for photo to be uploaded to Firebase Storage
-    const [uploaded, setUploaded] = React.useState("none")
+    //Signup Form Fields
+    //Waits for photo to be uploaded to Firebase Storage in uploadImageAsync, before sending signup function with downloadURL 
+    //Profile Image: No state created for backend
+    //Because sent directly through scoped downloadURL variable inside uploadImageAsync
+    
+    //Image set BEFORE downloadURL and BEFORE being sent to backend
+    //Only accessible on frontend 
+    const [initialImage, setInitialImage] = React.useState(null);
+
     const [_email, setEmail] = React.useState<String | null>(null);
     const [_password, setPassword] = React.useState<String | null>(null);
     const [_name, setName] = React.useState<String | null>(null);
     const [_department, setDepartment] = React.useState<Number | null>(0);
     const [_gender, setGender] = React.useState<Number | null>(0);
-    
-    // const isNullOrWhitespace = (input: String) => {
-    //     return !input || !input.trim();
-    // }
-
-    // const {value, onChange, onBlur} = props;
 
     const [isSelectedDate, setIsSelectedDate] = React.useState(false);
     const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
     const [selectedDate, setSelectedDate] = React.useState(new Date());
-    // const [hasDate, setHasDate] = React.useState(!isNullOrWhitespace('No Date Selected') ? false : true);
+    
+    //Changed Data Type in Database for Birthdate into timestamp/DateTime in order to accept a Timestamp value entry
+    const [_birthdate, setBirthdate] = React.useState(null);
+
+    //To allow for null birthdate value:
+    //1. Text is used to display the current value or "No Date Selected"
+    //2. When the user clicks the text, the date time picker is shown to let them select a date
+    //3. There is a button to click if the user wants to clear the date and go back to null
+    //https://stackoverflow.com/questions/71216463/allowing-null-value-for-react-native-datetimepicker
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);
@@ -63,10 +69,6 @@ const SignUpScreen = () => {
         setDatePickerVisibility(false);
     }
 
-    // const valueToString = (selectedDate: Date) => {
-    //     return moment(selectedDate).format('YYYY-MM-DD');
-    // }
-
     const handleConfirm = (date: any) => {
      setSelectedDate(date)  
      setBirthdate(date)
@@ -74,28 +76,10 @@ const SignUpScreen = () => {
      hideDatePicker()
     } 
 
-    
-    const clearDate = () => {
-        setHasDate(false);
-        onChange('');
-    }
-    //Changed Data Type in Database for Birthdate into timestamp/DateTime in order to accept a Timestamp value entry
-    const [_birthdate, setBirthdate] = React.useState(null);
-
-    //Image set BEFORE downloadURL and BEFORE being sent to backend
-    const [initialImage, setInitialImage] = React.useState(null);
-
-    const [imageRef, setImageRef] = React.useState();
-
-    //To allow for null birthdate value:
-    //1. Text is used to display the current value or "No Date Selected"
-    //2. When the user clicks the text, the date time picker is shown to let them select a date
-    //3. There is a button to click if the user wants to clear the date and go back to null
-    //https://stackoverflow.com/questions/71216463/allowing-null-value-for-react-native-datetimepicker
-//Sign up and Log in functions from authService
+    //Sign up and Log in functions from authService
     const {signUp, signIn} = useAuth()
 
-//After clicking on Add Image icon, launch image library and allow image selection
+    //After clicking on Add Image icon, launch image library and allow image selection
     const pickImage = async () => {
         //No permissions request needed to launch image library 
         try {
@@ -109,33 +93,16 @@ const SignUpScreen = () => {
         if(!result.canceled) {
              setInitialImage(result.assets[0].uri)
         }
-    } catch(error) {
-        console.error
-    } 
+        } catch(error) {
+            console.error
+        } 
     }
 
     React.useEffect(() => {
     //Rerender page if any of the below states are changed
+    }, [_email, _password, _name, _department, _gender, _birthdate, initialImage, uploaded])
 
-    //Grab image download url and set to image if initial image has been uploaded to firebase
-    // if (uploaded) {
-    //     uploadImage()
-    // }
-    }, [_email, _password, _name, _department, _gender, _birthdate, image, initialImage, uploaded])
-
-    const uploadImage = async () => {
-        const storage = getStorage();
-        const filename = initialImage.substring(initialImage.lastIndexOf('/')+1);
-        const reference = ref(storage, filename);
-        setImageRef(reference)
-        const downloadURL = await getDownloadURL(imageRef)
-        
-        console.log(`The downloadURL is: ${downloadURL}`)
-        //Ensure image field sent to backend is a URL
-        setImage(downloadURL)
-    }
-
-//Set signup form fields' states on change of input values
+    //Set signup form fields' states on change of input values
     const onEmailChange = (newEmail: String) => {
         setEmail(newEmail);
     };
@@ -158,24 +125,15 @@ const SignUpScreen = () => {
         console.log(_gender); 
     }
 
-    // const handleBirthdate = (event: DateTimePickerEvent, date: Date) => {
-    //     const {
-    //         type,
-    //         nativeEvent : { timestamp },
-    //     } = event;
-    // }
-
-//Create storage space in Firebase
-//, upload photo to Firebase Storage
-//, and then set the image state to the URL of the uploaded photo
-
-const [downloadURLFinal, setDownloadURLFinal] = React.useState(null)
-
     const uploadImageAsync = async () => {
-
+        //Upload image to Firebase Storage
+        //Signup user and send data to backend
         console.log("Reached upload image sync")
-    
+
         try {
+        //Create storage space in Firebase
+        //, upload photo to Firebase Storage
+        //, and then create variable with the URL of the uploaded photo
         const storage = getStorage();
 
         const filename = initialImage.substring(initialImage.lastIndexOf('/')+1);
@@ -193,31 +151,24 @@ const [downloadURLFinal, setDownloadURLFinal] = React.useState(null)
         } catch (e) {
             console.log(e);
         }
+        //Alert created here so that it only appears after POST request has been sent to backend
         Alert.alert(
             `Account created! Go back to Log In`
         );
-        
     }
 
-//Upload image to Firebase Storage
-//Signup user and send data to backend
-//BUG: Image not being saved to Firebase Storage in production
+    //RESOLVED-BUG: Image not being saved to Firebase Storage in production
+    //SOLUTION: Set downloadURL as const variable inside uploadImageAsync and moved signup function into uploadImageAsync
+    //, with profile photo sent with downloadURL instead of image state
     const signUpAndLogIn = async () => {
-        
-        // uploadedImage ? await signUp(image, _email, _password, _department, _name, _gender, _birthdate) : null
-        await uploadImageAsync()
-        Alert.alert(
-            `Account created! Go back to Log In`
-        );
-                
-        // signUpStatus && uploadedImage ? logIn(_email, _password) : null
+        await uploadImageAsync() 
     }
 
     const logIn = async () => {
         await signIn(_email, _password)
     }
 
-//Links at bottom of Signup Page
+    //Links at bottom of Signup Page
     const termsAndConditions = "https://realmpartyapp.com/terms-of-use"
     const privacyPolicy = "https://realmpartyapp.com/privacy-policy"
     
@@ -226,20 +177,19 @@ const [downloadURLFinal, setDownloadURLFinal] = React.useState(null)
         children: any;
     }
 
-    const OpenURLButton = ({url, children}:
-        OpenURLButtonProps) => {
-            const handlePress = useCallback(async () => {
-                const supported = await 
-                Linking.canOpenURL(url);
+    const OpenURLButton = ({url, children}: OpenURLButtonProps) => {
+        const handlePress = useCallback(async () => {
+            const supported = await 
+            Linking.canOpenURL(url);
 
-                if(supported) {
-                    await Linking.openURL(url);
-                } else {
-                    Alert.alert(`Don't know how to open this URL: ${url}`);
-                } }, [url]
-            );
-            return <Pressable onPress={handlePress}>{children}</Pressable>
-        }
+            if(supported) {
+                await Linking.openURL(url);
+            } else {
+                Alert.alert(`Don't know how to open this URL: ${url}`);
+            } }, [url]
+        );
+        return <Pressable onPress={handlePress}>{children}</Pressable>
+    }
 
     return (
         <ScrollView style={styles.screenBackground}>
@@ -250,124 +200,88 @@ const [downloadURLFinal, setDownloadURLFinal] = React.useState(null)
                 </View>
                 
                 <Formik style={styles.allContainer} initialValues={{_email: '', _password: '', _department: '', _name: "", _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
-                <View style={styles.allBox}>
-                    <Pressable onPress={pickImage}>
-                        {
-                            initialImage && <Image source={{uri: initialImage}} style={{width: 200, height: 200}}/> 
-                            ? <Image source={{uri: initialImage}} style={{width: 200, height: 200}}/> 
-                            : <Image source={require('../../assets/images/photo-upload.png')}/>
+                    <View style={styles.allBox}>
+                        <Pressable onPress={pickImage}>
+                            {
+                                initialImage && <Image source={{uri: initialImage}} style={{width: 200, height: 200}}/> 
+                                ? <Image source={{uri: initialImage}} style={{width: 200, height: 200}}/> 
+                                : <Image source={require('../../assets/images/photo-upload.png')}/>
 
-                        }
-                    </Pressable>
-
-                    <View style={styles.inputBoxShadow}>
-                        <TextInput
-                            onChangeText={onEmailChange}
-                            style={styles.inputBox}
-                            keyboardType={"email-address"}
-                            placeholder="KCL Email"
-                        />
-                    </View>
-                    
-                    <View style={styles.inputBoxShadow}>
-                        <TextInput 
-                            onChangeText={onPasswordChange}
-                            style={styles.inputBox}
-                            keyboardType="default"
-                            placeholder="Password"
-                        />
-                    </View>
-
-                    {/* Department Select From List Entry */}
-                    <View style={styles.department}>
-                        <Text style={styles.labelText}>Department</Text>
-                        <RNPickerSelect onValueChange={onDepartmentChange} items={[{label: 'Arts/Humanities', value: 1}, {label: 'Business', value: 2}, {label: 'Dentistry', value: 3}, {label: 'Engineering', value: 4}, {label: 'Law', value: 5}, {label: 'Medic/Life Sciences', value: 6}, {label: 'Natural Sciences', value: 7}, {label: 'Nursing', value: 8}, {label: 'Pysch/Neuroscience', value: 9}, {label: 'Social Science', value: 10}]} />
-                    </View>
-                    
-                    <View style={styles.inputBoxShadow}>
-                        <TextInput 
-                            style={styles.inputBox}
-                            onChangeText={onNameChange}
-                            keyboardType="default"
-                            placeholder="Name"
-                        />
-                    </View>
-
-                    {/* Gender Select From List Entry */}
-                    <View style={styles.gender}>
-                        <Text style={styles.labelText}>Gender</Text>
-                        <RNPickerSelect onValueChange={onGenderChange} items={[{label: 'Male', value: 1}, {label: 'Female', value: 2}, {label: 'Other', value: 3}]} />
-                    </View>
-
-                    {/* Birthdate Date Entry */}
-                    {/* <View style={styles.birthdate}>
-                        <Text style={styles.labelText}>Birthdate</Text> */}
-                        {/* onDateChange is deprecated, use onChange instead */}
-                        {/* <DateTimePicker textColor="#1B1B22" locale="GB" mode="datetime" value={_birthdate} onChange={(event, selectedDate) => {
-                            if (event.type == 'set') {
-                                setBirthdate(selectedDate)
                             }
-                        }}/> */}
-                    {/* </View> */}
+                        </Pressable>
 
-                {/* <View style={styles.fixToText}>
-                        <Text style={styles.dateText} onPress={showDatePicker}>{hasDate ? valueToString(selectedDate) : 'No Date Selected'}</Text>
-                        <Text>   </Text>
-                        <TouchableOpacity 
-                            title="Clear"
-                            onPress={() => clearDate()}
-                            disabled={!hasDate}
-                            style={styles.button}
+                        <View style={styles.inputBoxShadow}>
+                            <TextInput
+                                onChangeText={onEmailChange}
+                                style={styles.inputBox}
+                                keyboardType={"email-address"}
+                                placeholder="KCL Email"
+                            />
+                        </View>
+                        
+                        <View style={styles.inputBoxShadow}>
+                            <TextInput 
+                                onChangeText={onPasswordChange}
+                                style={styles.inputBox}
+                                keyboardType="default"
+                                placeholder="Password"
+                            />
+                        </View>
+
+                        {/* Department Select From List Entry */}
+                        <View style={styles.department}>
+                            <Text style={styles.labelText}>Department</Text>
+                            <RNPickerSelect onValueChange={onDepartmentChange} items={[{label: 'Arts/Humanities', value: 1}, {label: 'Business', value: 2}, {label: 'Dentistry', value: 3}, {label: 'Engineering', value: 4}, {label: 'Law', value: 5}, {label: 'Medic/Life Sciences', value: 6}, {label: 'Natural Sciences', value: 7}, {label: 'Nursing', value: 8}, {label: 'Pysch/Neuroscience', value: 9}, {label: 'Social Science', value: 10}]} />
+                        </View>
+                        
+                        <View style={styles.inputBoxShadow}>
+                            <TextInput 
+                                style={styles.inputBox}
+                                onChangeText={onNameChange}
+                                keyboardType="default"
+                                placeholder="Name"
+                            />
+                        </View>
+
+                        {/* Gender Select From List Entry */}
+                        <View style={styles.gender}>
+                            <Text style={styles.labelText}>Gender</Text>
+                            <RNPickerSelect onValueChange={onGenderChange} items={[{label: 'Male', value: 1}, {label: 'Female', value: 2}, {label: 'Other', value: 3}]} />
+                        </View>
+
+                        {/* Birthdate Picker */}
+                        <Text style={styles.inputBox}>
+                            {/* Set birthdate field to empty string if there is none selected */}
+                            {isSelectedDate ? selectedDate.toLocaleDateString() : ''}
+                        </Text>
+                        <Button title="Select Birthdate" onPress={showDatePicker} />
+                        <DateTimePickerModal
+                            date={selectedDate}
+                            // value={new Date()}
+                            isVisible={isDatePickerVisible}
+                            mode="date"
+                            onConfirm={handleConfirm}
+                            onCancel={hideDatePicker}
+                        />
+
+                        <Pressable 
+                            style={styles.createAccountButton}
+                            onPress={signUpAndLogIn}
                         >
-                        <Text>Clear</Text> 
-                        </TouchableOpacity>
-                </View>
-                 <DateTimePickerModal
-                    isVisible={isDatePickerVisible}
-                    mode='date'
-                    onConfirm={handleConfirm}
-                    onCancel={hideDatePicker}
-                    date={selectedDate}
-    
-                    />
-                </View> */}
+                            <Text style={styles.createAccountButtonText}>Create Account</Text>
+                        </Pressable>
 
-                {/* Birthdate Picker */}
-
-                <Text style={styles.inputBox}>
-                    {/* Set birthdate field to empty string if there is none selected */}
-                    {isSelectedDate ? selectedDate.toLocaleDateString() : ''}
-                </Text>
-                <Button title="Select Birthdate" onPress={showDatePicker} />
-
-                <DateTimePickerModal
-                    date={selectedDate}
-                    // value={new Date()}
-                    isVisible={isDatePickerVisible}
-                    mode="date"
-                    onConfirm={handleConfirm}
-                    onCancel={hideDatePicker}
-                />
-
-                    <Pressable 
-                        style={styles.createAccountButton}
-                        onPress={signUpAndLogIn}
-                    >
-                        <Text style={styles.createAccountButtonText}>Create Account</Text>
-                    </Pressable>
-
-             </View>
+                    </View>
                 </Formik>
 
                 <View style={styles.urlsContainer}>
-                <View style={styles.urlsBox}>
-                    <OpenURLButton url={termsAndConditions}><Text style={styles.urlText}>Terms & Conditions</Text></OpenURLButton>
-                    <OpenURLButton url={privacyPolicy}><Text style={styles.urlText}>Privacy Policy</Text></OpenURLButton>
+                    <View style={styles.urlsBox}>
+                        <OpenURLButton url={termsAndConditions}><Text style={styles.urlText}>Terms & Conditions</Text></OpenURLButton>
+                        <OpenURLButton url={privacyPolicy}><Text style={styles.urlText}>Privacy Policy</Text></OpenURLButton>
+                    </View>
                 </View>
-                </View>
-
-                </SafeAreaView>
-            </ScrollView>
+            </SafeAreaView>
+        </ScrollView>
     );
 };
 
