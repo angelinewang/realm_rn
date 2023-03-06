@@ -134,7 +134,7 @@ const SignUpScreen = () => {
         await promiseStep2()
     }
 
-    const [reference, setReference] = React.useState(null);
+    // const [reference, setReference] = React.useState(null);
     const [bytes, setBytes] = React.useState(null);
 
     const promiseStep1 = async () => {
@@ -148,12 +148,12 @@ const SignUpScreen = () => {
         try {
 
             console.log("Reached inside try block")
-            const storage = getStorage();
+            // const storage = getStorage();
 
-            const filename = initialImage.substring(initialImage.lastIndexOf('/')+1);
-            const reference = ref(storage, filename);
+            // const filename = initialImage.substring(initialImage.lastIndexOf('/')+1);
+            // const reference = ref(storage, filename);
 
-            setReference(ref(storage, filename))
+            // setReference(reference)
         
             //await ensures that the function executes and finishes executing before moving onto the next line of code
             const img = await fetch(initialImage)
@@ -168,6 +168,10 @@ const SignUpScreen = () => {
 
 const promiseStep2 = async () => {
     try {
+        const storage = getStorage();
+
+        const filename = initialImage.substring(initialImage.lastIndexOf('/')+1);
+        const reference = ref(storage, filename);
         const uploadPhoto = await uploadBytes(reference, bytes)
 
         setUploaded(uploadPhoto)
