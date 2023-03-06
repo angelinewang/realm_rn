@@ -3,7 +3,7 @@
     "name": "Realm",
     "slug": "realm_rn",
     "sdkVersion": "47.0.0",
-    "version": "3.0.4",
+    "version": "3.0.5",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
     "scheme": "realm",
@@ -23,7 +23,7 @@
     ],
     "ios": {
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "38",
+      "buildNumber": "35",
       "icon": "./src/assets/images/icon.png",
       "infoPlist": {
         "NSAppTransportSecurity": {
