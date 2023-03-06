@@ -81,7 +81,6 @@
     "react-native-base64": "^0.2.1",
     "react-native-date-picker": "^4.2.6",
     "react-native-gesture-handler": "~2.8.0",
-    "react-native-google-analytics-bridge": "^7.1.0",
     "react-native-heroicons": "^3.2.0",
     "react-native-image-picker": "^4.10.1",
     "react-native-image-resizer": "^1.4.5",

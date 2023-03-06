@@ -19,11 +19,12 @@
       "**/*"
     ],
     "platforms": [
-      "ios"
+      "ios",
+      "android"
     ],
     "ios": {
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "35",
+      "buildNumber": "36",
       "icon": "./src/assets/images/icon.png",
       "infoPlist": {
         "NSAppTransportSecurity": {
@@ -69,7 +70,7 @@
         "android.permission.RECORD_AUDIO"
       ],
       "package": "com.realmpartyapp.realm",
-      "versionCode": 3,
+      "versionCode": 5,
       "runtimeVersion": "1.0.0"
     }
   }
