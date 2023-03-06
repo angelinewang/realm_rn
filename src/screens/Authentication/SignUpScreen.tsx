@@ -100,7 +100,7 @@ const SignUpScreen = () => {
 
     React.useEffect(() => {
     //Rerender page if any of the below states are changed
-    }, [_email, _password, _name, _department, _gender, _birthdate, initialImage, uploaded])
+    }, [_email, _password, _name, _department, _gender, _birthdate, initialImage])
 
     //Set signup form fields' states on change of input values
     const onEmailChange = (newEmail: String) => {
@@ -125,36 +125,66 @@ const SignUpScreen = () => {
         console.log(_gender); 
     }
 
+
+    const [uploaded, setUploaded] = React.useState(false);
+    const [signup, setSignup] = React.useState(false)
+
     const uploadImageAsync = async () => {
+        await promiseStep1()
+        await promiseStep2()
+    }
+
+    const [reference, setReference] = React.useState(null);
+    const [bytes, setBytes] = React.useState(null);
+
+    const promiseStep1 = async () => {
         //Upload image to Firebase Storage
         //Signup user and send data to backend
-        console.log("Reached upload image sync")
+        console.log("Reached upload image async")
 
+        //Create storage space in Firebase
+        //, upload photo to Firebase Storage
+        //, and then create variable with the URL of the uploaded photo
         try {
-            //Create storage space in Firebase
-            //, upload photo to Firebase Storage
-            //, and then create variable with the URL of the uploaded photo
+
+            console.log("Reached inside try block")
             const storage = getStorage();
 
             const filename = initialImage.substring(initialImage.lastIndexOf('/')+1);
             const reference = ref(storage, filename);
+
+            setReference(ref(storage, filename))
         
+            //await ensures that the function executes and finishes executing before moving onto the next line of code
             const img = await fetch(initialImage)
             const bytes = await img.blob();
 
-            const uploadPhoto = await uploadBytes(reference, bytes)
-            
-            const downloadURL = await getDownloadURL(reference)
-
-            const signupStatus = await signUp(downloadURL, _email, _password, _department, _name, _gender, _birthdate)
+            setBytes(bytes)
         } catch (e) {
             console.log(e);
-        }
+        } 
         //Alert created here so that it only appears after POST request has been sent to backend
-        Alert.alert(
-            `Account created! Go back to Log In`
-        );
     }
+
+const promiseStep2 = async () => {
+    try {
+        const uploadPhoto = await uploadBytes(reference, bytes)
+
+        setUploaded(uploadPhoto)
+        
+        const downloadURL = await getDownloadURL(reference)
+
+        const signupStatus = await signUp(downloadURL, _email, _password, _department, _name, _gender, _birthdate)
+
+        setSignup(signupStatus)
+    } catch (e) { 
+        console.log(e) 
+    } Alert.alert(
+        `Account created! Go back to Log In`
+    );
+}
+
+
 
     //RESOLVED-BUG: Image not being saved to Firebase Storage in production
     //SOLUTION: Set downloadURL as const variable inside uploadImageAsync and moved signup function into uploadImageAsync

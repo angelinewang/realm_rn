@@ -312,3 +312,6 @@ https://docs.github.com/en/copilot/getting-started-with-github-copilot/getting-s
 ### V3.0.4 QR Code Generator 
 https://www.the-qrcode-generator.com/
 [V 3.0.4 QR Code](./src/assets/qr_codes/v3.0.4qrcode.png)
+
+### DateTimePicker Modal
+https://www.atomlab.dev/tutorials/react-native-modal-datetime-picker
