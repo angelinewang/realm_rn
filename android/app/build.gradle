@@ -147,7 +147,7 @@ android {
         // rootProject.ext.minSdkVersion
         targetSdkVersion 16
         // rootProject.ext.targetSdkVersion
-        versionCode 9
+        versionCode 10
         // 6
         versionName "3.0.5"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
