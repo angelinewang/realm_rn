@@ -315,3 +315,9 @@ https://www.the-qrcode-generator.com/
 
 ### DateTimePicker Modal
 https://www.atomlab.dev/tutorials/react-native-modal-datetime-picker
+
+### Android Deployment Issue
+`react-native-google-analytics-bridge` package causing Android deployment to fail 
+--> `npm uninstall` the package
+--> Because the package has been removed
+https://github.com/mcnamee/react-native-starter-kit/issues/123
