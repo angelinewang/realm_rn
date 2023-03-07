@@ -145,9 +145,10 @@ android {
         applicationId 'com.realmpartyapp.realm'
         minSdkVersion 21
         // rootProject.ext.minSdkVersion
-        targetSdkVersion 16
+        targetSdkVersion 31
+        //Needs to be at least 31 for Google Play Console security and performance
         // rootProject.ext.targetSdkVersion
-        versionCode 15
+        versionCode 16
         // 6
         versionName "3.0.5"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
