@@ -6,6 +6,8 @@ import InvitePartyCard from '../../components/Card/InvitePartyCard';
 import Loading from '../../components/Loading';
 import { useAuth } from '../../contexts/Auth';
 
+import * as Analytics from 'expo-firebase-analytics'
+
 const InvitedScreen = () => {  
   //Grab User Id from Auth Context
   const {authUserId} = useAuth()
@@ -17,6 +19,10 @@ const InvitedScreen = () => {
   const [loading, setLoading] = React.useState(Boolean)
 
   React.useEffect(() => {
+
+      // Analytics.logEvent('screen_view', {
+      //   firebase_screen: "Invited"
+      // })
       console.log(authUserId)
 
       // Current there is a bug, so need to comment out token section for Browse, Guestlist, Invited, and Confirmed BEFORE attempting to sign in 

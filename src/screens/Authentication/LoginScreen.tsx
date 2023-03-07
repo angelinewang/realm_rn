@@ -10,10 +10,14 @@ import React, { useCallback } from 'react';
 import { useAuth } from "../../contexts/Auth";
 
 import { useFonts } from 'expo-font';
+import * as Analytics from 'expo-firebase-analytics';
+import firebase from "firebase/compat/app";
+// import firebase from '@react-native-firebase/app'
 //All data passed through context
 
 //Create the Auth Context with the data type specified
 //and a empty object
+
 const LoginScreen: React.FC = () => {
     const termsAndConditions = "https://realmpartyapp.com/terms-of-use"
     const privacyPolicy = "https://realmpartyapp.com/privacy-policy"
@@ -53,9 +57,31 @@ const LoginScreen: React.FC = () => {
     const [_email, setEmail] = useState<String | null>(null);
     const [_password, setPassword] = useState<String | null>(null);
 
+   
     useEffect(() => {
+        const firebaseConfig = {
+            apiKey: "AIzaSyCPeGd248tZfLBG-KHUwWgdQbKvrtdBZCY",
+            authDomain: "realm-rn-dj.firebaseapp.com",
+            projectId: "realm-rn-dj",
+            storageBucket: "realm-rn-dj.appspot.com",
+            messagingSenderId: "169578510116",
+            appId: "1:169578510116:web:1d7524e1575689f68d25b1",
+            measurementId: "G-EKHS4QFRTR",
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        pageView()
 
     }, [_email, _password])
+
+    const pageView = async () => {
+        await Analytics.logEvent('screen_view', {
+            firebase_screen: "Login",
+        })
+    }
 
     const navigation = useNavigation<LoginScreenNavigationProp>();
 

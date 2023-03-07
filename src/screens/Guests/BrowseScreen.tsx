@@ -8,6 +8,8 @@ import Loading from '../../components/Loading';
 
 import {roleService} from '../../services/roleService';
 
+import * as Analytics from 'expo-firebase-analytics'
+
 const BrowseScreen = ({isModalVisible, setIsModalVisible}) => {
   //Grab Auth User Id from AuthContext
   const {authUserId} = useAuth()
@@ -34,6 +36,10 @@ const BrowseScreen = ({isModalVisible, setIsModalVisible}) => {
 // }
 
   React.useEffect(() => {
+
+    // Analytics.logEvent('screen_view', {
+    //   firebase_screen: "Browse"
+    // })
       // TESTING: console.log(authData)
       // Grab token value from authData
       // Current there is a bug, so need to comment out token section for Browse, Guestlist, Invited, and Confirmed BEFORE attempting to sign in 

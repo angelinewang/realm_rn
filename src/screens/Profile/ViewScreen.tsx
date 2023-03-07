@@ -7,6 +7,8 @@ import Loading from '../../components/Loading';
 import {useAuth} from '../../contexts/Auth'
 import { useIsFocused } from '@react-navigation/native';
 
+import * as Analytics from 'expo-firebase-analytics'
+
 const ViewScreen = () => {
   //Grab Auth User Id from AuthContext
   const {authUserId} = useAuth()
@@ -18,6 +20,10 @@ const ViewScreen = () => {
   const [user, setUser] = React.useState({})
 
   React.useEffect(() => {
+    // Analytics.logEvent('screen_view', {
+    //   firebase_screen: "Profile"
+    // })
+
     console.log(authUserId)
     // Grab token value from authData
     // Current there is a bug, so need to comment out token section for Browse, Guestlist, Invited, and Confirmed BEFORE attempting to sign in 

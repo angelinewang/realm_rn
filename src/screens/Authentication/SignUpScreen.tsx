@@ -19,6 +19,8 @@ import { initializeApp } from "firebase/app";
 import { getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import { firebaseConfig } from '../../../firebaseConfig';
 
+import * as Analytics from 'expo-firebase-analytics';
+
 initializeApp(firebaseConfig);
 
 const SignUpScreen = () => {
@@ -100,6 +102,11 @@ const SignUpScreen = () => {
 
     React.useEffect(() => {
     //Rerender page if any of the below states are changed
+
+        // Analytics.logEvent('screen_view', {
+        //     firebase_screen: 'SignUp',
+        // })
+
     }, [_email, _password, _name, _department, _gender, _birthdate, initialImage])
 
     //Set signup form fields' states on change of input values

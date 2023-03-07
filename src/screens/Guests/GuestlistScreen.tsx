@@ -5,6 +5,7 @@ import GuestlistInvite from '../../components/Guestlist/GuestlistInvite';
 import { useAuth } from '../../contexts/Auth';
 import { useIsFocused } from '@react-navigation/native';
 import { roleService } from '../../services/roleService';
+import * as Analytics from 'expo-firebase-analytics'
 
 const GuestlistScreen = ({isModalVisible}) => {
   // Set the authUserId to the Authenticated User ID 
@@ -20,6 +21,11 @@ const GuestlistScreen = ({isModalVisible}) => {
   const [renderInvites, setRenderInvites] = React.useState(<></>)
 
   React.useEffect(() => {
+
+    // Analytics.logEvent('screen_view', {
+    //   firebase_screen: "Guestlist"
+    // })
+
     console.log("Reached Guestlist UseEffect")
 
     // Grab token value from authData
