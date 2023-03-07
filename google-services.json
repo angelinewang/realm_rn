@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "169578510116",
+    "project_id": "realm-rn-dj",
+    "storage_bucket": "realm-rn-dj.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169578510116:android:cc2e5c59fdf00c058d25b1",
+        "android_client_info": {
+          "package_name": "com.realmpartyapp.realm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169578510116-fa6anmolj26sisoqmvg46ogi0k6dh9vt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-OEUbovlV6RnpkcP87n84ycfkvalHHwQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169578510116-fa6anmolj26sisoqmvg46ogi0k6dh9vt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "169578510116-u4prr0g9d02q9uuad8vpfs03vu39ab68.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.realmpartyapp.com"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

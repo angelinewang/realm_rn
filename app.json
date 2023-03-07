@@ -20,7 +20,8 @@
     ],
     "platforms": [
       "ios",
-      "android"
+      "android", 
+      "web"
     ],
     "ios": {
       "googleServicesFile": "./GoogleService-Info.plist",
@@ -66,11 +67,12 @@
       }
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ],
       "package": "com.realmpartyapp.realm",
-      "versionCode": 9,
+      "versionCode": 17,
       "runtimeVersion": "1.0.0"
     }
   }
