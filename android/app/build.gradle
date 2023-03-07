@@ -143,11 +143,11 @@ android {
 
     defaultConfig {
         applicationId 'com.realmpartyapp.realm'
-        minSdkVersion 14
+        minSdkVersion 21
         // rootProject.ext.minSdkVersion
         targetSdkVersion 16
         // rootProject.ext.targetSdkVersion
-        versionCode 8
+        versionCode 9
         // 6
         versionName "3.0.5"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
