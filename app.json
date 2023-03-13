@@ -24,7 +24,7 @@
       "web"
     ],
     "ios": {
-      "googleServicesFile": "/GoogleService-Info.plist",
+      "googleServicesFile": "./GoogleService-Info.plist",
       "buildNumber": "36",
       "icon": "./src/assets/images/icon.png",
       "infoPlist": {

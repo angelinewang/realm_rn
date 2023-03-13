@@ -19,7 +19,6 @@ import { initializeApp } from "firebase/app";
 import { getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import { firebaseConfig } from '../../../firebaseConfig';
 
-import * as Analytics from 'expo-firebase-analytics';
 
 initializeApp(firebaseConfig);
 

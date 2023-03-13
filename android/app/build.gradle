@@ -1,7 +1,4 @@
-plugins {
-    id 'com.android.application'
-    id 'com.google.gms.google-services'
-}
+apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
 
@@ -146,17 +143,12 @@ android {
 
     defaultConfig {
         applicationId 'com.realmpartyapp.realm'
-        minSdkVersion 21
-        // rootProject.ext.minSdkVersion
-        targetSdkVersion 31
-        //Needs to be at least 31 for Google Play Console security and performance
-        // rootProject.ext.targetSdkVersion
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 17
-        // 6
         versionName "3.0.5"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
-        multiDexEnabled true
         if (isNewArchitectureEnabled()) {
             // We configure the CMake build only if you decide to opt-in for the New Architecture.
             externalNativeBuild {
@@ -283,14 +275,6 @@ android {
 }
 
 dependencies {
-
-    //Import the Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:31.2.3')
-
-    //TODO: Add the dependencies for Firebase products you want to use 
-    //When using the BoM, don't specify versions in Firebase dependencies
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     //noinspection GradleDynamicVersion
@@ -376,3 +360,5 @@ def isNewArchitectureEnabled() {
     // - Set an environment variable `ORG_GRADLE_PROJECT_newArchEnabled=true`
     return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
 }
+
+apply plugin: 'com.google.gms.google-services'

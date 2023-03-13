@@ -5,7 +5,6 @@ import GuestlistInvite from '../../components/Guestlist/GuestlistInvite';
 import { useAuth } from '../../contexts/Auth';
 import { useIsFocused } from '@react-navigation/native';
 import { roleService } from '../../services/roleService';
-import * as Analytics from 'expo-firebase-analytics'
 
 const GuestlistScreen = ({isModalVisible}) => {
   // Set the authUserId to the Authenticated User ID 

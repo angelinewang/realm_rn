@@ -7,8 +7,6 @@ import Loading from '../../components/Loading';
 import {useAuth} from '../../contexts/Auth'
 import { useIsFocused } from '@react-navigation/native';
 
-import * as Analytics from 'expo-firebase-analytics'
-
 const ViewScreen = () => {
   //Grab Auth User Id from AuthContext
   const {authUserId} = useAuth()

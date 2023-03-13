@@ -321,3 +321,7 @@ https://www.atomlab.dev/tutorials/react-native-modal-datetime-picker
 --> `npm uninstall` the package
 --> Because the package has been removed
 https://github.com/mcnamee/react-native-starter-kit/issues/123
+
+### Generate Native Code 
+`expo prebuild` run in the terminal in order to generate the native code
+--> With Expo, can start with the managed workflow and generate the native code only when needed 

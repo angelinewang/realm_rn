@@ -8,7 +8,6 @@ import Loading from '../../components/Loading';
 
 import {roleService} from '../../services/roleService';
 
-import * as Analytics from 'expo-firebase-analytics'
 
 const BrowseScreen = ({isModalVisible, setIsModalVisible}) => {
   //Grab Auth User Id from AuthContext

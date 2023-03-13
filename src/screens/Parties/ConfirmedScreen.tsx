@@ -7,7 +7,6 @@ import { useIsFocused } from '@react-navigation/native';
 import React from 'react';
 import ConfirmPartyCard from '../../components/Card/ConfirmPartyCard';
 
-import * as Analytics from 'expo-firebase-analytics'
 
 const ConfirmedScreen = () => {  
   //Grab User Id from Auth Context

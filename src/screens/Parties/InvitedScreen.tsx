@@ -6,7 +6,6 @@ import InvitePartyCard from '../../components/Card/InvitePartyCard';
 import Loading from '../../components/Loading';
 import { useAuth } from '../../contexts/Auth';
 
-import * as Analytics from 'expo-firebase-analytics'
 
 const InvitedScreen = () => {  
   //Grab User Id from Auth Context
