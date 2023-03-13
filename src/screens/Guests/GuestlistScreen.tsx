@@ -6,6 +6,8 @@ import { useAuth } from '../../contexts/Auth';
 import { useIsFocused } from '@react-navigation/native';
 import { roleService } from '../../services/roleService';
 
+import { guestlistScreenView } from '../../../analytics.native';
+
 const GuestlistScreen = ({isModalVisible}) => {
   // Set the authUserId to the Authenticated User ID 
   const {authUserId} = useAuth()
@@ -43,8 +45,23 @@ const GuestlistScreen = ({isModalVisible}) => {
     } else if (userRole == 1) {
       getPartyAndInvites(authUserId)
     }
+
+    screenView()
   }, [loading, authUserId, userRole, isFocused, isModalVisible, renderInvites]
 )
+
+    const screenView = async () => {
+        //Use this exact same syntax to send all the different screen views
+
+        // if (typeof window !== 'undefined') {
+            try {
+                await guestlistScreenView()
+            } catch (error) {
+                console.log(error)
+            }
+            
+        // }
+    }
 
 // Get party by host_id
 

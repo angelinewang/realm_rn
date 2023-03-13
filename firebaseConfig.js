@@ -1,3 +1,4 @@
+import { initializeApp } from "firebase/app";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
@@ -7,6 +8,7 @@ import "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyCPeGd248tZfLBG-KHUwWgdQbKvrtdBZCY",
   authDomain: "realm-rn-dj.firebaseapp.com",
+  databaseURL: "https://realm-rn-dj.firebaseio.com",
   projectId: "realm-rn-dj",
   storageBucket: "realm-rn-dj.appspot.com",
   messagingSenderId: "169578510116",
@@ -14,10 +16,8 @@ const firebaseConfig = {
   measurementId: "G-EKHS4QFRTR",
 };
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+const app = initializeApp(firebaseConfig);
 
-const db = firebase.firestore();
+// const db = app.firestore();
 
-export { firebase, firebaseConfig };
+export { firebaseConfig, app };

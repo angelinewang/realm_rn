@@ -1,4 +1,4 @@
-import {Alert, Linking, KeyboardAvoidingView, TextInput, Image, View, Text, StyleSheet, Pressable } from "react-native";
+import { Dimensions, Alert, Linking, KeyboardAvoidingView, TextInput, Image, View, Text, StyleSheet, Pressable } from "react-native";
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -10,9 +10,10 @@ import React, { useCallback } from 'react';
 import { useAuth } from "../../contexts/Auth";
 
 import { useFonts } from 'expo-font';
+import { loginScreenView } from "../../../analytics.native";
 // import * as Analytics from 'expo-firebase-analytics';
 // import firebase from "firebase/compat/app";
-// import analytics from '@react-native-firebase/analytics'
+import analytics from '@react-native-firebase/analytics'
 // import firebase from '@react-native-firebase/app'
 //All data passed through context
 
@@ -20,6 +21,8 @@ import { useFonts } from 'expo-font';
 //and a empty object
 
 const LoginScreen: React.FC = () => {
+    const window = Dimensions.get("window");
+
     const termsAndConditions = "https://realmpartyapp.com/terms-of-use"
     const privacyPolicy = "https://realmpartyapp.com/privacy-policy"
     
@@ -75,8 +78,25 @@ const LoginScreen: React.FC = () => {
         // }
 
         // pageView()
+        screenView()
+
+        //Firebase Analytics does not work on Expo Go 
+        //Must check if app is running on Expo Go, and then decide whether to call the native react native firebase analytics
 
     }, [_email, _password])
+
+    const screenView = async () => {
+        //Use this exact same syntax to send all the different screen views
+
+        // if (typeof window !== 'undefined') {
+            try {
+                await loginScreenView()
+            } catch (error) {
+                console.log(error)
+            }
+            
+        // }
+    }
 
     // const pageView = async () => {
     //     await analytics().logEvent('screen_view', {

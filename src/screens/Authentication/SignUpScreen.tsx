@@ -19,6 +19,7 @@ import { initializeApp } from "firebase/app";
 import { getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import { firebaseConfig } from '../../../firebaseConfig';
 
+import { signupScreenView } from "../../../analytics.native";
 
 initializeApp(firebaseConfig);
 
@@ -106,7 +107,21 @@ const SignUpScreen = () => {
         //     firebase_screen: 'SignUp',
         // })
 
+        screenView()
     }, [_email, _password, _name, _department, _gender, _birthdate, initialImage])
+
+    const screenView = async () => {
+        //Use this exact same syntax to send all the different screen views
+
+        // if (typeof window !== 'undefined') {
+            try {
+                await signupScreenView()
+            } catch (error) {
+                console.log(error)
+            }
+            
+        // }
+    }
 
     //Set signup form fields' states on change of input values
     const onEmailChange = (newEmail: String) => {

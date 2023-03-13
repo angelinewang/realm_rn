@@ -3,7 +3,7 @@
     "name": "Realm",
     "slug": "realm_rn",
     "sdkVersion": "47.0.0",
-    "version": "3.0.5",
+    "version": "3.0.6",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
     "scheme": "realm",
@@ -20,12 +20,12 @@
     ],
     "platforms": [
       "ios",
-      "android", 
+      "android",
       "web"
     ],
     "ios": {
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "36",
+      "buildNumber": "38",
       "icon": "./src/assets/images/icon.png",
       "infoPlist": {
         "NSAppTransportSecurity": {
@@ -46,7 +46,7 @@
           "measurementId": "G-EKHS4QFRTR"
         }
       }
-    }, 
+    },
     "notification": {
       "icon": "./src/assets/images/icon.png",
       "color": "#2abbff"
@@ -58,7 +58,15 @@
           "photosPermission": "The app accesses your photos to let you share them with other users."
         }
       ],
-      "@react-native-firebase/app"
+      "@react-native-firebase/app",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
     ],
     "extra": {
       "firebaseApiKey": "AIzaSyCPeGd248tZfLBG-KHUwWgdQbKvrtdBZCY",

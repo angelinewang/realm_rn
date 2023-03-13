@@ -1,7 +1,7 @@
 {
   "name": "Realm",
   "proxy": "https://realm-dj-34ezrkuhla-ew.a.run.app",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "sdkVersion": "47.0.0",
   "scripts": {
     "start": "expo start --dev-client",
@@ -50,6 +50,7 @@
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
     "@react-navigation/stack": "^6.3.5",
+    "@types/gtag.js": "^0.0.12",
     "axios": "^1.2.0",
     "babel-plugin-tailwind-rn": "^2.0.3",
     "cocoapods": "^0.0.0",

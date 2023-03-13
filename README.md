@@ -325,3 +325,6 @@ https://github.com/mcnamee/react-native-starter-kit/issues/123
 ### Generate Native Code 
 `expo prebuild` run in the terminal in order to generate the native code
 --> With Expo, can start with the managed workflow and generate the native code only when needed 
+
+### Analytics 
+expo-firebase-analytics is deprecated, so need to move to react native firebase instead

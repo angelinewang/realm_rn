@@ -7,6 +7,7 @@ import { useIsFocused } from '@react-navigation/native';
 import React from 'react';
 import ConfirmPartyCard from '../../components/Card/ConfirmPartyCard';
 
+import { confirmedScreenView } from '../../../analytics.native';
 
 const ConfirmedScreen = () => {  
   //Grab User Id from Auth Context
@@ -33,7 +34,22 @@ const ConfirmedScreen = () => {
     // Get user profile information from API by passing in the UserId found through decoded token 
     
     getParties(authUserId)
+
+    screenView()
   }, [loading, authUserId, isFocused])
+
+      const screenView = async () => {
+        //Use this exact same syntax to send all the different screen views
+
+        // if (typeof window !== 'undefined') {
+            try {
+                await confirmedScreenView()
+            } catch (error) {
+                console.log(error)
+            }
+            
+        // }
+    }
 
   const getParties = async (authUserId) => {
   // If the authUserId has been set, then get parties

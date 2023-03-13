@@ -6,6 +6,7 @@ import InvitePartyCard from '../../components/Card/InvitePartyCard';
 import Loading from '../../components/Loading';
 import { useAuth } from '../../contexts/Auth';
 
+import { invitedScreenView } from '../../../analytics.native';
 
 const InvitedScreen = () => {  
   //Grab User Id from Auth Context
@@ -31,7 +32,21 @@ const InvitedScreen = () => {
       // Get user profile information from API by passing in the UserId found through decoded token 
       
       getParties(authUserId)
+
+      screenView()
   }, [loading, authUserId, isFocused])
+      const screenView = async () => {
+        //Use this exact same syntax to send all the different screen views
+
+        // if (typeof window !== 'undefined') {
+            try {
+                await invitedScreenView()
+            } catch (error) {
+                console.log(error)
+            }
+            
+        // }
+    }
 
 const getParties = async (authUserId) => {
 // If the authUserId has been set, then get parties

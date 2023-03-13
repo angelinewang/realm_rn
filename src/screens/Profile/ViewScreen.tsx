@@ -7,6 +7,8 @@ import Loading from '../../components/Loading';
 import {useAuth} from '../../contexts/Auth'
 import { useIsFocused } from '@react-navigation/native';
 
+import { invitedScreenView, profileScreenView } from '../../../analytics.native';
+
 const ViewScreen = () => {
   //Grab Auth User Id from AuthContext
   const {authUserId} = useAuth()
@@ -28,8 +30,22 @@ const ViewScreen = () => {
 
     // Get user profile information from API by passing in the UserId found through decoded token 
     getUser(authUserId)
+
+    screenView()
   }, [loading, authUserId, isFocused])
   
+      const screenView = async () => {
+        //Use this exact same syntax to send all the different screen views
+
+        // if (typeof window !== 'undefined') {
+            try {
+                await profileScreenView()
+            } catch (error) {
+                console.log(error)
+            }
+            
+        // }
+    }
 
 // const signOut = async () => {
 //     //Remove data from context, so the App can be notified

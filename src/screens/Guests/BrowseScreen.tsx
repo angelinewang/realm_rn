@@ -8,6 +8,8 @@ import Loading from '../../components/Loading';
 
 import {roleService} from '../../services/roleService';
 
+import { browseScreenView } from '../../../analytics.native';
+
 
 const BrowseScreen = ({isModalVisible, setIsModalVisible}) => {
   //Grab Auth User Id from AuthContext
@@ -58,9 +60,24 @@ const BrowseScreen = ({isModalVisible, setIsModalVisible}) => {
         getGuestsHostMode(authUserId)
       }
 
+      screenView()
+
       // Adding "guests" to the below parameters caused infinite rerender and infinite server calls
   }, [loading, authUserId, userRole, isFocused, isModalVisible, createInvite]
   )
+
+      const screenView = async () => {
+        //Use this exact same syntax to send all the different screen views
+
+        // if (typeof window !== 'undefined') {
+            try {
+                await browseScreenView()
+            } catch (error) {
+                console.log(error)
+            }
+            
+        // }
+    }
 
   const getGuestsGuestMode = async (authUserId) => {
     try {
