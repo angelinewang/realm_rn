@@ -69,6 +69,11 @@ export async function submitAccountButtonPress() {
     button_name: "SubmitAccount/Signup",
   });
 }
+export async function backToLoginButtonPress() {
+  await analytics().logEvent("button_press", {
+    button_name: "BackToLogin/Signup",
+  });
+}
 
 //Profile Page
 export async function logoutButtonPress() {

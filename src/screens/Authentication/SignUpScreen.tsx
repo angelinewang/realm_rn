@@ -19,7 +19,7 @@ import { initializeApp } from "firebase/app";
 import { getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import { firebaseConfig } from '../../../firebaseConfig';
 
-import { signupScreenView, submitAccountButtonPress } from "../../../analytics.native";
+import { signupScreenView, submitAccountButtonPress, backToLoginButtonPress } from "../../../analytics.native";
 
 initializeApp(firebaseConfig);
 
@@ -106,6 +106,7 @@ const SignUpScreen = () => {
 
         //Button Press Analytics 
         submitAccountButton()
+        backToLoginButton()
 
     }, [_email, _password, _name, _department, _gender, _birthdate, initialImage])
 
@@ -120,6 +121,14 @@ const SignUpScreen = () => {
     const submitAccountButton = async () => {
         try {
             await submitAccountButtonPress()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const backToLoginButton = async () => {
+        try {
+            await backToLoginButtonPress()
         } catch (error) {
             console.log(error)
         }
