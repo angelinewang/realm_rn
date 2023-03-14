@@ -1,6 +1,7 @@
 import Modal from 'react-native-modal'
-import { Button, Alert } from 'react-native'
+import { Button, Alert, Pressable } from 'react-native'
 import { deleteAccountButtonPress } from '../../analytics.native';
+import { Text } from '../../components/Themed';
 
 export default function SettingsModal({ isModalVisible, handleModal, setIsModalVisible }) {
     //Add Delete Account Function
@@ -35,6 +36,9 @@ const deleteAccountButton = async () => {
     return (
         <Modal isVisible={isModalVisible}>
             <Button title="Delete Account" onPress={deleteAccount}/>
+            <Pressable onPress={handleModal}>
+                <Text>Cancel</Text>
+            </Pressable>
         </Modal>
     )
 }

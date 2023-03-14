@@ -1,4 +1,4 @@
-import { View, Button, Alert } from 'react-native';
+import { View, Button, Alert, Pressable } from 'react-native';
 import React from 'react';
 
 import ProfileCard from '../../components/Card/ProfileCard';
@@ -114,9 +114,9 @@ return (
       2. Add SVG here
       3. Add functionality to lead to Delete Account pop-up modal
       4. Add button to delete account on popup modal */}
-      <Pressable >
+      {/* <Pressable >
         <SettingsSVG height={25} width={25} fill='#D1D1DB'/>
-      </Pressable>
+      </Pressable> */}
       </View>)
       : <Loading/>) : null
   }

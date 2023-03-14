@@ -5,11 +5,11 @@ import ProfileScreen from '../screens/Profile/ViewScreen';
 import SettingsModal from '../components/SettingsModal';
 import { settingsButtonPress } from '../../analytics.native';
 import SettingsSVG from '../assets/settings.svg';
-import {Pressable} from 'react-native';
+import { Pressable, Button } from 'react-native';
 
 const ProfileStack = createNativeStackNavigator<ProfileStackNavigatorParamList>();
 
-const ProfileStackNavigator = () => {
+const ProfileStackNavigator = ({navigation}) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const handleModal = () => {
     setIsModalVisible(() => !isModalVisible);
@@ -34,9 +34,11 @@ const ProfileStackNavigator = () => {
       children={() =>
       <ProfileScreen handleModal={handleModal} isModalVisible={isModalVisible} setIsModalVisible/>} 
       options={{title: 'Profile', headerRight: () => (
-        <Pressable onPress={handleModal} style={{width: 25, height: 25}}>
-          <SettingsSVG height={25} width={25} fill='#D1D1DB'/>
-        </Pressable>
+        // <Pressable onPress={handleModal} style={{width: 25, height: 25}}>
+        //   <SettingsSVG height={25} width={25} fill='#D1D1DB'/>
+        // </Pressable>
+          <Button onPress={handleModal} title="Settings" color='#D1D1DB'/>
+
       )}}/>
       </ProfileStack.Navigator>
       <SettingsModal isModalVisible={isModalVisible} handleModal={handleModal} setIsModalVisible={setIsModalVisible}/>
