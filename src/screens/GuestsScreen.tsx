@@ -1,4 +1,4 @@
-import { View, StyleSheet, Button } from "react-native";
+import { View, StyleSheet, Button, Pressable } from "react-native";
 import {useState, useEffect} from 'react';
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import BrowseScreen from "./Guests/BrowseScreen";
@@ -6,6 +6,7 @@ import GuestlistScreen from "./Guests/GuestlistScreen";
 import { roleService } from "../services/roleService";
 import Loading from "../components/Loading";
 
+import AddPartySVG from '../assets/images/addparty.svg'
 import { useAuth } from "../contexts/Auth";
 import PartyModal from "../components/PartyModal";
 
@@ -56,7 +57,9 @@ const GuestsScreen: React.FC = ({navigation}) => {
             if (userRole == 0) {
                 navigation.setOptions({
                     headerRight: () => (
-                        <Button onPress={handleModal} title="Add Party"/>
+                        <Pressable onPress={handleModal} style={{width: 40, height: 40, marginRight: 20, marginBottom: 20}}>
+                            <AddPartySVG height={40} width={40}/>
+                        </Pressable>
                     )
                 })
                 setLoadingComplete(true)
@@ -89,7 +92,7 @@ const GuestsScreen: React.FC = ({navigation}) => {
                     children={() => 
                     <BrowseScreen handleModal={handleModal} isModalVisible={isModalVisible} setIsModalVisible/>
                     } />
-                    
+
                     <Tab.Screen name="Guestlist" children={() => <GuestlistScreen isModalVisible={isModalVisible}/>}/>
                 </Tab.Navigator>
             </View>

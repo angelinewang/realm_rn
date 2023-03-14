@@ -54,8 +54,8 @@ const MainScreen = () => {
           {  headerTitle: 'Profile', headerRight: () => (
         <Pressable 
         onPress={handleModal} 
-        style={{width: 25, height: 25, marginRight: 25}}>
-          <SettingsSVG height={25} width={25} fill='#D1D1DB'/>
+        style={{width: 40, height: 40, marginRight: 20, marginBottom: 20}}>
+          <SettingsSVG height={40} width={40} fill='#D1D1DB'/>
         </Pressable>
 
           )})}
