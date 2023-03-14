@@ -8,7 +8,8 @@ import SettingsSVG from '../../assets/images/settings.svg'
 import { useAuth } from '../../contexts/Auth'
 import { useIsFocused } from '@react-navigation/native';
 
-import { profileScreenView, loginButtonPress } from '../../../analytics.native';
+import SettingsModal from '../../components/SettingsModal';
+import { profileScreenView, loginButtonPress, settingButtonPress } from '../../../analytics.native';
 
 const ViewScreen = () => {
   //Grab Auth User Id from AuthContext
@@ -70,7 +71,7 @@ const ViewScreen = () => {
   const logOut = async () => {
     //Button Press Analytics
     logOutButton()
-    
+
     try {
       await signOut()
     } catch(error) {

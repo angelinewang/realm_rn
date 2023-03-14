@@ -86,6 +86,11 @@ export async function deleteAccountButtonPress() {
     button_name: "DeleteAccount/Profile",
   });
 }
+export async function settingsButtonPress() {
+  await analytics().logEvent("button_press", {
+    button_name: "Settings/Profile",
+  });
+}
 
 //Guests Page
 export async function addPartyButtonPress() {

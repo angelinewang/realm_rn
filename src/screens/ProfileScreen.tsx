@@ -1,8 +1,9 @@
 import React from 'react';
 import ViewScreen from './Profile/ViewScreen';
-    
-const ProfileScreen = () => {
 
+//Where Settings Modal is added 
+
+const ProfileScreen = () => {
   return (
     <ViewScreen/>
   );
