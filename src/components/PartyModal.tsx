@@ -12,11 +12,20 @@ import {Button, StyleSheet, View, Text, Pressable, TextInput} from 'react-native
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import { partyModalView, submitPartyButtonPress } from '../../analytics.native';
+
+import CancelSVG from '../assets/images/cancel.svg'
+
+import { useFonts } from 'expo-font';
+
 //Import Modal
 //Pass through: 1. ModalisVisible 2. HandleSubmit 
 
 //Add Party Modal separated from "Guests" Screen in order to grab and pass in authUserId to POST request
 export default function PartyModal({ isModalVisible, handleModal, setIsModalVisible }) {
+
+    //Load custom fonts
+    let [fontsLoaded] = useFonts({
+        'Mulish-Bold': require('../assets/fonts/Mulish-Bold.ttf')})
 
     //States
     const [_flat, setFlat] = useState(" ")
@@ -121,14 +130,21 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
 
   return (
     <Modal isVisible={isModalVisible}>
+        {/* Add X icon to top right corner of modal to indicate cancellation of form submission instead of the text Cancel button */}
         <Formik initialValues={{flat: '', dateTime: "", vibe: ''}} onSubmit={handleSubmit}>
             <View style={styles.modal}>
-                <View style={styles.header} className="modal-header">
-                    <Text style={styles.headerText}>
-                    Only invited guests will see this
+                <View style={{display: 'flex', flexDirection: 'row'}}>
+                    <Text style={{color: '#4abbff', width: '75%', alignSelf: 'flex-end', fontFamily: 'Mulish-Bold', textAlign: 'right'}}>
+                        Only invited guests will see this
                     </Text>
+
+                    <View style={{display: 'flex', flexDirection: 'column', width: '25%', height: '100%', justifyContent: 'flex-start'}}>
+                        <Pressable onPress={handleModal} style={{height: 35, width: 35, alignSelf: 'flex-end'}}>
+                            <CancelSVG width={35} height={35}/>
+                        </Pressable>
+                    </View>
                 </View>
-                
+
                 <View style={styles.Body}className="modal-body">
                     <View style={styles.inputBoxShadow}>
                         <TextInput
@@ -165,14 +181,9 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
                 </View>
 
                 <View className="modal-footer">
-                    <Pressable onPress={handleModal}>
-                        <Text style={styles.cancelText}>Cancel</Text>
-                    </Pressable>
-
                     <Pressable style={styles.sendInvites} onPress={handleSubmit}>
                         <Text style={styles.sendInvitesText}>Send Invites</Text>
                     </Pressable>
-            
                 </View>
             </View>
         </Formik>
@@ -222,6 +233,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         paddingHorizontal: 20,
         paddingVertical: 20,
+        paddingTop: 0, //Allow Cancel X button to reach top right corner of modal
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
@@ -256,13 +268,14 @@ const styles = StyleSheet.create({
     },
     header: {
         display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        textAlign: 'left'
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        flexWrap: 'wrap',
     },
     headerText: {
-        color: '#4abbff',
-        textAlign: 'left'
+        color: '#4abbff'
     },
     dateTime: {
         display: 'flex',
