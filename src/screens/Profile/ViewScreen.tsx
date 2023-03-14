@@ -7,7 +7,7 @@ import Loading from '../../components/Loading';
 import {useAuth} from '../../contexts/Auth'
 import { useIsFocused } from '@react-navigation/native';
 
-import { invitedScreenView, profileScreenView } from '../../../analytics.native';
+import { profileScreenView, loginButtonPress, deleteAccountButtonPress } from '../../../analytics.native';
 
 const ViewScreen = () => {
   //Grab Auth User Id from AuthContext
@@ -31,21 +31,39 @@ const ViewScreen = () => {
     // Get user profile information from API by passing in the UserId found through decoded token 
     getUser(authUserId)
 
+    //Screen View Analytics
     screenView()
+
+    //Button Press Analytics
+    logOutButton()
+    deleteAccountButton()
+
   }, [loading, authUserId, isFocused])
   
-      const screenView = async () => {
-        //Use this exact same syntax to send all the different screen views
-
-        // if (typeof window !== 'undefined') {
-            try {
-                await profileScreenView()
-            } catch (error) {
-                console.log(error)
-            }
-            
-        // }
+  const screenView = async () => {
+    try {
+        await profileScreenView()
+    } catch (error) {
+        console.log(error)
     }
+  }
+
+  const logOutButton = async () => {
+    try {
+        await loginButtonPress()
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
+  const deleteAccountButton = async () => {
+    try {
+        await deleteAccountButtonPress()
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
 
 // const signOut = async () => {
 //     //Remove data from context, so the App can be notified
