@@ -1,4 +1,4 @@
-import { View, Button, Alert, Pressable } from 'react-native';
+import { View, Button, Alert, Pressable, ScrollView } from 'react-native';
 import React from 'react';
 
 import ProfileCard from '../../components/Card/ProfileCard';
@@ -10,8 +10,17 @@ import { useIsFocused } from '@react-navigation/native';
 
 import SettingsModal from '../../components/SettingsModal';
 import { profileScreenView, loginButtonPress, settingButtonPress } from '../../../analytics.native';
+import { Text } from '../../../components/Themed';
+
+import { useFonts } from 'expo-font';
 
 const ViewScreen = () => {
+
+  //Import Fonts
+  const [fontsLoaded] = useFonts({
+    'Plus-Jakarta-Sans-Bold': require('../../assets/fonts/PlusJakartaSans-Bold.ttf')
+  })
+
   //Grab Auth User Id from AuthContext
   const {authUserId} = useAuth()
 
@@ -106,9 +115,14 @@ return (
   <> 
   {
     isFocused ? (user ? (
-      <View style={{ flex: 1, paddingTop: 12, paddingHorizontal: 10 }}>
+      <ScrollView style={{ flex: 1, paddingTop: 12, paddingHorizontal: 10, display: 'flex', flexDirection: 'column' }} contentContainerStyle={{justifyContent: 'space-between'}}>
+        <View style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
       <ProfileCard user={user}/>
-      <Button title="Log Out" onPress={logOut}/>
+      <Pressable onPress={logOut} style={{backgroundColor: '#D1D1DB', width: 318, height: 63, borderRadius: 20, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', marginTop: 25}}>
+        <Text style={{color: '#FFFFFF', fontSize: 20, fontFamily
+      : 'Plus-Jakarta-Sans-Bold', alignSelf: 'center'}}>Log Out</Text>
+      </Pressable>
+
       {/* Add Gear Icon for Delete Account
       1. Find SVG from Figma and Add to Assets
       2. Add SVG here
@@ -117,7 +131,8 @@ return (
       {/* <Pressable >
         <SettingsSVG height={25} width={25} fill='#D1D1DB'/>
       </Pressable> */}
-      </View>)
+      </View>
+      </ScrollView>)
       : <Loading/>) : null
   }
  
