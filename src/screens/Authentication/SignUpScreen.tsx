@@ -19,7 +19,7 @@ import { initializeApp } from "firebase/app";
 import { getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import { firebaseConfig } from '../../../firebaseConfig';
 
-import { signupScreenView } from "../../../analytics.native";
+import { signupScreenView, submitAccountButtonPress } from "../../../analytics.native";
 
 initializeApp(firebaseConfig);
 
@@ -101,26 +101,28 @@ const SignUpScreen = () => {
     }
 
     React.useEffect(() => {
-    //Rerender page if any of the below states are changed
-
-        // Analytics.logEvent('screen_view', {
-        //     firebase_screen: 'SignUp',
-        // })
-
+        //Screen View Analytics
         screenView()
+
+        //Button Press Analytics 
+        submitAccountButton()
+
     }, [_email, _password, _name, _department, _gender, _birthdate, initialImage])
 
     const screenView = async () => {
-        //Use this exact same syntax to send all the different screen views
+        try {
+            await signupScreenView()
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-        // if (typeof window !== 'undefined') {
-            try {
-                await signupScreenView()
-            } catch (error) {
-                console.log(error)
-            }
-            
-        // }
+    const submitAccountButton = async () => {
+        try {
+            await submitAccountButtonPress()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     //Set signup form fields' states on change of input values
