@@ -6,7 +6,7 @@ import InvitePartyCard from '../../components/Card/InvitePartyCard';
 import Loading from '../../components/Loading';
 import { useAuth } from '../../contexts/Auth';
 
-import { invitedScreenView } from '../../../analytics.native';
+import { invitedScreenView, confirmButtonPress } from '../../../analytics.native';
 
 const InvitedScreen = () => {  
   //Grab User Id from Auth Context
@@ -19,10 +19,6 @@ const InvitedScreen = () => {
   const [loading, setLoading] = React.useState(Boolean)
 
   React.useEffect(() => {
-
-      // Analytics.logEvent('screen_view', {
-      //   firebase_screen: "Invited"
-      // })
       console.log(authUserId)
 
       // Current there is a bug, so need to comment out token section for Browse, Guestlist, Invited, and Confirmed BEFORE attempting to sign in 
@@ -33,19 +29,27 @@ const InvitedScreen = () => {
       
       getParties(authUserId)
 
+      //Screen View Analytics
       screenView()
-  }, [loading, authUserId, isFocused])
-      const screenView = async () => {
-        //Use this exact same syntax to send all the different screen views
 
-        // if (typeof window !== 'undefined') {
-            try {
-                await invitedScreenView()
-            } catch (error) {
-                console.log(error)
-            }
-            
-        // }
+      //Button Press Analytics
+      confirmButton()
+  }, [loading, authUserId, isFocused])
+
+    const screenView = async () => {
+      try {
+          await invitedScreenView()
+      } catch (error) {
+          console.log(error)
+      }
+    }
+
+    const confirmButton = async () => {
+      try {
+          await confirmButtonPress()
+      } catch (error) {
+          console.log(error)
+      }
     }
 
 const getParties = async (authUserId) => {
