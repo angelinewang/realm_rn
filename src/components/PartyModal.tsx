@@ -11,6 +11,7 @@ import {Button, StyleSheet, View, Text, Pressable, TextInput} from 'react-native
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
+import { partyModalView, submitPartyButtonPress } from '../../analytics.native';
 //Import Modal
 //Pass through: 1. ModalisVisible 2. HandleSubmit 
 
@@ -92,21 +93,28 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
     }
 
     useEffect(() => {
-      // TESTING: console.log(authData)
-      // Grab token value from authData
-      // Current there is a bug, so need to comment out token section for Browse, Guestlist, Invited, and Confirmed BEFORE attempting to sign in 
+        //Screen View Analytics 
+        screenView()
+        //Button Press Analytics
+        submitPartyButton()
 
-        // const token = authData?.token
-        // console.log(token)
-        // const decoded = jwt_decode(token)
-
-        //TESTING: console.log(decoded)
-
-        // TESTING: console.log(authUserId)
-        // setUserId(decoded.sub)
-
-      // Adding "guests" to the below parameters caused infinite rerender and infinite server calls
     }, [_flat, _dateTime, _vibe, loading, authUserId, isModalVisible])
+
+    const screenView = async () => {
+        try {
+            partyModalView()
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const submitPartyButton = async () => {
+        try {
+            submitPartyButtonPress()
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
   return (
     <Modal isVisible={isModalVisible}>

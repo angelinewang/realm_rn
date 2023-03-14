@@ -43,6 +43,12 @@ export async function guestlistScreenView() {
   });
 }
 
+export async function partyModalView() {
+  await analytics().logEvent("specific_screen_view", {
+    screen_name: "PartyModal",
+  });
+}
+
 //Button Presses
 //TO-BE-FINISHED: Add all buttons that exist in the application
 //Login Page
