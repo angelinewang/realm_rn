@@ -45,8 +45,61 @@ export async function guestlistScreenView() {
 
 //Button Presses
 //TO-BE-FINISHED: Add all buttons that exist in the application
-export async function guestlistScreenView() {
-  await analytics().logEvent("specific_screen_view", {
-    screen_name: "Guestlist",
+//Login Page
+export async function loginButtonPress() {
+  await analytics().logEvent("button_press", {
+    button_name: "Login/Login",
+  });
+}
+export async function createAccountButtonPress() {
+  await analytics().logEvent("button_press", {
+    button_name: "CreateAccount/Login",
+  });
+}
+
+//Signup Page
+export async function submitAccountButtonPress() {
+  await analytics().logEvent("button_press", {
+    button_name: "SubmitAccount/Signup",
+  });
+}
+
+//Profile Page
+export async function logoutButtonPress() {
+  await analytics().logEvent("button_press", {
+    button_name: "Logout/Profile",
+  });
+}
+export async function deleteAccountButtonPress() {
+  await analytics().logEvent("button_press", {
+    button_name: "DeleteAccount/Profile",
+  });
+}
+
+//Guests Page
+export async function addPartyButtonPress() {
+  await analytics().logEvent("button_press", {
+    button_name: "AddParty/Guests",
+  });
+}
+
+//Add Party Modal
+export async function submitPartyButtonPress() {
+  await analytics().logEvent("button_press", {
+    button_name: "SubmitParty/AddParty",
+  });
+}
+
+//Browse Page
+export async function inviteButtonPress() {
+  await analytics().logEvent("button_press", {
+    button_name: "Invite/Browse",
+  });
+}
+
+//Invited Page
+export async function confirmButtonPress() {
+  await analytics().logEvent("button_press", {
+    button_name: "Confirm/Invited",
   });
 }

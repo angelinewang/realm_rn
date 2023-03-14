@@ -10,7 +10,7 @@ import React, { useCallback } from 'react';
 import { useAuth } from "../../contexts/Auth";
 
 import { useFonts } from 'expo-font';
-import { loginScreenView } from "../../../analytics.native";
+import { loginScreenView, loginButtonPress, createAccountButtonPress } from "../../../analytics.native";
 // import * as Analytics from 'expo-firebase-analytics';
 // import firebase from "firebase/compat/app";
 import analytics from '@react-native-firebase/analytics'
@@ -63,46 +63,38 @@ const LoginScreen: React.FC = () => {
 
    
     useEffect(() => {
-        // const firebaseConfig = {
-        //     apiKey: "AIzaSyCPeGd248tZfLBG-KHUwWgdQbKvrtdBZCY",
-        //     authDomain: "realm-rn-dj.firebaseapp.com",
-        //     projectId: "realm-rn-dj",
-        //     storageBucket: "realm-rn-dj.appspot.com",
-        //     messagingSenderId: "169578510116",
-        //     appId: "1:169578510116:web:1d7524e1575689f68d25b1",
-        //     measurementId: "G-EKHS4QFRTR",
-        // };
-
-        // if (!firebase.apps.length) {
-        //     firebase.initializeApp(firebaseConfig);
-        // }
-
-        // pageView()
+        //Screen View analytics
         screenView()
-
-        //Firebase Analytics does not work on Expo Go 
-        //Must check if app is running on Expo Go, and then decide whether to call the native react native firebase analytics
+        
+        //Button Press analytics 
+        loginButton()
+        createAccountButton()
 
     }, [_email, _password])
 
     const screenView = async () => {
-        //Use this exact same syntax to send all the different screen views
-
-        // if (typeof window !== 'undefined') {
-            try {
-                await loginScreenView()
-            } catch (error) {
-                console.log(error)
-            }
-            
-        // }
+        try {
+            await loginScreenView()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    // const pageView = async () => {
-    //     await analytics().logEvent('screen_view', {
-    //         firebase_screen: "Login",
-    //     })
-    // }
+    const loginButton = async () => {
+        try {
+            await loginButtonPress()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const createAccountButton = async () => {
+        try {
+            await createAccountButtonPress()
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const navigation = useNavigation<LoginScreenNavigationProp>();
 
