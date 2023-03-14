@@ -151,11 +151,11 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
                 <View style={styles.Body}className="modal-body">
                     <View style={styles.inputBoxShadow}>
                         <TextInput
-                        placeholder="Address"
-                        placeholderTextColor="#D1D1DB"
-                        textColor="#1B1B22"
-                        style={styles.placeholderTextStyle}
-                        onChangeText={newFlat => setFlat(newFlat)}
+                            placeholder="Address"
+                            placeholderTextColor="#D1D1DB"
+                            textColor="#1B1B22"
+                            style={styles.placeholderTextStyle}
+                            onChangeText={newFlat => setFlat(newFlat)}
                         />
                     </View>
 
@@ -197,13 +197,6 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
 }
 
 const styles = StyleSheet.create({
-    dateTimeText: {
-        fontWeight: 'bold',
-        fontStyle: 'normal',
-        color: '#1B1B22',
-        fontSize: 18,
-        fontFamily: 'Mulish-Regular',
-    },
     radioButtons: {
         alignItems: 'center'
     },
@@ -373,6 +366,13 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         display: 'flex',
         justifyContent: 'center'
+    },
+    dateTimeText: {
+        fontWeight: 'bold',
+        fontStyle: 'normal',
+        color: '#1B1B22',
+        fontSize: 18,
+        fontFamily: 'Mulish-Regular',
     },
     Body: {
         display: 'flex',

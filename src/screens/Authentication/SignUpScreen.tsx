@@ -320,14 +320,19 @@ const promiseStep2 = async () => {
                         </View>
 
                         {/* Birthdate Picker */}
-                        <Text style={styles.inputBox}>
-                            {/* Set birthdate field to empty string if there is none selected */}
-                            {isSelectedDate ? selectedDate.toLocaleDateString() : ''}
-                        </Text>
-                        <Button title="Select Birthdate" onPress={showDatePicker} />
+
+                        <View style={styles.dateTimeBoxShadow}>
+                            <Pressable onPress={showDatePicker} style={styles.dateTimeTextStyle}>
+
+                                {
+                                    isSelectedDate ? <Text style={styles.dateTimeText}>{selectedDate.toLocaleDateString()}</Text> : <Text style={{color: '#D1D1DB', fontSize: 18, fontFamily: 'Mulish-Regular'}}>Birthdate</Text>
+                                }
+
+                            </Pressable>
+                        </View>
+
                         <DateTimePickerModal
                             date={selectedDate}
-                            // value={new Date()}
                             isVisible={isDatePickerVisible}
                             mode="date"
                             onConfirm={handleConfirm}
@@ -356,6 +361,48 @@ const promiseStep2 = async () => {
 };
 
 const styles = StyleSheet.create({
+        //DateTime Input Styling
+    dateTimeBoxShadow: {
+        width: 318,
+        height: 63,
+        borderRadius: 20,
+        shadowColor: '#F7F7F8',
+        shadowOffset: {width: -8, height: -8},
+        shadowOpacity: 1,
+        shadowRadius: 24,
+        display: 'flex',
+    },
+    dateTimeTextStyle: {
+        textAlign: "left",
+        width: 318,
+        height: 63,
+        borderRadius: 20,
+        color: '#1B1B22',
+        backgroundColor: '#ffffff',
+
+        fontWeight: 'bold',
+        fontStyle: 'normal',
+        fontColor: '#1B1B22',
+        fontSize: 18,
+        fontFamily: 'Mulish-Regular',
+
+        shadowColor: '#EAEAEAB2',
+        shadowOffset: {width: 8, height: 8},
+        shadowOpacity: 0.7,
+        shadowRadius: 24,
+        
+        paddingLeft: 15,
+        alignSelf: 'center',
+        display: 'flex',
+        justifyContent: 'center'
+    },
+    dateTimeText: {
+        fontWeight: 'bold',
+        fontStyle: 'normal',
+        color: '#1B1B22',
+        fontSize: 18,
+        fontFamily: 'Mulish-Regular',
+    },
       fixToText: {
             flexDirection: 'row'
         },
