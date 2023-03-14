@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import Modal from 'react-native-modal'
 import { Formik } from 'formik';
 //Old datetime picker that could not send any datetime other than the current 
@@ -6,7 +6,7 @@ import { Formik } from 'formik';
 //import  DateTimePicker from '@react-native-community/datetimepicker';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { useAuth } from "../contexts/Auth";
-import {partyService} from '../services/partyService';
+import { partyService } from '../services/partyService';
 import {Button, StyleSheet, View, Text, Pressable, TextInput} from 'react-native';
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -44,6 +44,9 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
         setDatePickerVisibility(false);
     }
     const handleConfirm = (date: any) => {
+
+    console.log(selectedDate)
+
      setSelectedDate(date)  
      setDateTime(date)
      setIsSelectedDate(true) 
@@ -134,7 +137,7 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
         <Formik initialValues={{flat: '', dateTime: "", vibe: ''}} onSubmit={handleSubmit}>
             <View style={styles.modal}>
                 <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <Text style={{color: '#4abbff', width: '75%', alignSelf: 'flex-end', fontFamily: 'Mulish-Bold', textAlign: 'right'}}>
+                    <Text style={{color: '#4abbff', width: '75%', alignSelf: 'flex-end', fontFamily: 'Mulish-Bold', textAlign: 'right', fontSize: 14}}>
                         Only invited guests will see this
                     </Text>
 
@@ -156,16 +159,16 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
                         />
                     </View>
 
-                    <View style={styles.inputBoxShadow}>
-                        <View style={styles.placeholderTextStyle}>
-                            <Text style={styles.dateTimeText}>
-                                {/* Set datetime to empty string if there is no datetime selected */}
-                                {isSelectedDate ? selectedDate.toLocaleDateString() : ''}
-                            </Text>
-                        </View>
+                    <View style={styles.dateTimeBoxShadow}>
+                        <Pressable onPress={showDatePicker} style={styles.dateTimeTextStyle}>
+                     
+                            {
+                                isSelectedDate ? <Text style={styles.dateTimeText}>{selectedDate.toLocaleDateString()} {selectedDate.toLocaleTimeString().slice(0,5)}</Text> : <Text style={{color: '#D1D1DB', fontSize: 18, fontFamily: 'Mulish-Regular'}}>Date & Time</Text>
+                            }
+                          
+                        </Pressable>
                     </View>
-                    
-                    <Button title="Select Date/Time" onPress={showDatePicker} />
+
                     <DateTimePickerModal
                         date={selectedDate}
                         isVisible={isDatePickerVisible}
@@ -182,7 +185,9 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
 
                 <View className="modal-footer">
                     <Pressable style={styles.sendInvites} onPress={handleSubmit}>
-                        <Text style={styles.sendInvitesText}>Send Invites</Text>
+                        <Text style={styles.sendInvitesText}>Add Party</Text>
+                        {/* If user does not have a party tied to their account,
+                        TODO: Ensure that Alert pops up when they press INVITE Button */}
                     </Pressable>
                 </View>
             </View>
@@ -317,10 +322,11 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.7,
         shadowRadius: 24,
         
-        padding: 15
+        padding: 15,
+        alignSelf: 'center'
    
     },
-     inputBoxShadow: {
+    inputBoxShadow: {
         width: 318,
         height: 63,
         borderRadius: 20,
@@ -328,7 +334,45 @@ const styles = StyleSheet.create({
         shadowOffset: {width: -8, height: -8},
         shadowOpacity: 1,
         shadowRadius: 24,
-        alignItems: 'center'
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+    },
+
+    //DateTime Input Styling
+    dateTimeBoxShadow: {
+        width: 318,
+        height: 63,
+        borderRadius: 20,
+        shadowColor: '#F7F7F8',
+        shadowOffset: {width: -8, height: -8},
+        shadowOpacity: 1,
+        shadowRadius: 24,
+        display: 'flex',
+    },
+    dateTimeTextStyle: {
+        textAlign: "left",
+        width: 273,
+        height: 63,
+        borderRadius: 20,
+        color: '#1B1B22',
+        backgroundColor: '#ffffff',
+
+        fontWeight: 'bold',
+        fontStyle: 'normal',
+        fontColor: '#1B1B22',
+        fontSize: 18,
+        fontFamily: 'Mulish-Regular',
+
+        shadowColor: '#EAEAEAB2',
+        shadowOffset: {width: 8, height: 8},
+        shadowOpacity: 0.7,
+        shadowRadius: 24,
+        
+        paddingLeft: 15,
+        alignSelf: 'center',
+        display: 'flex',
+        justifyContent: 'center'
     },
     Body: {
         display: 'flex',
