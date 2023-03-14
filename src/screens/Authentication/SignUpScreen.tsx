@@ -258,18 +258,27 @@ const promiseStep2 = async () => {
 
     return (
         <ScrollView style={styles.screenBackground}>
+
+            {/* Set the height of the whole form to the size of the screen, 
+            depending on the size of the screen use space-around 
+            to determine space between all the fields */}
+
             <SafeAreaView style={styles.keyboardAvoidBackground}>
+
+            {/* FIRST ELEMENT */}
                 <View style={styles.loginSentence}>
                     <Text style={styles.staticLogin}>Already have an account? </Text>
                     <Pressable onPress={() => 
                         
-                        {
-                            backToLoginButton()
-                            navigation.navigate('Login')}
-                        }><Text style={styles.dynamicLogin}>Log In</Text></Pressable>
+                        { backToLoginButton()
+                            
+                        navigation.navigate('Login') }
+                        }>
+                        <Text style={styles.dynamicLogin}>Log In</Text>
+                    </Pressable>
                 </View>
                 
-                <Formik style={styles.allContainer} initialValues={{_email: '', _password: '', _department: '', _name: "", _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
+                <Formik initialValues={{_email: '', _password: '', _department: '', _name: "", _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
                     <View style={styles.allBox}>
                         <Pressable onPress={pickImage}>
                             {
@@ -449,19 +458,20 @@ const styles = StyleSheet.create({
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'flex-start',
+        // justifyContent: 'space-around',
+        alignItems: 'center',
         padding: 0,
         margin: 0
     },
-    allContainer: {
-        height: '75%',
-    },
-        allBox: {
+    // allContainer: {
+    //     height: '100%',
+    // },
+    allBox: {
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'space-between'       
+            justifyContent: 'space-around'     
         },
         screenBackground: {
             backgroundColor: '#FFFFFF',

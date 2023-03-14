@@ -1,7 +1,7 @@
 {
   "name": "Realm",
   "proxy": "https://realm-dj-34ezrkuhla-ew.a.run.app",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "sdkVersion": "47.0.0",
   "scripts": {
     "start": "expo start --dev-client",
