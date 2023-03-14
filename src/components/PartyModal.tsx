@@ -78,6 +78,9 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
         //authUserId set through setUserId from state which is passed to BrowseScreen and set when the UserId is set there
         console.log(authUserId)
         
+        //Button Press Analytics
+        submitPartyButton()
+        
         try {
             let response = await partyService.createParty(setIsModalVisible, authUserId, _flat, _dateTime, _vibe)
             setApiResponse(response)
@@ -95,8 +98,8 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
     useEffect(() => {
         //Screen View Analytics 
         screenView()
-        //Button Press Analytics
-        submitPartyButton()
+
+        //Move all button press analytics within the same function as invoking the API
 
     }, [_flat, _dateTime, _vibe, loading, authUserId, isModalVisible])
 

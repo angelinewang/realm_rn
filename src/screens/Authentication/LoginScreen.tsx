@@ -55,6 +55,7 @@ const LoginScreen: React.FC = () => {
     const {signIn} = useAuth()
 
     const logIn = async () => {
+        loginButton()
         await signIn(_email, _password)
     }
 
@@ -67,8 +68,6 @@ const LoginScreen: React.FC = () => {
         screenView()
         
         //Button Press analytics 
-        loginButton()
-        createAccountButton()
 
     }, [_email, _password])
 
@@ -157,7 +156,12 @@ const LoginScreen: React.FC = () => {
                                             </Pressable>
                             
                                             <Pressable 
-                                                onPress={() => navigation.navigate('SignUp')} 
+                                                onPress={() => 
+                                                    {
+                                                               createAccountButton()
+                                                               navigation.navigate('SignUp')
+                                                    }
+                                                    } 
                                                 style={styles.createAccountButton}
                                             >
                                                 <Text style={styles.createAccountButtonText}>Create Account</Text>

@@ -4,6 +4,8 @@ import HostCard from "./HostCard";
 import Loading from "../Loading";
 import ConfirmSVG from '../../assets/images/confirm.svg'
 
+import { confirmButtonPress } from "../../../analytics.native";
+
 //MODE: Guest
 //TAB: Parties
 const InvitePartyCard = ({item}) => {
@@ -81,6 +83,8 @@ const InvitePartyCard = ({item}) => {
   //&& changes the status of the invite to 1 from 0 
   //Invite Id received in backend through body of POST request fields
   const confirmAttend = async () => {
+      //Button Press Analytics
+      confirmButton()
     try {
       console.log("INVITE CONFIRMED:")
       console.log(invite.id)
@@ -114,6 +118,15 @@ const InvitePartyCard = ({item}) => {
       console.error
     }
   }
+
+    const confirmButton = async () => {
+      try {
+          await confirmButtonPress()
+      } catch (error) {
+          console.log(error)
+      }
+    }
+
 
   return (
     party ? (

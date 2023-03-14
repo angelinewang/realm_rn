@@ -4,6 +4,7 @@ import Loading from "../Loading";
 //Added config to metro.config.js and declarations.d.ts to allow for direct import of SVGs
 import InviteSVG from '../../assets/images/invite.svg'
 //Card used to display each individual Guest Profile on the Browse and Guestlist Screens
+import { inviteButtonPress } from "../../../analytics.native";
 
 const BrowseCard = ({item, authUserId, userRole, setIsModalVisible, setCreateInvite}) => {
 //Called on User
@@ -145,7 +146,16 @@ const getParty = async (authUserId) => {
   }
 }
 
+    const inviteButton = async () => {
+      try {
+        await inviteButtonPress()
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
 const sendInvite = async (partyId, guestId) => {
+           inviteButton()
   try {
     console.log("PARTY ID of LATEST PARTY:")
     console.log(partyId)

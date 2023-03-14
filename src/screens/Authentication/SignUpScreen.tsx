@@ -105,8 +105,6 @@ const SignUpScreen = () => {
         screenView()
 
         //Button Press Analytics 
-        submitAccountButton()
-        backToLoginButton()
 
     }, [_email, _password, _name, _department, _gender, _birthdate, initialImage])
 
@@ -227,6 +225,7 @@ const promiseStep2 = async () => {
     //, with profile photo sent with downloadURL instead of image state
     const signUpAndLogIn = async () => {
         await uploadImageAsync() 
+        submitAccountButton()
     }
 
     const logIn = async () => {
@@ -262,7 +261,12 @@ const promiseStep2 = async () => {
             <SafeAreaView style={styles.keyboardAvoidBackground}>
                 <View style={styles.loginSentence}>
                     <Text style={styles.staticLogin}>Already have an account? </Text>
-                    <Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.dynamicLogin}>Log In</Text></Pressable>
+                    <Pressable onPress={() => 
+                        
+                        {
+                            backToLoginButton()
+                            navigation.navigate('Login')}
+                        }><Text style={styles.dynamicLogin}>Log In</Text></Pressable>
                 </View>
                 
                 <Formik style={styles.allContainer} initialValues={{_email: '', _password: '', _department: '', _name: "", _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>

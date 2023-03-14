@@ -3,11 +3,12 @@ import React from 'react';
 
 import ProfileCard from '../../components/Card/ProfileCard';
 import Loading from '../../components/Loading';
+import SettingsSVG from '../../assets/images/settings.svg'
 
-import {useAuth} from '../../contexts/Auth'
+import { useAuth } from '../../contexts/Auth'
 import { useIsFocused } from '@react-navigation/native';
 
-import { profileScreenView, loginButtonPress, deleteAccountButtonPress } from '../../../analytics.native';
+import { profileScreenView, loginButtonPress } from '../../../analytics.native';
 
 const ViewScreen = () => {
   //Grab Auth User Id from AuthContext
@@ -34,10 +35,6 @@ const ViewScreen = () => {
     //Screen View Analytics
     screenView()
 
-    //Button Press Analytics
-    logOutButton()
-    deleteAccountButton()
-
   }, [loading, authUserId, isFocused])
   
   const screenView = async () => {
@@ -56,13 +53,7 @@ const ViewScreen = () => {
     }
   }
 
-  const deleteAccountButton = async () => {
-    try {
-        await deleteAccountButtonPress()
-    } catch (error) {
-        console.log(error)
-    }
-  }
+
 
 
 // const signOut = async () => {
@@ -77,6 +68,9 @@ const ViewScreen = () => {
   const {signOut} = useAuth()
 
   const logOut = async () => {
+    //Button Press Analytics
+    logOutButton()
+    
     try {
       await signOut()
     } catch(error) {
@@ -88,22 +82,7 @@ const ViewScreen = () => {
     // Return to Log In screen
     // const navigation = useNavigation<SignUpScreenNavigationProp>();
 
-  const deleteAccount = async () => {
-    try {
-      console.log("Reached deleteAccount!");
-      let response = await fetch(
-        `https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/delete/${authUserId}`,
-        {
-          method: "DELETE"
-        }
-      );
-    } catch (error) {
-      console.error(error);
-    }
-    Alert.alert(
-          `Account Deleted! Sign Out to go back to Log In screen`
-    );
-  }
+
 
     // Must pass UserId/Arguments into async
   const getUser = async (authUserId) => {
@@ -129,7 +108,14 @@ return (
       <View style={{ flex: 1, paddingTop: 12, paddingHorizontal: 10 }}>
       <ProfileCard user={user}/>
       <Button title="Log Out" onPress={logOut}/>
-      <Button title="Delete Account" onPress={deleteAccount}/>
+      {/* Add Gear Icon for Delete Account
+      1. Find SVG from Figma and Add to Assets
+      2. Add SVG here
+      3. Add functionality to lead to Delete Account pop-up modal
+      4. Add button to delete account on popup modal */}
+      <Pressable >
+        <SettingsSVG height={25} width={25} fill='#D1D1DB'/>
+      </Pressable>
       </View>)
       : <Loading/>) : null
   }

@@ -8,7 +8,7 @@ import Loading from '../../components/Loading';
 
 import {roleService} from '../../services/roleService';
 
-import { browseScreenView, inviteButtonPress } from '../../../analytics.native';
+import { browseScreenView } from '../../../analytics.native';
 
 
 const BrowseScreen = ({isModalVisible, setIsModalVisible}) => {
@@ -64,7 +64,6 @@ const BrowseScreen = ({isModalVisible, setIsModalVisible}) => {
       screenView()
 
       //Button Press Analytics
-      inviteButton()
 
       // Adding "guests" to the below parameters caused infinite rerender and infinite server calls
   }, [loading, authUserId, userRole, isFocused, isModalVisible, createInvite]
@@ -78,13 +77,6 @@ const BrowseScreen = ({isModalVisible, setIsModalVisible}) => {
       }
     }
 
-    const inviteButton = async () => {
-      try {
-        await inviteButtonPress()
-      } catch (error) {
-        console.log(error)
-      }
-    }
 
   const getGuestsGuestMode = async (authUserId) => {
     try {

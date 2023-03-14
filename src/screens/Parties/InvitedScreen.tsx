@@ -6,7 +6,7 @@ import InvitePartyCard from '../../components/Card/InvitePartyCard';
 import Loading from '../../components/Loading';
 import { useAuth } from '../../contexts/Auth';
 
-import { invitedScreenView, confirmButtonPress } from '../../../analytics.native';
+import { invitedScreenView } from '../../../analytics.native';
 
 const InvitedScreen = () => {  
   //Grab User Id from Auth Context
@@ -31,22 +31,11 @@ const InvitedScreen = () => {
 
       //Screen View Analytics
       screenView()
-
-      //Button Press Analytics
-      confirmButton()
   }, [loading, authUserId, isFocused])
 
     const screenView = async () => {
       try {
           await invitedScreenView()
-      } catch (error) {
-          console.log(error)
-      }
-    }
-
-    const confirmButton = async () => {
-      try {
-          await confirmButtonPress()
       } catch (error) {
           console.log(error)
       }
