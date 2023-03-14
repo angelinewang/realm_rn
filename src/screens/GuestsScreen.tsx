@@ -9,6 +9,8 @@ import Loading from "../components/Loading";
 import { useAuth } from "../contexts/Auth";
 import PartyModal from "../components/PartyModal";
 
+import { addPartyButtonPress } from "../../analytics.native";
+
 const Tab = createMaterialTopTabNavigator();
 // isModalVisible, setIsModalVisible, handleModal
 
@@ -26,7 +28,20 @@ const GuestsScreen: React.FC = ({navigation}) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     // const {authData} = useAuth()
 
-    const handleModal = () => setIsModalVisible(() => !isModalVisible);
+    const handleModal = () => {
+        setIsModalVisible(() => !isModalVisible);
+
+        //Button Press Analytics
+        addPartyButton()
+    }
+
+    const addPartyButton = async () => {
+        try {
+            await addPartyButtonPress()
+        } catch (error) {
+            console.log(error)
+        }
+    }
     
     useEffect(() => {
         getUserRole(authUserId, setUserRole, passedLastEntry, setPassedLastEntry)
