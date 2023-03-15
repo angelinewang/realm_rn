@@ -132,6 +132,7 @@ const LoginScreen: React.FC = () => {
                                                     onChangeText={onEmailChange}
                                                     placeholder="KCL Email"
                                                     keyboardType="default"
+                                                    placeholderTextColor="#D1D1DB"
                                                 />
                                             </View>
                                             <View style={styles.inputBoxShadow}>
@@ -140,6 +141,7 @@ const LoginScreen: React.FC = () => {
                                                     onChangeText={onPasswordChange}
                                                     placeholder="Password"
                                                     keyboardType="default"
+                                                    placeholderTextColor="#D1D1DB"
                                                 />
                                             </View>
                                         </View>
@@ -193,7 +195,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'center'
     },
     urlText: {
         fontFamily: 'Plus-Jakarta-Sans-Regular',
@@ -211,7 +213,7 @@ const styles = StyleSheet.create({
     },
     viewContainer: {
         height: 518,
-        marginTop: 80
+        // marginTop: 80
     },
     viewBox: {
         height: '100%',
@@ -223,6 +225,9 @@ const styles = StyleSheet.create({
     screenBackground: {
         backgroundColor: '#FFFFFF',
         height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
     },  
     allContainer: {
         height: 326
