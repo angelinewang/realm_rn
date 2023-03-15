@@ -297,6 +297,7 @@ const promiseStep2 = async () => {
                                 style={styles.inputBox}
                                 keyboardType={"email-address"}
                                 placeholder="KCL Email"
+                                placeholderTextColor="#D1D1DB"
                             />
                         </View>
                         
@@ -306,13 +307,16 @@ const promiseStep2 = async () => {
                                 style={styles.inputBox}
                                 keyboardType="default"
                                 placeholder="Password"
+                                placeholderTextColor="#D1D1DB"
                             />
                         </View>
 
                         {/* Department Select From List Entry */}
-                        <View style={styles.department}>
-                            <Text style={styles.labelText}>Department</Text>
-                            <RNPickerSelect onValueChange={onDepartmentChange} items={[{label: 'Arts/Humanities', value: 1}, {label: 'Business', value: 2}, {label: 'Dentistry', value: 3}, {label: 'Engineering', value: 4}, {label: 'Law', value: 5}, {label: 'Medic/Life Sciences', value: 6}, {label: 'Natural Sciences', value: 7}, {label: 'Nursing', value: 8}, {label: 'Pysch/Neuroscience', value: 9}, {label: 'Social Science', value: 10}]} />
+                        <View style={styles.inputBoxShadow}>
+                            <View style={styles.dateTimeTextStyle}>
+                            {/* <Text style={styles.labelText}>Department</Text> */}
+                            <RNPickerSelect placeholder={{label: "Department", value: null}} style={{inputIOS: styles.dateTimeText, inputAndroid: styles.dateTimeText}} onValueChange={onDepartmentChange} items={[{label: 'Arts/Humanities', value: 1}, {label: 'Business', value: 2}, {label: 'Dentistry', value: 3}, {label: 'Engineering', value: 4}, {label: 'Law', value: 5}, {label: 'Medic/Life Sciences', value: 6}, {label: 'Natural Sciences', value: 7}, {label: 'Nursing', value: 8}, {label: 'Pysch/Neuroscience', value: 9}, {label: 'Social Science', value: 10}]} />
+                            </View>
                         </View>
                         
                         <View style={styles.inputBoxShadow}>
@@ -321,13 +325,15 @@ const promiseStep2 = async () => {
                                 onChangeText={onNameChange}
                                 keyboardType="default"
                                 placeholder="Name"
+                                placeholderTextColor="#D1D1DB"
                             />
                         </View>
 
                         {/* Gender Select From List Entry */}
-                        <View style={styles.gender}>
-                            <Text style={styles.labelText}>Gender</Text>
-                            <RNPickerSelect onValueChange={onGenderChange} items={[{label: 'Male', value: 1}, {label: 'Female', value: 2}, {label: 'Other', value: 3}]} />
+                        <View style={styles.inputBoxShadow}>
+                            <View style={styles.dateTimeTextStyle}>
+                            <RNPickerSelect style={{inputIOS: styles.dateTimeText, inputAndroid: styles.dateTimeText}} placeholder={{label: "Gender", value: null}} onValueChange={onGenderChange} items={[{label: 'Male', value: 1}, {label: 'Female', value: 2}, {label: 'Other', value: 3}]} />
+                            </View>
                         </View>
 
                         {/* Birthdate Picker */}
