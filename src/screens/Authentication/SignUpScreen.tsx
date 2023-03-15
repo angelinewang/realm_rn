@@ -257,29 +257,31 @@ const promiseStep2 = async () => {
     }
 
     return (
-        <ScrollView style={styles.screenBackground}>
+        // <ScrollView>
 
-            {/* Set the height of the whole form to the size of the screen, 
-            depending on the size of the screen use space-around 
-            to determine space between all the fields */}
+            // {/* Set the height of the whole form to the size of the screen, 
+            // depending on the size of the screen use space-around 
+            // to determine space between all the fields */}
 
-            <SafeAreaView style={styles.keyboardAvoidBackground}>
-
+            // <SafeAreaView>
+            
+            <Formik initialValues={{_email: '', _password: '', _department: '', _name: "", _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
+                {/* Formik requires a single React element as child */}
+                
+                <ScrollView vertical={true} horizontal={false} contentContainerStyle={styles.allBox}>
             {/* FIRST ELEMENT */}
                 <View style={styles.loginSentence}>
                     <Text style={styles.staticLogin}>Already have an account? </Text>
                     <Pressable onPress={() => 
-                        
                         { backToLoginButton()
-                            
                         navigation.navigate('Login') }
                         }>
                         <Text style={styles.dynamicLogin}>Log In</Text>
                     </Pressable>
                 </View>
                 
-                <Formik initialValues={{_email: '', _password: '', _department: '', _name: "", _gender: '', _birthdate: ''}} onSubmit={signUpAndLogIn}>
-                    <View style={styles.allBox}>
+
+                    
                         <Pressable onPress={pickImage}>
                             {
                                 initialImage && <Image source={{uri: initialImage}} style={{width: 200, height: 200}}/> 
@@ -338,15 +340,15 @@ const promiseStep2 = async () => {
                                 }
 
                             </Pressable>
+                    
+                            <DateTimePickerModal
+                                date={selectedDate}
+                                isVisible={isDatePickerVisible}
+                                mode="date"
+                                onConfirm={handleConfirm}
+                                onCancel={hideDatePicker}
+                            />
                         </View>
-
-                        <DateTimePickerModal
-                            date={selectedDate}
-                            isVisible={isDatePickerVisible}
-                            mode="date"
-                            onConfirm={handleConfirm}
-                            onCancel={hideDatePicker}
-                        />
 
                         <Pressable 
                             style={styles.createAccountButton}
@@ -355,17 +357,17 @@ const promiseStep2 = async () => {
                             <Text style={styles.createAccountButtonText}>Create Account</Text>
                         </Pressable>
 
-                    </View>
-                </Formik>
-
-                <View style={styles.urlsContainer}>
+                {/* <View style={styles.urlsContainer}> */}
                     <View style={styles.urlsBox}>
                         <OpenURLButton url={termsAndConditions}><Text style={styles.urlText}>Terms & Conditions</Text></OpenURLButton>
                         <OpenURLButton url={privacyPolicy}><Text style={styles.urlText}>Privacy Policy</Text></OpenURLButton>
                     </View>
-                </View>
-            </SafeAreaView>
-        </ScrollView>
+                {/* </View> */}
+
+                      </ScrollView>
+                </Formik>
+            // </SafeAreaView>
+        // </ScrollView>
     );
 };
 
@@ -467,11 +469,12 @@ const styles = StyleSheet.create({
     //     height: '100%',
     // },
     allBox: {
-            height: '100%',
+            height: 750,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'space-around'     
+            justifyContent: 'space-around',
+
         },
         screenBackground: {
             backgroundColor: '#FFFFFF',
