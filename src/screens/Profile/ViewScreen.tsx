@@ -118,7 +118,7 @@ return (
       //Height must go inside contentContainerStyle
         //Otherwise will not scroll to the full height 
       //Other styles must go inside style
-      <ScrollView style={{ flex: 1, paddingTop: 12, paddingHorizontal: 10, display: 'flex', flexDirection: 'column' }} contentContainerStyle={{height: 700, justifyContent: 'space-between'}}>
+      <ScrollView style={{ paddingTop: 12, paddingHorizontal: 10, display: 'flex', flexDirection: 'column' }} contentContainerStyle={{height: 700, justifyContent: 'space-between'}}>
       <View style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
       <ProfileCard user={user}/>
       <Pressable onPress={logOut} style={{backgroundColor: '#D1D1DB', width: 318, height: 63, borderRadius: 20, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', marginTop: 25}}>
