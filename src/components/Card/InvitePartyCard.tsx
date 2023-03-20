@@ -18,6 +18,7 @@ const InvitePartyCard = ({item}) => {
   const [firstEntryDate, setFirstEntryDate] = React.useState('')
   const [firstEntryTime, setFirstEntryTime] = React.useState('')
 
+  const [address, setAddress] = React.useState()
   //On load of component get the party information using the invite state set to the item
   //Using the Party ID attached to the invite state
   React.useEffect( () => {
@@ -54,8 +55,12 @@ const InvitePartyCard = ({item}) => {
         //and the first entry time of the party
         setFirstEntryDate(partyDate)
         setFirstEntryTime(partyTime)
+
+        setAddress(party?.flat)
+
+        console.log(`Flat: ${party?.flat}`)
       }
-    }, [item, host, vibe, firstEntryDate, firstEntryTime]
+    }, [item, host, vibe, firstEntryDate, firstEntryTime, address]
   )
   
   //Call API to get the party information based on the party id attached to the invite state
@@ -143,12 +148,16 @@ const InvitePartyCard = ({item}) => {
             
             <View style={{ flex: 1, flexDirection: 'column'}}>
               <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
-                <Text style={{ fontSize: 18, color: 'white', fontWeight: 'bold'}}>
+                <Text style={{ fontSize: 24, color: 'white', fontWeight: 'bold'}}>
+                {party.flat ? `${address}` : "No Address"}
+                </Text>
+
+                <Text style={{ fontSize: 16, color: 'white', fontWeight: 'bold'}}>
                 {/* Datetime received from backend in JSON format, and then converted into human readable format to be displayed */}
                 {party.first_entry ? `${firstEntryDate} ${firstEntryTime}` : "No First Entry"}
                 </Text>
 
-                <Text style={{ fontSize: 18, color: 'white'}}>
+                <Text style={{ fontSize: 16, color: 'white'}}>
                 {party.vibe ? `${vibe} ` : "No Vibe "}
                 {/* Convert Deparment NUM to STRING */}
                 {/* Below plus_ones set to a custom input field */}

@@ -14,6 +14,8 @@ const ConfirmPartyCard = ({item}) => {
   const [firstEntryDate, setFirstEntryDate] = React.useState('')
   const [firstEntryTime, setFirstEntryTime] = React.useState('')
 
+  const [address, setAddress] = React.useState()
+
   React.useEffect(
   () => {
     //On load of component, get the Party state with item containing the invite information with the associated party_id
@@ -50,8 +52,12 @@ const ConfirmPartyCard = ({item}) => {
     //Set states for the first entry date of the party and the first entry time of the party
     setFirstEntryDate(partyDate)
     setFirstEntryTime(partyTime)
+
+    setAddress(party?.flat)
+
+    console.log(`Flat: ${party?.flat}`)
     }
-  }, [item, host, vibe, firstEntryDate, firstEntryTime]
+  }, [item, host, vibe, firstEntryDate, firstEntryTime, address]
 )
 
 const getParty = async (invite) => {
@@ -82,17 +88,21 @@ return (
 
         {/* Party Information */}
         <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
-          <Text style={{ fontSize: 28, color: 'white', fontWeight: 'bold'}}>
+          <Text style={{ fontSize: 24, color: 'white', fontWeight: 'bold'}}>
+           {party.flat ? `${address}` : "No Address"}
+          </Text>
+         
+          <Text style={{ fontSize: 16, color: 'white'}}>
           {party.first_entry ? `${firstEntryDate} ${firstEntryTime}` : "No First Entry"}
           </Text>
-
-          <Text style={{ fontSize: 18, color: 'white'}}>
-          {party.vibe ? `${vibe} ` : "No Vibe "}
+          <Text style={{ fontSize: 16, color: 'white'}}>
+          {party.vibe ? `${vibe} ` : "No Vibe"}
           {/* Convert Deparment NUM to STRING */}
           {/* Below is the user's plus-ones submission upon confirming*/}
           {/* Plus-ones temporarily disabled since it is not possible to send plus-ones with invite acceptance yet */}
           {/* {invite.plus_ones ? item.plus_ones: "No Plus-ones"} */}
           </Text>
+
         </View>
 
       </View>
