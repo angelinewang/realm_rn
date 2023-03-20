@@ -89,11 +89,11 @@ return (
         {/* Party Information */}
         <View style={{flex: 1, padding: 30, height: "10%", justifyContent: "flex-end"}}>
           <Text style={{ fontSize: 24, color: 'white', fontWeight: 'bold'}}>
-           {party.flat ? `${address}` : "No Address"}
+          {party.first_entry ? `${firstEntryDate} ${firstEntryTime}` : "No First Entry"}
           </Text>
          
-          <Text style={{ fontSize: 16, color: 'white'}}>
-          {party.first_entry ? `${firstEntryDate} ${firstEntryTime}` : "No First Entry"}
+          <Text style={{ fontSize: 16, color: 'white', fontWeight: 'bold'}}>
+          {party.flat ? `${address}` : "No Address"}
           </Text>
           <Text style={{ fontSize: 16, color: 'white'}}>
           {party.vibe ? `${vibe} ` : "No Vibe"}
