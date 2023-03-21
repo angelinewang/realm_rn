@@ -12,20 +12,7 @@ const HostCard = ({item, host, setHost}) => {
     () => {
       getHost(item)
 
-      // Including age and department in the useEffect ensures that evaluated values are updated onto screen
-    }, [item, age, department]
-  )
-
-  //Call API to get the host information and set to the host state
-  const getHost = async (item) => {
-    try {
-      let response = await fetch(`https://realm-dj-34ezrkuhla-ew.a.run.app/api/invite/v1/parties/host/${item}/`);
-      let json = await response.json();
-      setHost(json)
-
-      console.log(json)
-
-      //Convert birthdate to age
+       //Convert birthdate to age
       const date = host?.birthdate?.slice(0, 10);
       const dob = new Date(date);
       const month_diff = Date.now() - dob.getTime()
@@ -73,6 +60,19 @@ const HostCard = ({item, host, setHost}) => {
             break;
         }
       }
+
+      // Including age and department in the useEffect ensures that evaluated values are updated onto screen
+    }, [item, age, department]
+  )
+
+  //Call API to get the host information and set to the host state
+  const getHost = async (item) => {
+    try {
+      let response = await fetch(`https://realm-dj-34ezrkuhla-ew.a.run.app/api/invite/v1/parties/host/${item}/`);
+      let json = await response.json();
+      setHost(json)
+
+      console.log(json)
     } catch (error) {
       console.error(error);
     }

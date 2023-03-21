@@ -17,10 +17,26 @@ const GuestlistInvite = ({item}) => {
       setGuest(json)
       console.log(json)
 
-      //If guest state is set:
+      
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  //Each invite has a different guest, so for each invite, one inviteCard and one guestCard needs to be rendered
+  React.useEffect(() => {
+    getGuest(item)
+
+    //If guest state is set:
+    //Then set loading to false and remove loading screen
+    if (guest) {
+      setLoading(false)
+    }
+
+    //If guest state is set:
       //Convert birthdate into age 
       //&& Determine department of the guest based on the department integer
-      if (guest) {
+
         //Convert birthdate of the guest into age
         const date = guest?.birthdate?.slice(0, 10);
         const dob = new Date(date);
@@ -78,21 +94,7 @@ const GuestlistInvite = ({item}) => {
             setLoading(false)
             break;
         }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  //Each invite has a different guest, so for each invite, one inviteCard and one guestCard needs to be rendered
-  React.useEffect(() => {
-    getGuest(item)
-
-    //If guest state is set:
-    //Then set loading to false and remove loading screen
-    if (guest) {
-      setLoading(false)
-    }
+ 
   }, [loading, item, age, department, guest]
   )
 

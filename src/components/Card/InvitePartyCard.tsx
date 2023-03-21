@@ -24,7 +24,7 @@ const InvitePartyCard = ({item}) => {
   React.useEffect( () => {
       getParty()
       //Allocate the vibe of the party according to the associated integer
-      if (party) {
+      // if (party) {
         switch(party?.vibe) {
           case 0:
             setVibe('No Vibe')
@@ -59,7 +59,7 @@ const InvitePartyCard = ({item}) => {
         setAddress(party?.flat)
 
         console.log(`Flat: ${party?.flat}`)
-      }
+      // }
     }, [item, host, vibe, firstEntryDate, firstEntryTime, address]
   )
   
