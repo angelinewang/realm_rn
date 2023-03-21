@@ -155,17 +155,17 @@ const SignUpScreen = () => {
         console.log(_gender); 
     }
 
-
     const [uploaded, setUploaded] = React.useState(false);
     const [signup, setSignup] = React.useState(false)
 
     const uploadImageAsync = async () => {
-        await promiseStep1()
-        await promiseStep2()
+        
+        return await promiseStep1()
+        // await promiseStep2()
     }
 
     // const [reference, setReference] = React.useState(null);
-    const [bytes, setBytes] = React.useState(null);
+    const [finalBytes, setFinalBytes] = React.useState(null);
 
     const promiseStep1 = async () => {
         //Upload image to Firebase Storage
@@ -176,7 +176,6 @@ const SignUpScreen = () => {
         //, upload photo to Firebase Storage
         //, and then create variable with the URL of the uploaded photo
         try {
-
             console.log("Reached inside try block")
             // const storage = getStorage();
 
@@ -186,13 +185,30 @@ const SignUpScreen = () => {
             // setReference(reference)
         
             //await ensures that the function executes and finishes executing before moving onto the next line of code
+            console.log(`initial image: ${initialImage}`)
             const img = await fetch(initialImage)
             const bytes = await img.blob();
 
-            setBytes(bytes)
+            // setFinalBytes(bytes)
+
+            const storage = getStorage();
+
+            const filename = initialImage.substring(initialImage.lastIndexOf('/')+1);
+            const reference = ref(storage, filename);
+            const uploadPhoto = await uploadBytes(reference, bytes)
+
+            setUploaded(uploadPhoto)
+            
+            const downloadURL = await getDownloadURL(reference)
+
+            return downloadURL
+
+            // setSignup(signupStatus)
         } catch (e) {
             console.log(e);
-        } 
+        }  Alert.alert(
+        `Account created! Go back to Log In`
+    );
         //Alert created here so that it only appears after POST request has been sent to backend
     }
 
@@ -202,7 +218,7 @@ const promiseStep2 = async () => {
 
         const filename = initialImage.substring(initialImage.lastIndexOf('/')+1);
         const reference = ref(storage, filename);
-        const uploadPhoto = await uploadBytes(reference, bytes)
+        const uploadPhoto = await uploadBytes(reference, finalBytes)
 
         setUploaded(uploadPhoto)
         
@@ -210,7 +226,6 @@ const promiseStep2 = async () => {
 
         const signupStatus = await signUp(downloadURL, _email, _password, _department, _name, _gender, _birthdate)
 
-        setSignup(signupStatus)
     } catch (e) { 
         console.log(e) 
     } Alert.alert(
@@ -224,7 +239,9 @@ const promiseStep2 = async () => {
     //SOLUTION: Set downloadURL as const variable inside uploadImageAsync and moved signup function into uploadImageAsync
     //, with profile photo sent with downloadURL instead of image state
     const signUpAndLogIn = async () => {
-        await uploadImageAsync() 
+       const downloadURL = await promiseStep1()
+        const signupStatus = await signUp(downloadURL, _email, _password, _department, _name, _gender, _birthdate)
+        setSignup(signupStatus)
         submitAccountButton()
     }
 
