@@ -27,27 +27,8 @@ React.useEffect(() => {
     console.log("GUEST ID: (on BrowseCard)")
     console.log(guestId)
     getGuest(item)
-  
-    //Rerender page when the following states change
-  }, [item, loading, authUserId, userRole, age, department]
-)
 
-//GET request to get Guest information based on Guest ID passed through from Browse Screen
-//TO FIX: Do not need to GET guest information again, as it is already being passed through as "item"
-//Just pass item to the guest state instead of grabbing new information to set to the guest state
-const getGuest = async (item) => {
-  try {
-    //What's being passed through as "item" is already the user
-    //, so just call id on "item"
-    let response = await fetch(`https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/profile/${item.id}/`);
-    let json = await response.json();
-    setGuest(json)
-    console.log(json)
-
-    if (guest) {
-      setLoading(false)
-    
-      //Age Calculation
+  //Age Calculation
       const date = guest?.birthdate?.slice(0, 10);
       const dob = new Date(date);
       const month_diff = Date.now() - dob.getTime()
@@ -56,6 +37,8 @@ const getGuest = async (item) => {
       const finalAge = Math.abs(year - 1970)
       //Set Age state following calculation
       setAge(finalAge)
+
+
       
       // After receiving guest information, convert department integer into string
       switch(guest?.department) {
@@ -93,7 +76,29 @@ const getGuest = async (item) => {
           setDepartment('Social Sciences')
           break;
       }
-    }
+  
+    //Rerender page when the following states change
+  }, [item, loading, authUserId, userRole, age, department]
+)
+
+//GET request to get Guest information based on Guest ID passed through from Browse Screen
+//TO FIX: Do not need to GET guest information again, as it is already being passed through as "item"
+//Just pass item to the guest state instead of grabbing new information to set to the guest state
+const getGuest = async (item) => {
+  try {
+    //What's being passed through as "item" is already the user
+    //, so just call id on "item"
+    let response = await fetch(`https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/profile/${item.id}/`);
+    let json = await response.json();
+    setGuest(json)
+    console.log(json)
+
+    // if (age !== 0 && department !== "") {
+    //   setLoading(false)
+    // }
+      if (age !== 0) {
+        setLoading(false)
+      }
   } catch (error) {
       console.error(error);
   }
@@ -146,16 +151,16 @@ const getParty = async (authUserId) => {
   }
 }
 
-    const inviteButton = async () => {
-      try {
-        await inviteButtonPress()
-      } catch (error) {
-        console.log(error)
-      }
-    }
+const inviteButton = async () => {
+  try {
+    await inviteButtonPress()
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const sendInvite = async (partyId, guestId) => {
-           inviteButton()
+  inviteButton()
   try {
     console.log("PARTY ID of LATEST PARTY:")
     console.log(partyId)
@@ -195,7 +200,7 @@ const sendInvite = async (partyId, guestId) => {
   }
 
   return (
-    guest ? (
+    loading == false ? (
       <View style={{ display: 'flex', flexDirection: 'row',  marginTop: 20, marginHorizontal: 20, borderRadius: 20, height: 563}}>
         <ImageBackground style={{flex:1, justifyContent: 'center'}} imageStyle={{borderRadius: 20}} source={{uri: guest.profile_picture}}>
           {/* Adding an extra View allows the Card to retain original styling */}
@@ -209,7 +214,7 @@ const sendInvite = async (partyId, guestId) => {
                 </Text>
 
                 <Text style={{ fontSize: 18, color: 'white'}}>
-                  { guest.birthdate ? `${age} ` : "No Birthdate"}
+                  { age ? `${age} ` : "No Birthdate"}
                   {/* Convert Deparment NUM to STRING */}
                   { guest.department ? department : "No Department"}
                 </Text>
