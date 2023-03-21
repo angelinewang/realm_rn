@@ -12,7 +12,7 @@ const HostCard = ({item, host, setHost}) => {
     () => {
       getHost(item)
 
-       //Convert birthdate to age
+      //Convert birthdate to age
       const date = host?.birthdate?.slice(0, 10);
       const dob = new Date(date);
       const month_diff = Date.now() - dob.getTime()
@@ -87,7 +87,7 @@ const HostCard = ({item, host, setHost}) => {
       </Text>
 
       <Text style={{ fontSize: 18, color: 'white'}}>
-        { host.birthdate ? `${age} ` : "No Birthdate" }
+        { age ? `${age} ` : "No Birthdate" }
         {/* Convert Deparment NUM to STRING */}
         { host.department ? department: "No Department" }
         </Text>

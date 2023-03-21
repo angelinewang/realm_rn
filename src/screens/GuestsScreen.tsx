@@ -11,6 +11,7 @@ import { useAuth } from "../contexts/Auth";
 import PartyModal from "../components/PartyModal";
 
 import { addPartyButtonPress } from "../../analytics.native";
+import { Text } from "../../components/Themed";
 
 const Tab = createMaterialTopTabNavigator();
 // isModalVisible, setIsModalVisible, handleModal
@@ -54,23 +55,39 @@ const GuestsScreen: React.FC = ({navigation}) => {
             console.log("User Role on GuestsScreen:")
             console.log(userRole)
 
-            if (userRole == 0) {
-                navigation.setOptions({
-                    headerRight: () => (
-                        <Pressable onPress={handleModal} style={{width: 40, height: 40, marginRight: 20, marginBottom: 20}}>
-                            <AddPartySVG height={40} width={40}/>
-                        </Pressable>
-                    )
-                })
-                setLoadingComplete(true)
-                console.log(userRole)
-            }
+            //AddParty Modal always there 
+            //If userRole is already host, just display the existing party information 
 
-            else if (userRole == 1) {
-                console.log("User Already Host: Do not display Add Party button")
-                setLoadingComplete(true)
-                console.log(userRole)
-            }
+            // if (userRole == 0) {
+            navigation.setOptions({
+                headerRight: () => (
+                    <Pressable onPress={handleModal} style={{width: 40, height: 40, marginRight: 20, marginBottom: 20}}>
+                        <AddPartySVG height={40} width={40}/>
+                    </Pressable>
+                )
+            })
+            setLoadingComplete(true)
+            console.log(userRole)
+            // }
+
+            // else if (userRole == 1) {
+                
+            //     navigation.setOptions({
+            //         headerRight: () => (
+            //             //Create Modal displaying party information
+            //             //Not editable
+            //             <Pressable style={{width: 40, height: 40, marginRight: 20, marginBottom: 20}}>
+            //                 <Text>You have a party</Text>
+            //             </Pressable>
+            //         )
+            //     })
+            // }
+
+            // else if (userRole == 1) {
+            //     console.log("User Already Host: Do not display Add Party button")
+            //     setLoadingComplete(true)
+            //     console.log(userRole)
+            // }
         } catch(error) {
             console.error
         }
@@ -96,7 +113,7 @@ const GuestsScreen: React.FC = ({navigation}) => {
                     <Tab.Screen name="Guestlist" children={() => <GuestlistScreen isModalVisible={isModalVisible}/>}/>
                 </Tab.Navigator>
             </View>
-            <PartyModal isModalVisible={isModalVisible} handleModal={handleModal} setIsModalVisible={setIsModalVisible}/>
+            <PartyModal isModalVisible={isModalVisible} handleModal={handleModal} setIsModalVisible={setIsModalVisible} userRole={userRole}/>
         </View>
     ) : <Loading />
     )

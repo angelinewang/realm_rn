@@ -49,7 +49,7 @@ const MainScreen = () => {
       //Guests Screen Add Party Button is not set on MainScreen
       />
       {/* Profile Tab is name ProfileScreen, while actual Profile screen is named Profile inside ProfileStack*/}
-      <Tab.Screen name="ProfileScreen" component={ProfileScreen} 
+      <Tab.Screen name="Profile" component={ProfileScreen} 
        options={({navigation, route}) => (
           {  headerTitle: 'Profile', headerRight: () => (
         <Pressable 

@@ -15,13 +15,18 @@ import { partyModalView, submitPartyButtonPress } from '../../analytics.native';
 
 import CancelSVG from '../assets/images/cancel.svg'
 
+import Loading from './Loading';
+
 import { useFonts } from 'expo-font';
+
+// This Modal is either: 1. Form to submit a party OR 2. Display existing party information
+// If userRole is already host, just display the existing party information
 
 //Import Modal
 //Pass through: 1. ModalisVisible 2. HandleSubmit 
 
 //Add Party Modal separated from "Guests" Screen in order to grab and pass in authUserId to POST request
-export default function PartyModal({ isModalVisible, handleModal, setIsModalVisible }) {
+export default function PartyModal({ isModalVisible, handleModal, setIsModalVisible, userRole }) {
 
     //Load custom fonts
     let [fontsLoaded] = useFonts({
@@ -35,6 +40,12 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
     const [isSelectedDate, setIsSelectedDate] = useState(false);
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date());
+
+    //States for existing party 
+    const [myPartyId, setMyPartyId] = useState()
+    const [existingFlat, setExistingFlat] = useState(" ")
+    const [existingDateTime, setExistingDateTime] = useState()
+    const [existingVibe, setExistingVibe] = useState('')
 
     //Functions for DateTimePicker
     const showDatePicker = () => {
@@ -107,13 +118,97 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
         }
     }
 
+    const getParty = async (partyId : any) => {
+
+        console.log("Reached getParty")
+        try {
+            let response = await fetch(`https://realm-dj-34ezrkuhla-ew.a.run.app/api/invite/v1/parties/party/${partyId}/`)
+            let json = await response.json();
+            setExistingFlat(json.flat)
+            setExistingDateTime(json.first_entry)
+            // setExistingVibe(json.vibe)
+
+             switch(json.vibe) {
+                case 0:
+                    setExistingVibe('No Vibe')
+                    break;
+                case 1: 
+                    setExistingVibe('Chill: 5-10 People')
+                    break;
+                case 2:
+                    setExistingVibe('Party: 20-30 People')
+                    break;
+                case 3:
+                    setExistingVibe('Rager: 50+ People')
+                    break;
+                }
+
+            return json;
+
+            console.log(json)
+        } catch (error) {
+        console.error(error);
+        }
+    }
+
+    const getMyPartyId = async () => {
+
+        console.log("Reached getMyPartyId")
+        try {
+            // Get most recent party of the user and return the first entry time of that party
+
+            // Same log from below API endpoint used to find relevant invited parties for guests
+            let response = await fetch(
+            `https://realm-dj-34ezrkuhla-ew.a.run.app/api/user/v1/mypartyid/${authUserId}/`
+            );
+            let json = await response.json();
+            // console.log("Passed last entry: (roleService)");
+            console.log(json);
+            setMyPartyId(json);
+
+            console.log(`My Party ID: ${myPartyId}`)
+
+            // return json;
+
+            getParty(json)
+            // console.log(passedLastEntry);
+
+            // CRASH REPORT: After posting party and returning to Guestlist Page, app crashed
+            // if (json == true) {
+            // changeUserRole(authUserId, setUserRole, passedLastEntry);
+            // } else {
+            // console.log("Role not changed since party in future");
+            // }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
+// 1. Get party id associated with user
+// 2. Display party information with getting the party by the id in the modal
+
     useEffect(() => {
         //Screen View Analytics 
         screenView()
 
+        // console.log(`User Role is: ${userRole}`)
+        userRole == 1 ? getMyPartyId() : null
+
+        // if (userRole == 1) {
+
+        //     console.log("Reached conditional within useEffect")
+        //      getMyPartyId()
+        //     console.log(`My Party ID: ${myPartyId}`)
+
+        //     if (myPartyId) {
+        //         getParty()
+        //         console.log(`Party Info: ${existingFlat}, ${existingDateTime}, ${existingVibe}`)
+        //     }
+        // } 
         //Move all button press analytics within the same function as invoking the API
 
-    }, [_flat, _dateTime, _vibe, loading, authUserId, isModalVisible])
+    }, [_flat, _dateTime, _vibe, loading, authUserId, isModalVisible, existingDateTime, existingFlat, existingVibe, userRole])
 
     const screenView = async () => {
         try {
@@ -131,9 +226,15 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
         }
     }
 
+    //Pass userRole through to PartyModal
+    //If userRole is 0, then display Formik form
+    //If userRole is 1, then display the existing party information
+
   return (
     <Modal isVisible={isModalVisible}>
         {/* Add X icon to top right corner of modal to indicate cancellation of form submission instead of the text Cancel button */}
+
+        { userRole == 0 ? 
         <Formik initialValues={{flat: '', dateTime: "", vibe: ''}} onSubmit={handleSubmit}>
             <View style={styles.modal}>
                 <View style={{display: 'flex', flexDirection: 'row'}}>
@@ -191,7 +292,54 @@ export default function PartyModal({ isModalVisible, handleModal, setIsModalVisi
                     </Pressable>
                 </View>
             </View>
-        </Formik>
+        </Formik> : 
+
+        <View style={styles.modal}> 
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+                <Text style={{color: '#4abbff', width: '75%', alignSelf: 'flex-end', fontFamily: 'Mulish-Bold', fontSize: 20}}>
+                    Your Party
+                </Text>
+
+                <View style={{display: 'flex', flexDirection: 'column', width: '25%', height: '100%', justifyContent: 'flex-start'}}>
+                    <Pressable onPress={handleModal} style={{height: 35, width: 35, alignSelf: 'flex-end'}}>
+                        <CancelSVG width={35} height={35}/>
+                    </Pressable>
+                </View>
+            </View>
+
+            <View style={styles.Body}className="modal-body">
+                <View>
+                    <Text style={{color: "#1B1B22", fontSize: 18, fontFamily: 'Mulish-Bold'}}> 
+                        {existingFlat}
+                    </Text>
+                </View>
+
+                <View>
+                    <Text style={{color: "#1B1B22", fontSize: 18, fontFamily: 'Mulish-Bold'}}>
+                        {existingDateTime?.slice(0,10)} {existingDateTime?.slice(11,16)}
+                    </Text>
+                </View>
+
+                <View>
+                    <Text style={{color: "#1B1B22", fontSize: 18, fontFamily: 'Mulish-Bold'}}>
+                        {existingVibe}
+                    </Text>
+                </View> 
+            </View>
+
+            <View className="modal-footer">
+                <Pressable style={styles.notEditable}>
+                    <Text style={styles.notEditableText}>NOT EDITABLE</Text>
+                    {/* If user does not have a party tied to their account,
+                    TODO: Ensure that Alert pops up when they press INVITE Button */}
+                </Pressable>
+            </View>
+        </View> 
+    }
+        
+            
+        
+        
     </Modal>
   )
 }
@@ -257,8 +405,34 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    notEditable: {
+        width: 273,
+        height: 60,
+
+        backgroundColor: '#FFFFFF',
+        // shadowColor: 'rgba(0, 0, 0, 0.25)',
+        // shadowOffsetX: 0,
+        // shadowOffsetY: 2,
+        // shadowOpacity: 0.25,
+        // shadowRadius: 4,
+
+        borderRadius: 20,
+        borderColor: '#D1D1DB',
+        borderWidth: 3,
+
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     sendInvitesText: {
         color: 'white',
+        fontFamily: 'Plus Jakarta Sans',
+        fontStyle: 'normal',
+        fontWeight: '700',
+        fontSize: 20,
+    },
+    notEditableText: {
+        color: '#D1D1DB',
         fontFamily: 'Plus Jakarta Sans',
         fontStyle: 'normal',
         fontWeight: '700',
